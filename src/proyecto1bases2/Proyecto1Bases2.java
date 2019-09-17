@@ -13,6 +13,7 @@ package proyecto1bases2;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 
 public class Proyecto1Bases2 {
@@ -23,19 +24,31 @@ public class Proyecto1Bases2 {
 	public static void main(String[] args) {
 		//Test Conexion
 		
+		
+		int banderaConexion=0;
+		
 		try (Connection conn = DriverManager.getConnection(
                 "jdbc:oracle:thin:@192.168.1.12:1521:XE", "bases2", "123456")) {
 
 		if (conn != null) {
-			System.out.println("Connected to the database! :D");
+			System.out.println("Conectado a la Base de Datos :D");
+			banderaConexion=1;
 		} else {
-			System.out.println("Failed to make connection!");
+			System.out.println("Fallo la Conexion :(");
 		}
 
 		} catch (SQLException e) {
-			System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+			System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		
+		if(banderaConexion==1){		
+			JOptionPane.showMessageDialog(null, "Bienvenido :D");
+			Inicio i = new Inicio();
+			i.setVisible(true);	
+		}else{
+			JOptionPane.showMessageDialog(null, "Error en la Conexion a la Base de Datos");
 		}
 	}
 	
