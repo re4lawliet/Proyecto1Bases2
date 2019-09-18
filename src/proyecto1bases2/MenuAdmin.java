@@ -26,33 +26,46 @@ public class MenuAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        BotonAbcBancos = new javax.swing.JButton();
+        BotonAbcUsuarios = new javax.swing.JButton();
+        BotonAbcAgencias = new javax.swing.JButton();
+        BotonAbcMantenimientos = new javax.swing.JButton();
+        BotonAbcApertura = new javax.swing.JButton();
+        BotonAbcManejoCuentas = new javax.swing.JButton();
+        BotonCerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Menu de Administrador:");
 
-        jButton1.setText("ABC Bancos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BotonAbcBancos.setText("ABC Bancos");
+        BotonAbcBancos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BotonAbcBancosActionPerformed(evt);
             }
         });
 
-        jButton2.setText("ABC Usuarios");
+        BotonAbcUsuarios.setText("ABC Usuarios");
+        BotonAbcUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonAbcUsuariosActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("ABC Agencias");
+        BotonAbcAgencias.setText("ABC Agencias");
 
-        jButton4.setText("Otros Mantenimientos");
+        BotonAbcMantenimientos.setText("Otros Mantenimientos");
 
-        jButton5.setText("Apertura de Cuenta");
+        BotonAbcApertura.setText("Apertura de Cuenta");
 
-        jButton6.setText("Manejo de Cuentas");
+        BotonAbcManejoCuentas.setText("Manejo de Cuentas");
+
+        BotonCerrarSesion.setText("Cerrar Sesion");
+        BotonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonCerrarSesionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,40 +75,63 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(233, Short.MAX_VALUE))
+                    .addComponent(BotonAbcBancos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BotonAbcUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BotonAbcAgencias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BotonAbcMantenimientos, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                    .addComponent(BotonAbcApertura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BotonAbcManejoCuentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addComponent(BotonCerrarSesion)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(31, 31, 31)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(BotonCerrarSesion))
+                .addGap(21, 21, 21)
+                .addComponent(BotonAbcBancos)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(BotonAbcUsuarios)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(BotonAbcAgencias)
                 .addGap(18, 18, 18)
-                .addComponent(jButton5)
+                .addComponent(BotonAbcApertura)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addContainerGap())
+                .addComponent(BotonAbcManejoCuentas)
+                .addGap(30, 30, 30)
+                .addComponent(BotonAbcMantenimientos)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BotonAbcBancosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAbcBancosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BotonAbcBancosActionPerformed
+
+    private void BotonAbcUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAbcUsuariosActionPerformed
+        //Boton Abc Usuarios
+		
+		ABC_Usuario u=new ABC_Usuario();
+		u.setLocationRelativeTo(null);
+		u.setVisible(true);
+		this.dispose();
+    }//GEN-LAST:event_BotonAbcUsuariosActionPerformed
+
+    private void BotonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesionActionPerformed
+        
+		this.setVisible(false);
+		Proyecto1Bases2.i.setVisible(true);
+		Proyecto1Bases2.i.UserCaja.setText("");
+		Proyecto1Bases2.i.PassCaja.setText("");
+		
+		
+    }//GEN-LAST:event_BotonCerrarSesionActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -133,12 +169,13 @@ public class MenuAdmin extends javax.swing.JFrame {
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton BotonAbcAgencias;
+    private javax.swing.JButton BotonAbcApertura;
+    private javax.swing.JButton BotonAbcBancos;
+    private javax.swing.JButton BotonAbcManejoCuentas;
+    private javax.swing.JButton BotonAbcMantenimientos;
+    private javax.swing.JButton BotonAbcUsuarios;
+    private javax.swing.JButton BotonCerrarSesion;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -27,14 +27,16 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jButton3" max="32767" attributes="0"/>
-                  <Component id="jButton4" pref="155" max="32767" attributes="0"/>
-                  <Component id="jButton5" max="32767" attributes="0"/>
-                  <Component id="jButton6" max="32767" attributes="0"/>
+                  <Component id="BotonAbcBancos" alignment="0" max="32767" attributes="0"/>
+                  <Component id="BotonAbcUsuarios" alignment="0" max="32767" attributes="0"/>
+                  <Component id="BotonAbcAgencias" max="32767" attributes="0"/>
+                  <Component id="BotonAbcMantenimientos" pref="155" max="32767" attributes="0"/>
+                  <Component id="BotonAbcApertura" max="32767" attributes="0"/>
+                  <Component id="BotonAbcManejoCuentas" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="233" max="32767" attributes="0"/>
+              <EmptySpace pref="132" max="32767" attributes="0"/>
+              <Component id="BotonCerrarSesion" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -42,20 +44,23 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="BotonCerrarSesion" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <Component id="BotonAbcBancos" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="BotonAbcUsuarios" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+              <Component id="BotonAbcAgencias" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+              <Component id="BotonAbcApertura" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton6" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
-              <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="BotonAbcManejoCuentas" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="BotonAbcMantenimientos" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="42" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,38 +71,49 @@
         <Property name="text" type="java.lang.String" value="Menu de Administrador:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="BotonAbcBancos">
       <Properties>
         <Property name="text" type="java.lang.String" value="ABC Bancos"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonAbcBancosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="BotonAbcUsuarios">
       <Properties>
         <Property name="text" type="java.lang.String" value="ABC Usuarios"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonAbcUsuariosActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="BotonAbcAgencias">
       <Properties>
         <Property name="text" type="java.lang.String" value="ABC Agencias"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="BotonAbcMantenimientos">
       <Properties>
         <Property name="text" type="java.lang.String" value="Otros Mantenimientos"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="BotonAbcApertura">
       <Properties>
         <Property name="text" type="java.lang.String" value="Apertura de Cuenta"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JButton" name="BotonAbcManejoCuentas">
       <Properties>
         <Property name="text" type="java.lang.String" value="Manejo de Cuentas"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="BotonCerrarSesion">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cerrar Sesion"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonCerrarSesionActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

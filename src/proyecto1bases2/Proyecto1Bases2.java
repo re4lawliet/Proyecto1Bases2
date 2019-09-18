@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 
 
 public class Proyecto1Bases2 {
+	
+	public static Inicio i;
 
 	/**
 	 * @param args the command line arguments
@@ -25,7 +27,8 @@ public class Proyecto1Bases2 {
 		//Test Conexion
 		
 		JOptionPane.showMessageDialog(null, "Bienvenido :D");
-		Inicio i = new Inicio();
+		i = new Inicio();
+		i.setLocationRelativeTo(null);
 		i.setVisible(true);
 			
 			

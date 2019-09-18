@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
  * @author carlosmonterroso
  */
 public class Inicio extends javax.swing.JFrame {
+	
+	public static MenuAdmin menu;
 
 	/**
 	 * Creates new form Inicio
@@ -110,10 +112,10 @@ public class Inicio extends javax.swing.JFrame {
 	String pass=this.PassCaja.getText();
 	
 	if(user.equals("admin")  && pass.equals("admin")){
-		MenuAdmin menu = new MenuAdmin();
-		this.setVisible(false);
+		menu = new MenuAdmin();
+		menu.setLocationRelativeTo(null);
 		menu.setVisible(true);
-		
+		this.dispose();
 	}else{
 		JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña invalidos");
 	}
@@ -156,8 +158,8 @@ public class Inicio extends javax.swing.JFrame {
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField PassCaja;
-    private java.awt.TextField UserCaja;
+    public static javax.swing.JPasswordField PassCaja;
+    public static java.awt.TextField UserCaja;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
