@@ -24,9 +24,13 @@ public class Proyecto1Bases2 {
 	public static void main(String[] args) {
 		//Test Conexion
 		
-		
+		JOptionPane.showMessageDialog(null, "Bienvenido :D");
+		Inicio i = new Inicio();
+		i.setVisible(true);
+			
+			
 		int banderaConexion=0;
-		
+		/*
 		try (Connection conn = DriverManager.getConnection(
                 "jdbc:oracle:thin:@192.168.1.12:1521:XE", "bases2", "123456")) {
 
@@ -50,6 +54,7 @@ public class Proyecto1Bases2 {
 		}else{
 			JOptionPane.showMessageDialog(null, "Error en la Conexion a la Base de Datos");
 		}
+		*/
 	}
 	
 }
