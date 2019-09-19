@@ -307,6 +307,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(null, "Correo Invalido","ERROR",JOptionPane.ERROR_MESSAGE);
 				esCorrecto=false;
 			}
+                        String foto = "";
 			
 			//*********************************
 			//***Si TODO SALE BIEN ***********
@@ -317,7 +318,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
                                 Connection conn = bd.conexion();
                                 if (conn != null) {
                                         String query = "INSERT INTO USUARIO (NOMBRE_USUARIO, CONTRASENIA, NOMBRE_COMPLETO, DPI, CORREO, FOTO, ROL, AGENCIA_ID_AGENCIA)"
-                                                     + "VALUES(1,'"+Usuario+"','"+Pass+"','"+Nombre+"','"+DPI+"','"+Correo+"')";
+                                                     + "VALUES('"+Usuario+"','"+Pass+"','"+Nombre+"','"+DPI+"','"+Correo+"','"+foto+"','"+ComboBoxRol.getSelectedItem().toString()+"',1)";
                                         System.out.println(query);
                                         Statement stmt = conn.createStatement();
                                         int count = stmt.executeUpdate(query);
