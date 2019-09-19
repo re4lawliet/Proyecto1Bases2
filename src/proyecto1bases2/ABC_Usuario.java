@@ -316,7 +316,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
                                 BaseDeDatos bd = new BaseDeDatos();
                                 Connection conn = bd.conexion();
                                 if (conn != null) {
-                                        String query = "INSERT INTO USUARIO (ID_USUARIO, NOMBRE_USUARIO, CONTRASENIA, NOMBRE_COMPLETO, DPI, CORREO, FOTO, ROL, AGENCIA_ID_AGENCIA)"
+                                        String query = "INSERT INTO USUARIO (NOMBRE_USUARIO, CONTRASENIA, NOMBRE_COMPLETO, DPI, CORREO, FOTO, ROL, AGENCIA_ID_AGENCIA)"
                                                      + "VALUES(1,'"+Usuario+"','"+Pass+"','"+Nombre+"','"+DPI+"','"+Correo+"')";
                                         System.out.println(query);
                                         Statement stmt = conn.createStatement();
