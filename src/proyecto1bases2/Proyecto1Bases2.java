@@ -42,6 +42,7 @@ public class Proyecto1Bases2 {
             if(banderaConexion==1){		
                     JOptionPane.showMessageDialog(null, "Bienvenido :D");
                     Inicio i = new Inicio();
+		    i.setLocationRelativeTo(null);
                     i.setVisible(true);	
             }else{
                     JOptionPane.showMessageDialog(null, "Error en la Conexion a la Base de Datos");

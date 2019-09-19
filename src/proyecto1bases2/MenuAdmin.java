@@ -53,6 +53,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         });
 
         BotonAbcAgencias.setText("ABC Agencias");
+        BotonAbcAgencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonAbcAgenciasActionPerformed(evt);
+            }
+        });
 
         BotonAbcMantenimientos.setText("Otros Mantenimientos");
 
@@ -111,7 +116,11 @@ public class MenuAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonAbcBancosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAbcBancosActionPerformed
-        // TODO add your handling code here:
+        // Boton Abc Bancos
+		ABC_Bancos u=new ABC_Bancos();
+		u.setLocationRelativeTo(null);
+		u.setVisible(true);
+		this.dispose();
     }//GEN-LAST:event_BotonAbcBancosActionPerformed
 
     private void BotonAbcUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAbcUsuariosActionPerformed
@@ -130,8 +139,15 @@ public class MenuAdmin extends javax.swing.JFrame {
 		Proyecto1Bases2.i.UserCaja.setText("");
 		Proyecto1Bases2.i.PassCaja.setText("");
 		
-		
     }//GEN-LAST:event_BotonCerrarSesionActionPerformed
+
+    private void BotonAbcAgenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAbcAgenciasActionPerformed
+        // Boton Abc Agencias
+		ABC_Agencia u=new ABC_Agencia();
+		u.setLocationRelativeTo(null);
+		u.setVisible(true);
+		this.dispose();
+    }//GEN-LAST:event_BotonAbcAgenciasActionPerformed
 
 	/**
 	 * @param args the command line arguments
