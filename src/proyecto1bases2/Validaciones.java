@@ -44,6 +44,14 @@ public class Validaciones {
 		Matcher m = r.matcher(cadena);
 		return m.matches();
 	}
+        
+        public boolean esDireccion(String cadena){
+		
+		String patron = "[A-Za-z0-9\\s\\.\\-]+";
+		Pattern r = Pattern.compile(patron);
+		Matcher m = r.matcher(cadena);
+		return m.matches();
+	}
 	
 }
 
