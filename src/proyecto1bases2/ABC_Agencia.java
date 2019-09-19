@@ -5,6 +5,10 @@
  */
 package proyecto1bases2;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -166,7 +170,21 @@ public class ABC_Agencia extends javax.swing.JFrame {
 		}
 
 		if(todoCorrecto){
-
+                    try{
+                        BaseDeDatos bd = new BaseDeDatos();
+                        Connection conn = bd.conexion();
+                        if (conn != null) {
+                                String query = "INSERT INTO AGENCIA (NOMBRE_AGENCIA, DIRECCION_AGENCIA) VALUES('"+nombre+"','"+direccion+"')";
+                                System.out.println(query);
+                                Statement stmt = conn.createStatement();
+                                int count = stmt.executeUpdate(query);
+                                System.out.println(count + "filas fueron afectadas");
+                        } else {
+                                System.out.println("NO HAY CONEXION");
+                        }
+                    } catch (SQLException e) {
+                            System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+                    }  
 		}
         
     }//GEN-LAST:event_jButton1ActionPerformed

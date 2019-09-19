@@ -29,6 +29,12 @@ public class BaseDeDatos {
 		}
 	
 	}
+        
+        public Connection conexion() throws SQLException{
+            Connection conn;
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@34.70.191.184:49161:xe", "system", "oracle");
+            return conn;
+        }
 	
 	
 }

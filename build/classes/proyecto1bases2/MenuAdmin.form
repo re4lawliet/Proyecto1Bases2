@@ -23,16 +23,16 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="BotonAbcBancos" alignment="0" max="32767" attributes="0"/>
                   <Component id="BotonAbcUsuarios" alignment="0" max="32767" attributes="0"/>
-                  <Component id="BotonAbcAgencias" max="32767" attributes="0"/>
-                  <Component id="BotonAbcMantenimientos" pref="155" max="32767" attributes="0"/>
-                  <Component id="BotonAbcApertura" max="32767" attributes="0"/>
-                  <Component id="BotonAbcManejoCuentas" max="32767" attributes="0"/>
+                  <Component id="BotonAbcAgencias" alignment="0" max="32767" attributes="0"/>
+                  <Component id="BotonAbcMantenimientos" alignment="0" pref="155" max="32767" attributes="0"/>
+                  <Component id="BotonAbcApertura" alignment="0" max="32767" attributes="0"/>
+                  <Component id="BotonAbcManejoCuentas" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="132" max="32767" attributes="0"/>
               <Component id="BotonCerrarSesion" min="-2" max="-2" attributes="0"/>
@@ -60,7 +60,7 @@
               <Component id="BotonAbcManejoCuentas" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="BotonAbcMantenimientos" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="42" max="32767" attributes="0"/>
+              <EmptySpace pref="107" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

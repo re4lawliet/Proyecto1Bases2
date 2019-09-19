@@ -29,3 +29,4 @@ CREATE TABLE usuario (
     rol                  VARCHAR2(4000) NOT NULL,
     agencia_id_agencia   INTEGER
 );
+
