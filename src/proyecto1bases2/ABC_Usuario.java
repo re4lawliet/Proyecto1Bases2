@@ -18,9 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ABC_Usuario extends javax.swing.JFrame {
 
-	/**
-	 * Creates new form ABC_Usuario
-	 */
+	int fila = 0;
 	public ABC_Usuario() {
 		initComponents();
                 actualizarTablaUsuarios();
@@ -76,6 +74,11 @@ public class ABC_Usuario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setText("Usuario: \"Seleccione un nombre de Usuario\"");
@@ -230,7 +233,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BotonCrearUsuario)
                         .addContainerGap())
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1)))
         );
 
         pack();
@@ -344,6 +347,17 @@ public class ABC_Usuario extends javax.swing.JFrame {
     private void ComboBoxRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxRolActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxRolActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        fila = jTable1.getSelectedRow();
+        CajaUsuario.setText(jTable1.getValueAt(fila, 1).toString());
+        CajaNombre.setText(jTable1.getValueAt(fila, 2).toString());
+        CajaDPI.setText(jTable1.getValueAt(fila, 3).toString());
+        CajaCorreo.setText(jTable1.getValueAt(fila, 4).toString());
+        if(jTable1.getValueAt(fila, 5).toString().equals("Gerente de Agencia")){
+            ComboBoxRol.setSelectedIndex(3);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
             
         public void actualizarTablaUsuarios(){
