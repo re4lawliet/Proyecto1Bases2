@@ -5,6 +5,9 @@
  */
 package proyecto1bases2;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -309,7 +312,22 @@ public class ABC_Usuario extends javax.swing.JFrame {
 			//***Si TODO SALE BIEN ***********
 			//*********************************
 			if(esCorrecto){
-			
+                            try{
+                                BaseDeDatos bd = new BaseDeDatos();
+                                Connection conn = bd.conexion();
+                                if (conn != null) {
+                                        String query = "INSERT INTO USUARIO (ID_USUARIO, NOMBRE_USUARIO, CONTRASENIA, NOMBRE_COMPLETO, DPI, CORREO, FOTO, ROL, AGENCIA_ID_AGENCIA)"
+                                                     + "VALUES(1,'"+Usuario+"','"+Pass+"','"+Nombre+"','"+DPI+"','"+Correo+"')";
+                                        System.out.println(query);
+                                        Statement stmt = conn.createStatement();
+                                        int count = stmt.executeUpdate(query);
+                                        System.out.println(count + "filas fueron afectadas");
+                                } else {
+                                        System.out.println("NO HAY CONEXION");
+                                }
+                            } catch (SQLException e) {
+                                    System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+                            }
 			}
 			
    
