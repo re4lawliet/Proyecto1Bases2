@@ -5,6 +5,8 @@
  */
 package proyecto1bases2;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author carlosmonterroso
@@ -58,6 +60,11 @@ public class ABC_Agencia extends javax.swing.JFrame {
         jLabel3.setText("Escriba la direccion de la agencia");
 
         BotonBuscar.setText("Buscar");
+        BotonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonBuscarActionPerformed(evt);
+            }
+        });
 
         BotonAtras.setText("Atras");
         BotonAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +129,30 @@ public class ABC_Agencia extends javax.swing.JFrame {
 		Inicio.menu.setVisible(true);
 		this.dispose();
     }//GEN-LAST:event_BotonAtrasActionPerformed
+
+    private void BotonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBuscarActionPerformed
+        
+        String nombre = CajaNombreAgencia.getText();
+        String direccion = CajaDireccionAgencia.getText();
+        Boolean todoCorrecto = true;
+        Validaciones v = new Validaciones();
+        
+        if(!v.esAlfanumerico(nombre)){
+            JOptionPane.showMessageDialog(null, "Nombre de Banco invalido","ERROR",JOptionPane.ERROR_MESSAGE);
+            todoCorrecto = false;
+        }
+        if(!v.esDireccion(direccion)){
+            JOptionPane.showMessageDialog(null, "Direccion de Banco invalida\nSolo caracteres alfanumericos, gion y punto","ERROR",JOptionPane.ERROR_MESSAGE);
+            todoCorrecto = false;
+        }
+        
+        if(todoCorrecto){
+            
+        }
+        
+        
+        
+    }//GEN-LAST:event_BotonBuscarActionPerformed
 
 	/**
 	 * @param args the command line arguments

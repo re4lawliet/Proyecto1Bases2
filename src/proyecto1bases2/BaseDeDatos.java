@@ -11,10 +11,9 @@ public class BaseDeDatos {
 	public Boolean ProbarConexion(){
 		
 		try (Connection conn = DriverManager.getConnection(
-                "jdbc:oracle:thin:@192.168.1.12:1521:XE", "bases2", "123456")) {
+                "jdbc:oracle:thin:@34.70.191.184:49161:xe", "system", "oracle")) {
 
 		if (conn != null) {
-			System.out.println("Conectado a la Base de Datos :D");
 			return true;
 		} else {
 			System.out.println("Fallo la Conexion :(");

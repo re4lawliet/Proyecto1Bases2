@@ -46,8 +46,6 @@ public class ABC_Usuario extends javax.swing.JFrame {
         CajaCorreo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         BotonSubirFoto = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        BotonSubirFirma = new javax.swing.JButton();
         BotonCrearUsuario = new javax.swing.JButton();
         ComboBoxTipoCuenta = new javax.swing.JComboBox<>();
         LabelTipoCuenta = new javax.swing.JLabel();
@@ -90,10 +88,6 @@ public class ABC_Usuario extends javax.swing.JFrame {
 
         BotonSubirFoto.setText("Subir");
 
-        jLabel9.setText("Firma: Seleccione una foto de Su Firma:");
-
-        BotonSubirFirma.setText("Subir");
-
         BotonCrearUsuario.setText("Crear Usuario");
         BotonCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +105,11 @@ public class ABC_Usuario extends javax.swing.JFrame {
         ComboBoxRol.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ComboBoxRolItemStateChanged(evt);
+            }
+        });
+        ComboBoxRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxRolActionPerformed(evt);
             }
         });
 
@@ -149,23 +148,18 @@ public class ABC_Usuario extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addComponent(CajaCorreo))
                             .addComponent(jLabel8)
-                            .addComponent(BotonSubirFoto)
-                            .addComponent(jLabel9)
-                            .addComponent(BotonSubirFirma)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(BotonCrearUsuario))
+                            .addComponent(BotonSubirFoto)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(LabelTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ComboBoxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel11))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(ComboBoxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(BotonCrearUsuario))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(LabelTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ComboBoxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel11)
+                            .addComponent(ComboBoxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -219,11 +213,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BotonSubirFoto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotonSubirFirma)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel11)
                         .addGap(7, 7, 7)
                         .addComponent(ComboBoxRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,8 +223,8 @@ public class ABC_Usuario extends javax.swing.JFrame {
                         .addComponent(ComboBoxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BotonCrearUsuario)
-                        .addContainerGap(19, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1)))
+                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)))
         );
 
         pack();
@@ -328,6 +318,10 @@ public class ABC_Usuario extends javax.swing.JFrame {
 		}
     }//GEN-LAST:event_BotonCrearUsuarioActionPerformed
 
+    private void ComboBoxRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxRolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxRolActionPerformed
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -368,7 +362,6 @@ public class ABC_Usuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonAtras;
     private javax.swing.JButton BotonCrearUsuario;
-    private javax.swing.JButton BotonSubirFirma;
     private javax.swing.JButton BotonSubirFoto;
     private javax.swing.JTextField CajaBuscar;
     private javax.swing.JPasswordField CajaConfirmePass;
@@ -390,7 +383,6 @@ public class ABC_Usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
