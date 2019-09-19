@@ -310,8 +310,15 @@ public class ABC_Usuario extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(null, "Correo Invalido","ERROR",JOptionPane.ERROR_MESSAGE);
 				esCorrecto=false;
 			}
+			if(!this.ExisteUsuario(Usuario)){//----------------------------USUARIO EXISTENTE
+			}else{
+				JOptionPane.showMessageDialog(null, "Usuario: '"+Usuario+"' No esta Disponible","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
                         String foto = "";
 			
+				
+						
 			//*********************************
 			//***Si TODO SALE BIEN ***********
 			//*********************************
@@ -326,6 +333,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
                                         Statement stmt = conn.createStatement();
                                         int count = stmt.executeUpdate(query);
                                         System.out.println(count + "filas fueron afectadas");
+					JOptionPane.showMessageDialog(rootPane, "Usuario '"+Usuario+"' Creado Correctamente");
                                         actualizarTablaUsuarios();
                                 } else {
                                         System.out.println("NO HAY CONEXION");
@@ -370,7 +378,35 @@ public class ABC_Usuario extends javax.swing.JFrame {
         jTable1.setModel(modelo);
         
     }
-    
+	
+	public Boolean ExisteUsuario(String User){
+		
+		BaseDeDatos db = new BaseDeDatos();
+		String[] columnNames = {"ID","USUARIO","NOMBRE","DPI","CORREO","ROL","AGENCIA"};
+		Object[][] dataVacia = {};
+		DefaultTableModel modelo = new DefaultTableModel(dataVacia, columnNames);
+		String consulta = "SELECT * FROM USUARIO";
+		
+		try{
+			Connection conn = db.conexion();
+			if (conn != null) {
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(consulta);
+				while(rs.next()){
+
+					if(rs.getString("NOMBRE_USUARIO").equals(User)){
+						return true;		
+					}	
+				}
+			} else {
+				System.out.println("NO HAY CONEXION");
+			}
+		}catch(Exception e){  
+			JOptionPane.showMessageDialog(null,"Error al llenar tabla de clientes\nClase: Principal -> 2721\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+			return true;
+		}
+		return true;
+	}
     
     
 	public static void main(String args[]) {
