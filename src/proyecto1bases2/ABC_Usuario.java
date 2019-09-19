@@ -95,6 +95,11 @@ public class ABC_Usuario extends javax.swing.JFrame {
         BotonSubirFirma.setText("Subir");
 
         BotonCrearUsuario.setText("Crear Usuario");
+        BotonCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonCrearUsuarioActionPerformed(evt);
+            }
+        });
 
         ComboBoxTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -265,6 +270,70 @@ public class ABC_Usuario extends javax.swing.JFrame {
 		}
     }//GEN-LAST:event_ComboBoxRolItemStateChanged
 
+    private void BotonCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCrearUsuarioActionPerformed
+        // BOTON PARA CREAR USUARIO
+		try{
+			Validaciones v = new Validaciones();
+			//Obteniendo Datos
+			String Usuario = CajaUsuario.getText();
+			String Pass=CajaPass.getText();
+			String ConfirmPass=CajaConfirmePass.getText();
+			String Nombre=CajaNombre.getText();
+			String DPI=CajaDPI.getText();
+			String Correo=CajaCorreo.getText();
+			
+			Boolean esCorrecto=true;
+			//Validando Datos
+			if(v.esIdentificador(Usuario)){//----------------------------USUARIO
+			
+			}else{
+				JOptionPane.showMessageDialog(null, "Nombre de Usuario invalido","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
+			if(v.esIdentificador(Pass)&&v.entraEnLimite(Pass, 8)){//--------PASS
+			
+			}else{
+				JOptionPane.showMessageDialog(null, "Contraseña Invalida Debe usar letras y numeros","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
+			if(ConfirmPass.equals(Pass)){//-----------------------------Confirm PASS
+			
+			}else{
+				JOptionPane.showMessageDialog(null, "Contraseñas no coinciden","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
+			if(v.esAlfanumerico(Nombre)){//-----------------------------NOMBRE
+				
+			}else{
+				JOptionPane.showMessageDialog(null, "Nombre Invalido","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
+			if(v.esNumero(DPI)){//-------------------------------------DPI
+				
+			}else{
+				JOptionPane.showMessageDialog(null, "DPI debe ser solo numeros sin espacio","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
+			if(v.esCorreo(Correo)){//-----------------------------------CORREO
+			
+			}else{
+				JOptionPane.showMessageDialog(null, "Correo Invalido","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
+			
+			//*********************************
+			//***Si TODO SALE BIEN ***********
+			//*********************************
+			if(esCorrecto){
+			
+			}
+			
+   
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(rootPane, "Error al Crear Usuario: Status: "+e);
+		}
+    }//GEN-LAST:event_BotonCrearUsuarioActionPerformed
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -299,6 +368,8 @@ public class ABC_Usuario extends javax.swing.JFrame {
 			}
 		});
 	}
+	
+	
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonAtras;
