@@ -285,37 +285,31 @@ public class ABC_Usuario extends javax.swing.JFrame {
 			Boolean esCorrecto=true;
 			//Validando Datos
 			if(v.esIdentificador(Usuario)){//----------------------------USUARIO
-			
 			}else{
 				JOptionPane.showMessageDialog(null, "Nombre de Usuario invalido","ERROR",JOptionPane.ERROR_MESSAGE);
 				esCorrecto=false;
 			}
 			if(v.esIdentificador(Pass)&&v.entraEnLimite(Pass, 8)){//--------PASS
-			
 			}else{
 				JOptionPane.showMessageDialog(null, "Contraseña Invalida Debe usar letras y numeros","ERROR",JOptionPane.ERROR_MESSAGE);
 				esCorrecto=false;
 			}
 			if(ConfirmPass.equals(Pass)){//-----------------------------Confirm PASS
-			
 			}else{
 				JOptionPane.showMessageDialog(null, "Contraseñas no coinciden","ERROR",JOptionPane.ERROR_MESSAGE);
 				esCorrecto=false;
 			}
-			if(v.esAlfanumerico(Nombre)){//-----------------------------NOMBRE
-				
+			if(v.esAlfanumerico(Nombre)){//-----------------------------NOMBRE	
 			}else{
 				JOptionPane.showMessageDialog(null, "Nombre Invalido","ERROR",JOptionPane.ERROR_MESSAGE);
 				esCorrecto=false;
 			}
-			if(v.esNumero(DPI)){//-------------------------------------DPI
-				
+			if(v.esNumero(DPI)){//-------------------------------------DPI	
 			}else{
 				JOptionPane.showMessageDialog(null, "DPI debe ser solo numeros sin espacio","ERROR",JOptionPane.ERROR_MESSAGE);
 				esCorrecto=false;
 			}
 			if(v.esCorreo(Correo)){//-----------------------------------CORREO
-			
 			}else{
 				JOptionPane.showMessageDialog(null, "Correo Invalido","ERROR",JOptionPane.ERROR_MESSAGE);
 				esCorrecto=false;

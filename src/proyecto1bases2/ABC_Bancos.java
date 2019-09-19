@@ -5,6 +5,8 @@
  */
 package proyecto1bases2;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author carlosmonterroso
@@ -31,8 +33,8 @@ public class ABC_Bancos extends javax.swing.JFrame {
         CajaBuscar = new javax.swing.JTextField();
         BotonBuscar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        CajaNombre = new javax.swing.JTextField();
+        BotonCrearBanco = new javax.swing.JButton();
         BotonAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,7 +58,12 @@ public class ABC_Bancos extends javax.swing.JFrame {
 
         jLabel2.setText("Ingrese el Nombre del Banco");
 
-        jButton1.setText("Crear Banco");
+        BotonCrearBanco.setText("Crear Banco");
+        BotonCrearBanco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonCrearBancoActionPerformed(evt);
+            }
+        });
 
         BotonAtras.setText("Atras");
         BotonAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -79,8 +86,8 @@ public class ABC_Bancos extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField1))
-                            .addComponent(jButton1))
+                                .addComponent(CajaNombre))
+                            .addComponent(BotonCrearBanco))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -109,9 +116,9 @@ public class ABC_Bancos extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CajaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(BotonCrearBanco)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -124,6 +131,28 @@ public class ABC_Bancos extends javax.swing.JFrame {
 		Inicio.menu.setVisible(true);
 		this.dispose();
     }//GEN-LAST:event_BotonAtrasActionPerformed
+
+    private void BotonCrearBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCrearBancoActionPerformed
+        // BotonCrear Banco
+		
+		Validaciones v = new Validaciones();
+		//Obteniendo Datos
+		String NombreBanco=CajaNombre.getText();
+		
+		Boolean esCorrecto=true;
+		if(v.esAlfanumerico(NombreBanco)){
+		
+		}else{
+			JOptionPane.showMessageDialog(null, "Nombre de Banco Invalido  LLeba solo letras y numeros","ERROR",JOptionPane.ERROR_MESSAGE);
+			esCorrecto=false;
+		}
+		
+		//Si todo esta Bien
+		if(esCorrecto){
+			
+		}
+		
+    }//GEN-LAST:event_BotonCrearBancoActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -163,12 +192,12 @@ public class ABC_Bancos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonAtras;
     private javax.swing.JButton BotonBuscar;
+    private javax.swing.JButton BotonCrearBanco;
     private javax.swing.JTextField CajaBuscar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField CajaNombre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
