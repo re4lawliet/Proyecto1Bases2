@@ -18,9 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ABC_Usuario extends javax.swing.JFrame {
 
-	/**
-	 * Creates new form ABC_Usuario
-	 */
+	int fila = 0;
 	public ABC_Usuario() {
 		initComponents();
                 actualizarTablaUsuarios();
@@ -60,6 +58,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
         CajaBuscar = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         BotonAtras = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +75,11 @@ public class ABC_Usuario extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setText("Usuario: \"Seleccione un nombre de Usuario\"");
@@ -128,6 +132,13 @@ public class ABC_Usuario extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Eliminar Usuario");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,14 +169,16 @@ public class ABC_Usuario extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(70, 70, 70)
-                                .addComponent(BotonCrearUsuario))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(LabelTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(ComboBoxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel11)
-                            .addComponent(ComboBoxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(ComboBoxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(BotonCrearUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -227,10 +240,12 @@ public class ABC_Usuario extends javax.swing.JFrame {
                         .addComponent(LabelTipoCuenta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ComboBoxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotonCrearUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BotonCrearUsuario)
+                            .addComponent(jButton2))
                         .addContainerGap())
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1)))
         );
 
         pack();
@@ -353,6 +368,38 @@ public class ABC_Usuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxRolActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        fila = jTable1.getSelectedRow();
+        CajaUsuario.setText(jTable1.getValueAt(fila, 1).toString());
+        CajaNombre.setText(jTable1.getValueAt(fila, 2).toString());
+        CajaDPI.setText(jTable1.getValueAt(fila, 3).toString());
+        CajaCorreo.setText(jTable1.getValueAt(fila, 4).toString());
+        if(jTable1.getValueAt(fila, 5).toString().equals("Gerente de Agencia")){
+            ComboBoxRol.setSelectedIndex(3);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(fila>=0){
+            String id = jTable1.getValueAt(fila, 0).toString();
+            try{
+                String consulta = "DELETE FROM USUARIO WHERE ID_USUARIO = " + id;
+                BaseDeDatos db = new BaseDeDatos();
+                Connection conn = db.conexion();
+                if (conn != null) {
+                        Statement stmt = conn.createStatement();
+                        int count = stmt.executeUpdate(consulta);
+                        System.out.println(count + "filas fueron afectadas");
+                        actualizarTablaUsuarios();
+                } else {
+                        System.out.println("NO HAY CONEXION");
+                }
+            }catch(Exception e){  
+                JOptionPane.showMessageDialog(null,"Error al llenar tabla de clientes\nClase: Principal -> 2721\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+            } 
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
             
         public void actualizarTablaUsuarios(){
         BaseDeDatos db = new BaseDeDatos();
@@ -458,6 +505,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> ComboBoxTipoCuenta;
     private javax.swing.JLabel LabelTipoCuenta;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
