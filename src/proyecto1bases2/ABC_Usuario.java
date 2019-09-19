@@ -390,6 +390,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
                         Statement stmt = conn.createStatement();
                         int count = stmt.executeUpdate(consulta);
                         System.out.println(count + "filas fueron afectadas");
+			JOptionPane.showMessageDialog(rootPane, "Usuario eliminado correctamente");
                         actualizarTablaUsuarios();
                 } else {
                         System.out.println("NO HAY CONEXION");
@@ -452,7 +453,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
 			JOptionPane.showMessageDialog(null,"Error al llenar tabla de clientes\nClase: Principal -> 2721\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
 			return true;
 		}
-		return true;
+		return false;
 	}
     
     
