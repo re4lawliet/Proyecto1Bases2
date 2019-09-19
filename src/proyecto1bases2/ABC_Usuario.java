@@ -6,9 +6,11 @@
 package proyecto1bases2;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,6 +23,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
 	 */
 	public ABC_Usuario() {
 		initComponents();
+                actualizarTablaUsuarios();
 		LabelTipoCuenta.setVisible(false);
 		ComboBoxTipoCuenta.setVisible(false);
 	}
@@ -323,6 +326,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
                                         Statement stmt = conn.createStatement();
                                         int count = stmt.executeUpdate(query);
                                         System.out.println(count + "filas fueron afectadas");
+                                        actualizarTablaUsuarios();
                                 } else {
                                         System.out.println("NO HAY CONEXION");
                                 }
@@ -341,9 +345,34 @@ public class ABC_Usuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxRolActionPerformed
 
-	/**
-	 * @param args the command line arguments
-	 */
+            
+        public void actualizarTablaUsuarios(){
+        BaseDeDatos db = new BaseDeDatos();
+        String[] columnNames = {"ID","USUARIO","NOMBRE","DPI","CORREO","ROL","AGENCIA"};
+        Object[][] dataVacia = {};
+        DefaultTableModel modelo = new DefaultTableModel(dataVacia, columnNames);
+        String consulta = "SELECT * FROM USUARIO";
+        try{
+            Connection conn = db.conexion();
+            if (conn != null) {
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery(consulta);
+                    while(rs.next()){
+                        Object[] newRowData = {rs.getString("ID_USUARIO"),rs.getString("NOMBRE_USUARIO"),rs.getString("NOMBRE_COMPLETO"),rs.getString("DPI"),rs.getString("CORREO"),rs.getString("ROL"),rs.getString("AGENCIA_ID_AGENCIA")};
+                        modelo.addRow(newRowData);
+                    }
+            } else {
+                    System.out.println("NO HAY CONEXION");
+            }
+        }catch(Exception e){  
+            JOptionPane.showMessageDialog(null,"Error al llenar tabla de clientes\nClase: Principal -> 2721\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        } 
+        jTable1.setModel(modelo);
+        
+    }
+    
+    
+    
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
