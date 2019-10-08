@@ -10,6 +10,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,12 +22,20 @@ import javax.swing.table.DefaultTableModel;
 public class ABC_Agencia extends javax.swing.JFrame {
 	
 	int fila = 0;
+        private ArrayList bancos;
+        private DefaultComboBoxModel model;
 	/**
 	 * Creates new form ABC_Agencia
 	 */
 	public ABC_Agencia() {
+                  this.model = new DefaultComboBoxModel();
 		initComponents();
 		actualizarTablaAgencia();
+               
+                initBancos();
+               
+                this.jComboBox1.setModel(model);
+                
 	}
 
 	/**
@@ -47,6 +57,7 @@ public class ABC_Agencia extends javax.swing.JFrame {
         BotonAtras = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         BotonEliminarAgencia = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,6 +113,8 @@ public class ABC_Agencia extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,6 +128,7 @@ public class ABC_Agencia extends javax.swing.JFrame {
                         .addComponent(CajaNombreAgencia))
                     .addComponent(jLabel3)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BotonEliminarAgencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(CajaDireccionAgencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
@@ -149,10 +163,12 @@ public class ABC_Agencia extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(CajaDireccionAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(BotonEliminarAgencia)
-                        .addGap(266, 266, 266))
+                        .addGap(187, 187, 187))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -191,7 +207,8 @@ public class ABC_Agencia extends javax.swing.JFrame {
                         BaseDeDatos bd = new BaseDeDatos();
                         Connection conn = bd.conexion();
                         if (conn != null) {
-                                String query = "INSERT INTO AGENCIA (NOMBRE_AGENCIA, DIRECCION_AGENCIA) VALUES('"+nombre+"','"+direccion+"')";
+                                String idbanco = ((Banco)jComboBox1.getSelectedItem()).getId() +"";
+                                String query = "INSERT INTO AGENCIA (NOMBRE_AGENCIA, DIRECCION_AGENCIA,ID_BANCO) VALUES('"+nombre+"','"+direccion+"',"+idbanco+")";
                                 System.out.println(query);
                                 Statement stmt = conn.createStatement();
                                 int count = stmt.executeUpdate(query);
@@ -243,17 +260,17 @@ public class ABC_Agencia extends javax.swing.JFrame {
 	
 	public void actualizarTablaAgencia(){
         BaseDeDatos db = new BaseDeDatos();
-        String[] columnNames = {"ID","NOMBRE","DIRECCION"};
+        String[] columnNames = {"ID","NOMBRE","DIRECCION","BANCO"};
         Object[][] dataVacia = {};
         DefaultTableModel modelo = new DefaultTableModel(dataVacia, columnNames);
-        String consulta = "SELECT * FROM AGENCIA";
+        String consulta = "SELECT * FROM AGENCIA,BANCO WHERE BANCO.ID_BANCO = AGENCIA.ID_BANCO";
         try{
             Connection conn = db.conexion();
             if (conn != null) {
                     Statement stmt = conn.createStatement();
                     ResultSet rs = stmt.executeQuery(consulta);
                     while(rs.next()){
-                        Object[] newRowData = {rs.getString("ID_AGENCIA"),rs.getString("NOMBRE_AGENCIA"),rs.getString("DIRECCION_AGENCIA")};
+                        Object[] newRowData = {rs.getString("ID_AGENCIA"),rs.getString("NOMBRE_AGENCIA"),rs.getString("DIRECCION_AGENCIA"),rs.getString("NOMBRE_BANCO")};
                         modelo.addRow(newRowData);
                     }
             } else {
@@ -311,10 +328,33 @@ public class ABC_Agencia extends javax.swing.JFrame {
     private javax.swing.JTextField CajaDireccionAgencia;
     private javax.swing.JTextField CajaNombreAgencia;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void initBancos() {
+        BaseDeDatos db = new BaseDeDatos();
+        String consulta = "SELECT * FROM BANCO";
+        try{
+            Connection conn = db.conexion();
+            if (conn != null) {
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery(consulta);
+                    while(rs.next()){
+                        Banco b = new Banco(rs.getInt("ID_BANCO"),rs.getString("NOMBRE_BANCO"));
+                                
+                        this.model.addElement(b);
+                    }
+            } else {
+                    System.out.println("NO HAY CONEXION");
+            }
+        }catch(Exception e){  
+            JOptionPane.showMessageDialog(null,"Error al llenar tabla de Agencia\nClase: Principal -> 2721\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        } 
+       
+    }
 }
