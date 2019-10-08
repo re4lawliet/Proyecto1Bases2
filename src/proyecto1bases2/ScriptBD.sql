@@ -44,7 +44,7 @@ CREATE TABLE cuenta (
     saldo               VARCHAR2(4000) NOT NULL,
     estado              VARCHAR2(4000) NOT NULL,
     tipo_cuenta         VARCHAR2(4000),
-    id_agencia          INTEGER NOT NULL
+    id_agencia          INTEGER NOT NULL,
     id_usuario          INTEGER NOT NULL
 );
 
