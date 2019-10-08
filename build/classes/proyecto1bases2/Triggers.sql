@@ -93,3 +93,24 @@ BEGIN
 	FROM dual;
 END; @@
 DELIMITER; 
+
+
+-- *****************************************************************************************
+-- ************************        Chequera             *************************************
+-- *****************************************************************************************
+DROP SEQUENCE seq_chequera_idchequera;
+CREATE SEQUENCE seq_chequera_idchequera --nombre de la secuencia
+START WITH 1 --la secuencia empieza por 1
+INCREMENT BY 1 --se incrementa de uno en uno
+NOMAXVALUE; --no tiene valor maximo
+
+
+DELIMITER @@
+CREATE OR REPLACE TRIGGER SYSTEM.trig_chequera_seq
+BEFORE INSERT ON chequera FOR EACH ROW
+BEGIN
+	SELECT seq_chequera_idchequera.nextval 
+	INTO :new.id_chequera
+	FROM dual;
+END; @@
+DELIMITER; 

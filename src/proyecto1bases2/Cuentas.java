@@ -5,10 +5,16 @@
  */
 package proyecto1bases2;
 
-/**
- *
- * @author Haldamir
- */
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
+
+
 public class Cuentas extends javax.swing.JFrame {
 
     /**
@@ -16,6 +22,11 @@ public class Cuentas extends javax.swing.JFrame {
      */
     public Cuentas() {
         initComponents();
+        
+        combo_Usuario();
+        combo_Agencia();
+        combo_Cuentas();
+        combo_CuentasChequera();
     }
 
     /**
@@ -27,21 +38,374 @@ public class Cuentas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jComboBox5 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBox6 = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBox7 = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Apertura de Cuenta"));
+
+        jLabel1.setText("Codigo de Cuenta");
+
+        jLabel2.setText("Nombre de la cuenta");
+
+        jLabel3.setText("Agencia");
+
+        jLabel4.setText("Tipo de Cuenta");
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Ahorro", "Monetaria" }));
+
+        jLabel5.setText("Saldo de Apertura");
+
+        jLabel6.setText("Propietario de la cuenta");
+
+        jButton1.setText("Crear Cuenta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(61, 61, 61)
+                                        .addComponent(jComboBox1, 0, 152, Short.MAX_VALUE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextField1)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField2)
+                                    .addComponent(jComboBox2, 0, 120, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(45, 45, 45)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cancelar/Bloquear"));
+
+        jLabel7.setText("Seleccione la Cuenta");
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel8.setText("Seleccione la Accion");
+
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cancelar", "Activar", "Bloquear" }));
+
+        jButton2.setText("Ejecutar Accion");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Solicitar Chequera"));
+
+        jLabel9.setText("Seleccione una cuenta");
+
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel10.setText("Seleccione un tamanio");
+
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "25", "50" }));
+
+        jButton3.setText("Crear Chequera");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+			Validaciones v = new Validaciones();
+			//Obteniendo Datos
+			String codigo = jTextField1.getText();
+			String nombre=jTextField2.getText();
+			String saldo=jTextField3.getText();
+			String agencia = ((Agencia)jComboBox1.getSelectedItem()).getValue();
+                        String tipo = String.valueOf(jComboBox2.getSelectedIndex());
+                        String propietario = ((Usuario)jComboBox3.getSelectedItem()).getId_Usuario();
+                        
+			Boolean esCorrecto=true;
+			//Validando Datos
+			if(v.esIdentificador(codigo)){//----------------------------USUARIO
+			}else{
+				JOptionPane.showMessageDialog(null, "Nombre de Usuario invalido","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
+			
+			if(v.esAlfanumerico(nombre)){//-----------------------------NOMBRE	
+			}else{
+				JOptionPane.showMessageDialog(null, "Nombre Invalido","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
+			if(v.esNumero(saldo)){//-------------------------------------DPI	
+			}else{
+				JOptionPane.showMessageDialog(null, "DPI debe ser solo numeros sin espacio","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}	
+			//*********************************
+			//***Si TODO SALE BIEN ***********
+			//*********************************
+			if(esCorrecto){
+                            try{
+                                BaseDeDatos bd = new BaseDeDatos();
+                                Connection conn = bd.conexion();
+                                if (conn != null) {
+                                        String query = "INSERT INTO CUENTA (CODIGO, NOMBRE, SALDO, ESTADO, TIPO_CUENTA, ID_AGENCIA, ID_USUARIO)"
+                                                     + "VALUES('"+codigo+"','"+nombre+"','"+saldo+"','1','"+tipo+"',"+agencia+","+propietario+")";
+                                        Statement stmt = conn.createStatement();
+                                        int count = stmt.executeUpdate(query);
+                                        System.out.println(count + "filas fueron afectadas");
+					JOptionPane.showMessageDialog(rootPane, "Cuenta creada con exito");
+                                } else {
+                                        System.out.println("NO HAY CONEXION");
+                                }
+                            } catch (SQLException e) {
+                                    System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+                            }
+			}
+			
+   
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(rootPane, "Error al Crear Cuenta: Status: "+e);
+		}
+            
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String id = ((Cuenta)jComboBox4.getSelectedItem()).getId();
+        String estado = String.valueOf(jComboBox5.getSelectedIndex());
+        //llenar combobox1 de DPI de clientes
+        BaseDeDatos db = new BaseDeDatos();
+        String consulta = "UPDATE cuenta SET estado = '"+estado+"' where id_cuenta = "+id;
+
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            System.out.println(consulta);
+            int count = stmt.executeUpdate(consulta);
+            System.out.println(count + "filas fueron afectadas");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar usuarios\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        combo_Cuentas();
+        combo_CuentasChequera();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String id_cuenta = ((Cuenta)jComboBox6.getSelectedItem()).getId();
+        int tamanio = Integer.parseInt(jComboBox7.getSelectedItem().toString());
+        //crear chequera
+        BaseDeDatos db = new BaseDeDatos();
+        String consulta = "INSERT INTO chequera (id_cuenta, inicia, termina, tamanio) values ("+id_cuenta+",1,"+tamanio+","+tamanio+")";
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            System.out.println(consulta);
+            int count = stmt.executeUpdate(consulta);
+            System.out.println(count + "filas fueron afectadas");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar usuarios\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        //obtener id chequera
+        consulta = "select max(id_chequera) as id from chequera where id_cuenta = "+id_cuenta+";";
+        String id ="";
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            while(res.next()){
+                id = res.getString("id");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar usuarios\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        //crear todos los cheques
+        consulta = "INSERT INTO chequera (id_cuenta, inicia, termina, tamanio) values ("+id_cuenta+",1,"+tamanio+","+tamanio+")";
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            System.out.println(consulta);
+            int count = stmt.executeUpdate(consulta);
+            System.out.println(count + "filas fueron afectadas");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar usuarios\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,7 +441,138 @@ public class Cuentas extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public void combo_Usuario(){
+        //llenar combobox1 de DPI de clientes
+        BaseDeDatos db = new BaseDeDatos();
+        Vector model = new Vector();
+        String consulta = "SELECT id_usuario, nombre_completo, dpi from usuario";
+
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            while(res.next()){
+                Usuario p = new Usuario();
+                p.id_usuario = res.getString("id_usuario");
+                p.nombre_completo = res.getString("nombre_completo");                
+                p.dpi = res.getString("dpi");
+                model.addElement(p);
+                                
+            }
+            jComboBox3.setModel(new DefaultComboBoxModel(model));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar usuarios\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void combo_Agencia(){
+        //llenar combobox1 de DPI de clientes
+        BaseDeDatos db = new BaseDeDatos();
+        Vector model = new Vector();
+        String consulta = "SELECT id_agencia, nombre_agencia from agencia";
+
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            while(res.next()){
+                Agencia p = new Agencia();
+                p.id_agencia = res.getString("id_agencia");
+                p.nombre_agencia = res.getString("nombre_agencia");
+                model.addElement(p);
+                                
+            }
+            jComboBox1.setModel(new DefaultComboBoxModel(model));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar agencias\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void combo_Cuentas(){
+        //llenar combobox1 de DPI de clientes
+        BaseDeDatos db = new BaseDeDatos();
+        Vector model = new Vector();
+        String consulta = "SELECT id_cuenta, codigo, nombre, estado from cuenta";
+
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            while(res.next()){
+                Cuenta p = new Cuenta();
+                p.id = res.getString("id_cuenta");
+                p.codigo = res.getString("codigo");
+                p.nombre = res.getString("nombre");
+                p.estado = res.getString("estado");
+                model.addElement(p);
+            }
+            jComboBox4.setModel(new DefaultComboBoxModel(model));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar cuentas\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+     public void combo_CuentasChequera(){
+        //llenar combobox1 de DPI de clientes
+        BaseDeDatos db = new BaseDeDatos();
+        Vector model = new Vector();
+        String consulta = "SELECT id_cuenta, codigo, nombre, estado from cuenta where estado = 1";
+
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            while(res.next()){
+                Cuenta p = new Cuenta();
+                p.id = res.getString("id_cuenta");
+                p.codigo = res.getString("codigo");
+                p.nombre = res.getString("nombre");
+                p.estado = res.getString("estado");
+                model.addElement(p);
+            }
+            jComboBox6.setModel(new DefaultComboBoxModel(model));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar cuentas\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
+    private javax.swing.JComboBox<String> jComboBox6;
+    private javax.swing.JComboBox<String> jComboBox7;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

@@ -31,6 +31,8 @@ CREATE TABLE usuario (
     agencia_id_agencia   INTEGER
 );
 
+ALTER TABLE usuario ADD CONSTRAINT usuario_pk PRIMARY KEY ( id_usuario );
+
 ALTER TABLE usuario
     ADD CONSTRAINT usuario_agencia_fk FOREIGN KEY ( agencia_id_agencia )
         REFERENCES agencia ( id_agencia );
@@ -41,11 +43,13 @@ CREATE TABLE cuenta (
     codigo              VARCHAR2(4000) NOT NULL,
     nombre              VARCHAR2(4000) NOT NULL,
     saldo               VARCHAR2(4000) NOT NULL,
-    estado              VARCHAR2(4000) NOT NULL,
+    estado              VARCHAR2(4000) NOT NULL, --Estado 0=cancelada, 1=activa, 2=bloqueada
     tipo_cuenta         VARCHAR2(4000),
     id_agencia          INTEGER NOT NULL
     id_usuario          INTEGER NOT NULL
 );
+
+ALTER TABLE cuenta ADD CONSTRAINT cuenta_pk PRIMARY KEY ( id_cuenta );
 
 ALTER TABLE cuenta
     ADD CONSTRAINT cuenta_agencia_fk FOREIGN KEY ( id_agencia )
@@ -54,3 +58,37 @@ ALTER TABLE cuenta
 ALTER TABLE cuenta
     ADD CONSTRAINT cuenta_usuario_fk FOREIGN KEY ( id_usuario )
         REFERENCES usuario ( id_usuario );
+
+
+CREATE TABLE chequera (
+    id_chequera         INTEGER NOT NULL,
+    id_cuenta           INTEGER NOT NULL,
+    inicia              INTEGER NOT NULL,
+    termina             INTEGER NOT NULL,
+    tamanio             INTEGER NOT NULL
+);
+
+ALTER TABLE chequera ADD CONSTRAINT chequera_pk PRIMARY KEY ( id_chequera );
+
+ALTER TABLE chequera
+    ADD CONSTRAINT chequera_cuenta_fk FOREIGN KEY ( id_cuenta )
+        REFERENCES cuenta ( id_cuenta );
+
+
+CREATE TABLE cheque (
+    id_cuenta           INTEGER NOT NULL,
+    id_chequera         INTEGER NOT NULL,
+    num_cheque          VARCHAR2(4000) NOT NULL,
+    fecha               VARCHAR2(4000) NOT NULL,
+    pagado_a            VARCHAR2(4000) NOT NULL, 
+    monto               VARCHAR2(4000),
+    estado              INTEGER NOT NULL    --Estado 0=sin usar, 1=usado, 2=robado, 3=extraviado
+);
+
+ALTER TABLE cheque
+    ADD CONSTRAINT cheque_cuenta_fk FOREIGN KEY ( id_cuenta )
+        REFERENCES cuenta ( id_cuenta );
+
+ALTER TABLE cheque
+    ADD CONSTRAINT cheque_chequera_fk FOREIGN KEY ( id_chequera )
+        REFERENCES chequera ( id_chequera );
