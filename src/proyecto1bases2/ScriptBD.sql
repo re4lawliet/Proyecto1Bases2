@@ -25,7 +25,8 @@ CREATE TABLE usuario (
     nombre_completo      VARCHAR2(4000) NOT NULL,
     dpi                  VARCHAR2(4000) NOT NULL,
     correo               VARCHAR2(4000),
-    foto                 VARCHAR2(4000),
+    foto                 VARCHAR2(8000),
+    firma                VARCHAR2(8000),
     rol                  VARCHAR2(4000) NOT NULL,
     agencia_id_agencia   INTEGER
 );
@@ -33,3 +34,4 @@ CREATE TABLE usuario (
 ALTER TABLE usuario
     ADD CONSTRAINT usuario_agencia_fk FOREIGN KEY ( agencia_id_agencia )
         REFERENCES agencia ( id_agencia );
+

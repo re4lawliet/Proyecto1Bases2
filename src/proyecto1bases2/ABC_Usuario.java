@@ -30,6 +30,9 @@ import sun.misc.BASE64Encoder;
 public class ABC_Usuario extends javax.swing.JFrame {
 
 	int fila = 0;
+	private String fotoPerfil="";
+	private String fotoFirma="";
+	
 	public ABC_Usuario() {
 		initComponents();
                 actualizarTablaUsuarios();
@@ -70,6 +73,8 @@ public class ABC_Usuario extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         BotonAtras = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        BotonFirma = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,6 +158,15 @@ public class ABC_Usuario extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setText("Firma: Selecciones una Foto para Firma de Su compu:");
+
+        BotonFirma.setText("Firma");
+        BotonFirma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonFirmaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,40 +174,48 @@ public class ABC_Usuario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(CajaUsuario)
+                                        .addComponent(jLabel3)
+                                        .addComponent(CajaNombre)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel5)
+                                        .addComponent(CajaPass)
+                                        .addComponent(CajaConfirmePass)
+                                        .addComponent(jLabel6)
+                                        .addComponent(CajaDPI)
+                                        .addComponent(jLabel7)
+                                        .addComponent(CajaCorreo))
+                                    .addComponent(jLabel8)
+                                    .addComponent(BotonSubirFoto)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(LabelTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(ComboBoxAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel11)
+                                    .addComponent(ComboBoxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(BotonCrearUsuario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(CajaUsuario)
-                                .addComponent(jLabel3)
-                                .addComponent(CajaNombre)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5)
-                                .addComponent(CajaPass)
-                                .addComponent(CajaConfirmePass)
-                                .addComponent(jLabel6)
-                                .addComponent(CajaDPI)
-                                .addComponent(jLabel7)
-                                .addComponent(CajaCorreo))
-                            .addComponent(jLabel8)
-                            .addComponent(BotonSubirFoto)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(LabelTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ComboBoxAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel11)
-                            .addComponent(ComboBoxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BotonCrearUsuario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9)
+                            .addComponent(BotonFirma))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,7 +276,11 @@ public class ABC_Usuario extends javax.swing.JFrame {
                         .addComponent(LabelTipoCuenta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ComboBoxAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(BotonFirma)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BotonCrearUsuario)
                             .addComponent(jButton2))
@@ -344,8 +370,18 @@ public class ABC_Usuario extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(null, "Usuario: '"+Usuario+"' No esta Disponible","ERROR",JOptionPane.ERROR_MESSAGE);
 				esCorrecto=false;
 			}
-                        String foto = "";
-			
+                        String foto = this.fotoPerfil;
+			if(!this.fotoPerfil.equals("")){
+			}else{
+				JOptionPane.showMessageDialog(null, "Foto: No subida Escoja una Foto de Perfil para Finalizar","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
+			String fotoFirma = this.fotoFirma;
+			if(!this.fotoFirma.equals("")){
+			}else{
+				JOptionPane.showMessageDialog(null, "Firma: No subida Escoja una imagen de Firma para Finalizar","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
 				
 						
 			//*********************************
@@ -356,8 +392,8 @@ public class ABC_Usuario extends javax.swing.JFrame {
                                 BaseDeDatos bd = new BaseDeDatos();
                                 Connection conn = bd.conexion();
                                 if (conn != null) {
-                                        String query = "INSERT INTO USUARIO (NOMBRE_USUARIO, CONTRASENIA, NOMBRE_COMPLETO, DPI, CORREO, FOTO, ROL, AGENCIA_ID_AGENCIA)"
-                                                     + "VALUES('"+Usuario+"','"+Pass+"','"+Nombre+"','"+DPI+"','"+Correo+"','"+foto+"','"+ComboBoxRol.getSelectedItem().toString()+"',"+agencia+")";
+                                        String query = "INSERT INTO USUARIO (NOMBRE_USUARIO, CONTRASENIA, NOMBRE_COMPLETO, DPI, CORREO, FOTO, FIRMA, ROL, AGENCIA_ID_AGENCIA)"
+                                                     + "VALUES('"+Usuario+"','"+Pass+"','"+Nombre+"','"+DPI+"','"+Correo+"','"+foto+"','"+fotoFirma+"','"+ComboBoxRol.getSelectedItem().toString()+"',"+agencia+")";
                                         System.out.println(query);
                                         Statement stmt = conn.createStatement();
                                         int count = stmt.executeUpdate(query);
@@ -433,8 +469,11 @@ public class ABC_Usuario extends javax.swing.JFrame {
 					imageBase64 = encoder.encodeBuffer(base64EncodedImage);
 					if(imageBase64 != null && !imageBase64.trim().equals("")){
 						//La envías a tu servidor
-						JOptionPane.showMessageDialog(rootPane,"la cosa es: "+ imageBase64.trim());
+						JOptionPane.showMessageDialog(rootPane,"La Foto Subida es:"+ path.toString()+"leng: "+imageBase64.trim().length());
 						String base64=imageBase64.trim();
+						this.fotoPerfil=base64;
+						
+						
 						byte[] btDataFile = new sun.misc.BASE64Decoder().decodeBuffer(base64);
 						BufferedImage image = ImageIO.read(new ByteArrayInputStream(btDataFile));
 						JOptionPane.showMessageDialog(null, "", "Image", 
@@ -448,6 +487,43 @@ public class ABC_Usuario extends javax.swing.JFrame {
 		}
 		 
     }//GEN-LAST:event_BotonSubirFotoActionPerformed
+
+    private void BotonFirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonFirmaActionPerformed
+        // Boton de Foto para Firma
+		
+			JFileChooser fc = new JFileChooser();
+		fc.setDialogTitle("Buscar foto o Imagen");
+		
+		if(fc.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+			File archivo= new File(fc.getSelectedFile().toString());
+			StringBuilder path = new StringBuilder();
+			path.append(fc.getSelectedFile().toString());
+			String imageBase64 = null;
+			byte[] base64EncodedImage= null;
+			BASE64Encoder encoder = new BASE64Encoder();
+			try {
+				base64EncodedImage = loadImage64(path.toString());
+				if(base64EncodedImage != null){
+					imageBase64 = encoder.encodeBuffer(base64EncodedImage);
+					if(imageBase64 != null && !imageBase64.trim().equals("")){
+						//La envías a tu servidor
+						JOptionPane.showMessageDialog(rootPane,"La Foto Subida de Firma ES:"+ path.toString()+"leng: "+imageBase64.trim().length());
+						String base64=imageBase64.trim();
+						this.fotoFirma=base64;
+						
+						
+						byte[] btDataFile = new sun.misc.BASE64Decoder().decodeBuffer(base64);
+						BufferedImage image = ImageIO.read(new ByteArrayInputStream(btDataFile));
+						JOptionPane.showMessageDialog(null, "", "Image", 
+								JOptionPane.INFORMATION_MESSAGE, 
+								new ImageIcon(image));
+					}
+				}
+			}catch(Exception e){
+
+			}
+		}
+    }//GEN-LAST:event_BotonFirmaActionPerformed
 	
     public byte[] loadImage64(String url)throws Exception{
 
@@ -580,6 +656,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonAtras;
     private javax.swing.JButton BotonCrearUsuario;
+    private javax.swing.JButton BotonFirma;
     private javax.swing.JButton BotonSubirFoto;
     private javax.swing.JTextField CajaBuscar;
     private javax.swing.JPasswordField CajaConfirmePass;
@@ -602,6 +679,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
