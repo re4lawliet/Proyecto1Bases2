@@ -6,9 +6,11 @@
 package proyecto1bases2;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,11 +18,13 @@ import javax.swing.JOptionPane;
  */
 public class ABC_Bancos extends javax.swing.JFrame {
 
+	public int fila=0;
 	/**
 	 * Creates new form ABC_Bancos
 	 */
 	public ABC_Bancos() {
 		initComponents();
+		actualizarTablaBancos();
 	}
 
 	/**
@@ -39,6 +43,7 @@ public class ABC_Bancos extends javax.swing.JFrame {
         CajaNombre = new javax.swing.JTextField();
         BotonCrearBanco = new javax.swing.JButton();
         BotonAtras = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,6 +58,11 @@ public class ABC_Bancos extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setText("ABC de BANCOS: ");
@@ -75,6 +85,13 @@ public class ABC_Bancos extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Eliminar Banco");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,8 +107,10 @@ public class ABC_Bancos extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(CajaNombre))
-                            .addComponent(BotonCrearBanco))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BotonCrearBanco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -122,6 +141,8 @@ public class ABC_Bancos extends javax.swing.JFrame {
                         .addComponent(CajaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BotonCrearBanco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -162,6 +183,8 @@ public class ABC_Bancos extends javax.swing.JFrame {
                             Statement stmt = conn.createStatement();
                             int count = stmt.executeUpdate(query);
                             System.out.println(count + "filas fueron afectadas");
+			    JOptionPane.showMessageDialog(rootPane, "Banco Creado Exitosamente");
+			    this.actualizarTablaBancos();
                     } else {
                             System.out.println("NO HAY CONEXION");
                     }
@@ -172,6 +195,64 @@ public class ABC_Bancos extends javax.swing.JFrame {
 		
     }//GEN-LAST:event_BotonCrearBancoActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+	if(fila>=0){
+            String id = jTable1.getValueAt(fila, 0).toString();
+            try{
+                String consulta = "DELETE FROM BANCO WHERE ID_BANCO = " + id;
+                BaseDeDatos db = new BaseDeDatos();
+                Connection conn = db.conexion();
+                if (conn != null) {
+                        Statement stmt = conn.createStatement();
+                        int count = stmt.executeUpdate(consulta);
+                        System.out.println(count + "filas fueron afectadas");
+			JOptionPane.showMessageDialog(rootPane, "Banco eliminado correctamente");
+                        actualizarTablaBancos();
+                } else {
+                        System.out.println("NO HAY CONEXION");
+                }
+            }catch(Exception e){  
+                JOptionPane.showMessageDialog(null,"Error al llenar tabla de clientes\nClase: Principal -> 2721\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+            } 
+	}
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+		fila = jTable1.getSelectedRow();
+
+		CajaNombre.setText(jTable1.getValueAt(fila, 1).toString());
+        
+    }//GEN-LAST:event_jTable1MouseClicked
+
+	
+	public void actualizarTablaBancos(){
+        BaseDeDatos db = new BaseDeDatos();
+        String[] columnNames = {"ID","NOMBRE"};
+        Object[][] dataVacia = {};
+        DefaultTableModel modelo = new DefaultTableModel(dataVacia, columnNames);
+        String consulta = "SELECT * FROM BANCO";
+        try{
+            Connection conn = db.conexion();
+            if (conn != null) {
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery(consulta);
+                    while(rs.next()){
+                        Object[] newRowData = {rs.getString("ID_BANCO"),rs.getString("NOMBRE_BANCO")};
+                        modelo.addRow(newRowData);
+                    }
+            } else {
+                    System.out.println("NO HAY CONEXION");
+            }
+        }catch(Exception e){  
+            JOptionPane.showMessageDialog(null,"Error al llenar tabla de Bancos\nClase: Principal -> 2721\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        } 
+        jTable1.setModel(modelo);
+        
+    }
+	
+	
 	/**
 	 * @param args the command line arguments
 	 */
@@ -213,6 +294,7 @@ public class ABC_Bancos extends javax.swing.JFrame {
     private javax.swing.JButton BotonCrearBanco;
     private javax.swing.JTextField CajaBuscar;
     private javax.swing.JTextField CajaNombre;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

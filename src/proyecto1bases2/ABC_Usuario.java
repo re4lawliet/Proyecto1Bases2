@@ -5,12 +5,21 @@
  */
 package proyecto1bases2;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sun.misc.BASE64Encoder;
 
 /**
  *
@@ -97,6 +106,11 @@ public class ABC_Usuario extends javax.swing.JFrame {
         jLabel8.setText("Foto de Usuario: Seleccione una Foto de su Compu:");
 
         BotonSubirFoto.setText("Subir");
+        BotonSubirFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonSubirFotoActionPerformed(evt);
+            }
+        });
 
         BotonCrearUsuario.setText("Crear Usuario");
         BotonCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -401,6 +415,55 @@ public class ABC_Usuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void BotonSubirFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonSubirFotoActionPerformed
+        // BOTON DE SUBIR FOTO
+		JFileChooser fc = new JFileChooser();
+		fc.setDialogTitle("Buscar foto o Imagen");
+		
+		if(fc.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+			File archivo= new File(fc.getSelectedFile().toString());
+			StringBuilder path = new StringBuilder();
+			path.append(fc.getSelectedFile().toString());
+			String imageBase64 = null;
+			byte[] base64EncodedImage= null;
+			BASE64Encoder encoder = new BASE64Encoder();
+			try {
+				base64EncodedImage = loadImage64(path.toString());
+				if(base64EncodedImage != null){
+					imageBase64 = encoder.encodeBuffer(base64EncodedImage);
+					if(imageBase64 != null && !imageBase64.trim().equals("")){
+						//La envías a tu servidor
+						JOptionPane.showMessageDialog(rootPane,"la cosa es: "+ imageBase64.trim());
+						String base64=imageBase64.trim();
+						byte[] btDataFile = new sun.misc.BASE64Decoder().decodeBuffer(base64);
+						BufferedImage image = ImageIO.read(new ByteArrayInputStream(btDataFile));
+						JOptionPane.showMessageDialog(null, "", "Image", 
+								JOptionPane.INFORMATION_MESSAGE, 
+								new ImageIcon(image));
+					}
+				}
+			}catch(Exception e){
+
+			}
+		}
+		 
+    }//GEN-LAST:event_BotonSubirFotoActionPerformed
+	
+	public byte[] loadImage64(String url)throws Exception{
+
+	File file= new File(url.toString());
+	if(file.exists()){
+		int lenght = (int)file.length();
+		BufferedInputStream reader = new BufferedInputStream(new FileInputStream(file));
+		byte[] bytes = new byte[lenght];
+		reader.read(bytes, 0, lenght);
+		reader.close();
+		return bytes;
+	}else{
+		JOptionPane.showMessageDialog(null,"Recurso no Encontrado","ERROR", JOptionPane.ERROR_MESSAGE);
+		return null;
+	}
+	}
             
         public void actualizarTablaUsuarios(){
         BaseDeDatos db = new BaseDeDatos();
@@ -455,7 +518,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
 		}
 		return false;
 	}
-    
+		
     
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */

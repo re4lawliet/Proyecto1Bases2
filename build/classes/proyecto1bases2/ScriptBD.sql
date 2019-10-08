@@ -30,3 +30,6 @@ CREATE TABLE usuario (
     agencia_id_agencia   INTEGER
 );
 
+ALTER TABLE usuario
+    ADD CONSTRAINT usuario_agencia_fk FOREIGN KEY ( agencia_id_agencia )
+        REFERENCES agencia ( id_agencia );
