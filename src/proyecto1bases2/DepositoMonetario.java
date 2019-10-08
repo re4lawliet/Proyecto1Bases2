@@ -20,6 +20,10 @@ import javax.swing.table.DefaultTableModel;
  * @author carlosmonterroso
  */
 public class DepositoMonetario extends javax.swing.JFrame {
+	
+	
+	ResultSet datosUsuario;
+	ResultSet datosCuenta;
 
 	/**
 	 * Creates new form DepositoMonetario
@@ -160,6 +164,7 @@ public class DepositoMonetario extends javax.swing.JFrame {
 				if (conn != null) {
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(consulta);
+					//datosCuenta=stmt.executeQuery(consulta);
 					while(rs.next()){
 						if(rs.getString("ID_CUENTA").equals(NumeroCuenta)){
 							banderaCuenta=true;
@@ -196,6 +201,7 @@ public class DepositoMonetario extends javax.swing.JFrame {
 				if (conn != null) {
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery(consulta);
+					//datosUsuario=stmt.executeQuery(consulta);
 					while(rs.next()){
 						
 						String nom=rs.getString("NOMBRE_COMPLETO").toLowerCase();
@@ -225,30 +231,69 @@ public class DepositoMonetario extends javax.swing.JFrame {
 		
 		if(esCorrecto){
 			JOptionPane.showMessageDialog(rootPane, "CORRECTO TRANSACCION");
-			/*try{
+			try{
 				
 				//-----------------------------------------Obteniendo Datos de La Cuenta
+				BaseDeDatos db1 = new BaseDeDatos();
+				String consulta1 = "SELECT * FROM CUENTA WHERE ID_CUENTA="+NumeroCuenta;
+				Connection connn = db1.conexion();
+				if (connn != null) {
+					Statement stmt = connn.createStatement();
+					datosCuenta= stmt.executeQuery(consulta1);
+				}else{
+					System.out.println("NO HAY CONEXION");
+				}
 				
 				
+				String saldo="";
+				String idCuenta="";
+				String idAgencia="";
+				String idUsuario="";
+				while(datosCuenta.next()){
+					saldo=datosCuenta.getString("SALDO");
+					idCuenta=datosCuenta.getString("ID_CUENTA");
+					idAgencia=datosCuenta.getString("ID_AGENCIA");
+					idUsuario=datosCuenta.getString("ID_USUARIO");
+				}
+				int s=Integer.parseInt(saldo);
+				int cant=Integer.parseInt(Cantidad);
+				int sF=s+cant;
 				
 				//-----------------------------------------Insertando en Transaccion
 				BaseDeDatos bd = new BaseDeDatos();
 				Connection conn = bd.conexion();
 				if (conn != null) {
 					String query = "INSERT INTO TRANSACCION (FECHA, TIPO_TRANSACCION, TERMINAL, SALDO_INICIAL, VALOR, SALDO_FINAL, ID_AGENCIA, ID_USUARIO, ID_CUENTA)"
-								+ "VALUES('"+FechaHora+"','"+TipoTransaccion+"','"+Terminal+"','"+saldo_inicial+"','"+Cantidad+"','"+foto+"','"+id_agencia+"','"+id_usuario+"',"+id_cuenta+")";
+								+ "VALUES('"+FechaHora+"','"+TipoTransaccion+"','"+Terminal+"','"+saldo+"','"+Cantidad+"','"+sF+"','"+idAgencia+"','"+idUsuario+"',"+idCuenta+")";
 					System.out.println(query);
 					Statement stmt = conn.createStatement();
 					int count = stmt.executeUpdate(query);
-					System.out.println(count + "filas fueron afectadas");
-					JOptionPane.showMessageDialog(rootPane, "Usuario '"+Usuario+"' Creado Correctamente");
+					System.out.println(count + "filas fueron afectadas en TRANSACCION");
+					
 					
 				}else{
 					System.out.println("NO HAY CONEXION");
 				}
+				
+				//llenar combobox1 de DPI de clientes
+				BaseDeDatos db = new BaseDeDatos();
+				String consulta = "UPDATE cuenta SET SALDO = '"+sF+"' where id_cuenta = "+idCuenta;
+				
+				try{
+					Connection conn2 = db.conexion();
+					Statement stmt = conn2.createStatement();
+					System.out.println(consulta);
+					int count = stmt.executeUpdate(consulta);
+					System.out.println(count + "filas fueron afectadas Cuenta");
+					JOptionPane.showMessageDialog(rootPane, "Se Genero Deposito a Cuenta"+idCuenta);
+					Inicio.menu_rp.setVisible(true);
+					this.dispose();
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null,"Error En Transaccion de SALDO\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+				}
 			} catch (SQLException e) {
 					System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
-			}*/
+			}
 		}
 		
     }//GEN-LAST:event_BotonDepositoActionPerformed

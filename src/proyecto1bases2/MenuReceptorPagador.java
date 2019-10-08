@@ -44,6 +44,11 @@ public class MenuReceptorPagador extends javax.swing.JFrame {
         });
 
         jButton2.setText("Pago de Cheques");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Consulta de Saldos");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +104,8 @@ public class MenuReceptorPagador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        // BOTON CONSULTA DE SALDOS:
+		
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void BotonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarActionPerformed
@@ -119,6 +125,10 @@ public class MenuReceptorPagador extends javax.swing.JFrame {
 		u.setVisible(true);
 		this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // BOTON C
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 	/**
 	 * @param args the command line arguments
