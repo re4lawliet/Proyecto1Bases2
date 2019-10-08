@@ -94,6 +94,7 @@ ALTER TABLE cheque
     ADD CONSTRAINT cheque_chequera_fk FOREIGN KEY ( id_chequera )
         REFERENCES chequera ( id_chequera );
 
+
 CREATE TABLE transaccion (
     id_transaccion           INTEGER NOT NULL,
     fecha		            VARCHAR2(4000) NOT NULL,
@@ -122,3 +123,4 @@ ALTER TABLE transaccion
 ALTER TABLE transaccion
     ADD CONSTRAINT transaccion_cuenta_fk FOREIGN KEY ( id_cuenta )
         REFERENCES cuenta ( id_cuenta );
+
