@@ -25,7 +25,6 @@ public class ABC_Usuario extends javax.swing.JFrame {
 		initComponents();
                 actualizarTablaUsuarios();
 		LabelTipoCuenta.setVisible(false);
-		ComboBoxAgencia.setVisible(false);
                 combo_Agencia();
 	}
 
@@ -293,7 +292,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
 			String Nombre=CajaNombre.getText();
 			String DPI=CajaDPI.getText();
 			String Correo=CajaCorreo.getText();
-			
+			String agencia = ((Agencia)ComboBoxAgencia.getSelectedItem()).getValue();
 			Boolean esCorrecto=true;
 			//Validando Datos
 			if(v.esIdentificador(Usuario)){//----------------------------USUARIO
@@ -344,7 +343,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
                                 Connection conn = bd.conexion();
                                 if (conn != null) {
                                         String query = "INSERT INTO USUARIO (NOMBRE_USUARIO, CONTRASENIA, NOMBRE_COMPLETO, DPI, CORREO, FOTO, ROL, AGENCIA_ID_AGENCIA)"
-                                                     + "VALUES('"+Usuario+"','"+Pass+"','"+Nombre+"','"+DPI+"','"+Correo+"','"+foto+"','"+ComboBoxRol.getSelectedItem().toString()+"',1)";
+                                                     + "VALUES('"+Usuario+"','"+Pass+"','"+Nombre+"','"+DPI+"','"+Correo+"','"+foto+"','"+ComboBoxRol.getSelectedItem().toString()+"',"+agencia+")";
                                         System.out.println(query);
                                         Statement stmt = conn.createStatement();
                                         int count = stmt.executeUpdate(query);
