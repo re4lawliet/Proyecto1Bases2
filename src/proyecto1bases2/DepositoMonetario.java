@@ -176,7 +176,25 @@ public class DepositoMonetario extends javax.swing.JFrame {
 				}
 				
 				if(banderaCuenta){
-					//Esta Bien La Cuenta
+					//Esta Bien La Cuenta revisar si esta activa
+					boolean banderaEstadoCuenta=false;
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery(consulta);
+					//datosCuenta=stmt.executeQuery(consulta);
+					while(rs.next()){
+						if(rs.getString("ESTADO").equals("1")){
+							banderaEstadoCuenta=true;
+							break;
+						}
+					}
+					
+					if(banderaEstadoCuenta){
+						//esta bien todo
+					}else{
+						JOptionPane.showMessageDialog(null, "El estado de la cuenta es Cancelada o Bloqueada ","ERROR",JOptionPane.ERROR_MESSAGE);
+						esCorrecto=false;
+					}
+					
 				}else{
 					JOptionPane.showMessageDialog(null, "El Numero de Cuenta No Existe en la BD","ERROR",JOptionPane.ERROR_MESSAGE);
 					esCorrecto=false;
