@@ -26,7 +26,8 @@ CREATE TABLE usuario (
     nombre_completo      VARCHAR2(4000) NOT NULL,
     dpi                  VARCHAR2(4000) NOT NULL,
     correo               VARCHAR2(4000),
-    foto                 VARCHAR2(4000),
+    foto                 VARCHAR2(8000),
+    firma                VARCHAR2(8000),
     rol                  VARCHAR2(4000) NOT NULL,
     agencia_id_agencia   INTEGER
 );
@@ -45,7 +46,7 @@ CREATE TABLE cuenta (
     saldo               VARCHAR2(4000) NOT NULL,
     estado              VARCHAR2(4000) NOT NULL, --Estado 0=cancelada, 1=activa, 2=bloqueada
     tipo_cuenta         VARCHAR2(4000),
-    id_agencia          INTEGER NOT NULL
+    id_agencia          INTEGER NOT NULL,
     id_usuario          INTEGER NOT NULL
 );
 
@@ -59,6 +60,7 @@ ALTER TABLE cuenta
     ADD CONSTRAINT cuenta_usuario_fk FOREIGN KEY ( id_usuario )
         REFERENCES usuario ( id_usuario );
 
+<<<<<<< HEAD
 
 CREATE TABLE chequera (
     id_chequera         INTEGER NOT NULL,
@@ -92,3 +94,5 @@ ALTER TABLE cheque
 ALTER TABLE cheque
     ADD CONSTRAINT cheque_chequera_fk FOREIGN KEY ( id_chequera )
         REFERENCES chequera ( id_chequera );
+=======
+>>>>>>> 66102aeb1d87013512715b0bf70b8e6554a7e7a8
