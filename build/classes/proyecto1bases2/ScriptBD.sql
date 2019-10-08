@@ -94,5 +94,3 @@ ALTER TABLE cheque
 ALTER TABLE cheque
     ADD CONSTRAINT cheque_chequera_fk FOREIGN KEY ( id_chequera )
         REFERENCES chequera ( id_chequera );
-=======
->>>>>>> 66102aeb1d87013512715b0bf70b8e6554a7e7a8
