@@ -22,6 +22,7 @@ public class Inicio extends javax.swing.JFrame {
 	
 	public static MenuAdmin menu;
 	public static MenuReceptorPagador menu_rp;
+        public static MenuAuditor menu_au;
 	public static String Session="";
 	public static String Terminal="TerminaNo:";
 
@@ -139,6 +140,7 @@ public class Inicio extends javax.swing.JFrame {
 		DefaultTableModel modelo = new DefaultTableModel(dataVacia, columnNames);
 		String consulta = "SELECT * FROM USUARIO";
 		Boolean banderaLog1=false;
+                Boolean Auditor = false;
 		try{
 			Connection conn = db.conexion();
 			if (conn != null) {
@@ -148,7 +150,10 @@ public class Inicio extends javax.swing.JFrame {
 						if(rs.getString("NOMBRE_USUARIO").equals(user)&&rs.getString("CONTRASENIA").equals(pass)&&rs.getString("ROL").equals("Receptor/Pagador")){
 							banderaLog1=true;
 							break;
-						}
+						}else if(rs.getString("NOMBRE_USUARIO").equals(user)&&rs.getString("CONTRASENIA").equals(pass)&&rs.getString("ROL").equals("Auditor")){
+                                                    Auditor=true;
+							break;
+                                                }
 					}
 			} else {
 					System.out.println("NO HAY CONEXION");
@@ -161,7 +166,13 @@ public class Inicio extends javax.swing.JFrame {
 				menu_rp.setVisible(true);
 				this.dispose();
 				
-			}else{
+			}else if(Auditor){
+                            Session=user;
+				menu_au = new MenuAuditor();
+				menu_au.setLocationRelativeTo(null);
+				menu_au.setVisible(true);
+				this.dispose();
+                        }else{
 				JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña invalidos");
 			}
 			

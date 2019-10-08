@@ -130,7 +130,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
 
         jLabel11.setText("Seleccione el Rol de Este Usuario:");
 
-        ComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Cliente", "Receptor/Pagador", "Gerente de Agencia" }));
+        ComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Cliente", "Receptor/Pagador", "Gerente de Agencia", "Auditor" }));
         ComboBoxRol.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ComboBoxRolItemStateChanged(evt);
@@ -564,7 +564,6 @@ public class ABC_Usuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Error al llenar tabla de clientes\nClase: Principal -> 2721\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
         } 
         jTable1.setModel(modelo);
-        
     }
 	
     public Boolean ExisteUsuario(String User){
