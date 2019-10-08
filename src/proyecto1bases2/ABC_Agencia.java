@@ -7,21 +7,25 @@ package proyecto1bases2;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author carlosmonterroso
  */
 public class ABC_Agencia extends javax.swing.JFrame {
-
+	
+	int fila = 0;
 	/**
 	 * Creates new form ABC_Agencia
 	 */
 	public ABC_Agencia() {
 		initComponents();
+		actualizarTablaAgencia();
 	}
 
 	/**
@@ -42,6 +46,7 @@ public class ABC_Agencia extends javax.swing.JFrame {
         CajaBuscar = new javax.swing.JTextField();
         BotonAtras = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        BotonEliminarAgencia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +61,11 @@ public class ABC_Agencia extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setText("ABC AGENCIA");
@@ -85,25 +95,30 @@ public class ABC_Agencia extends javax.swing.JFrame {
             }
         });
 
+        BotonEliminarAgencia.setText("Eliminar Agencia");
+        BotonEliminarAgencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonEliminarAgenciaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(CajaNombreAgencia))
-                            .addComponent(jLabel3)
-                            .addComponent(CajaDireccionAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jButton1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CajaNombreAgencia))
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(BotonEliminarAgencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CajaDireccionAgencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -135,7 +150,9 @@ public class ABC_Agencia extends javax.swing.JFrame {
                         .addComponent(CajaDireccionAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
-                        .addGap(295, 295, 295))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BotonEliminarAgencia)
+                        .addGap(266, 266, 266))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -179,6 +196,8 @@ public class ABC_Agencia extends javax.swing.JFrame {
                                 Statement stmt = conn.createStatement();
                                 int count = stmt.executeUpdate(query);
                                 System.out.println(count + "filas fueron afectadas");
+				JOptionPane.showMessageDialog(rootPane, "Se Agrego Agencia Correctamente");
+				actualizarTablaAgencia();
                         } else {
                                 System.out.println("NO HAY CONEXION");
                         }
@@ -189,6 +208,66 @@ public class ABC_Agencia extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void BotonEliminarAgenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarAgenciaActionPerformed
+        // 
+	if(fila>=0){
+            String id = jTable1.getValueAt(fila, 0).toString();
+            try{
+                String consulta = "DELETE FROM AGENCIA WHERE ID_AGENCIA = " + id;
+                BaseDeDatos db = new BaseDeDatos();
+                Connection conn = db.conexion();
+                if (conn != null) {
+                        Statement stmt = conn.createStatement();
+                        int count = stmt.executeUpdate(consulta);
+                        System.out.println(count + "filas fueron afectadas");
+			JOptionPane.showMessageDialog(rootPane, "Agencia eliminada correctamente");
+                        actualizarTablaAgencia();
+                } else {
+                        System.out.println("NO HAY CONEXION");
+                }
+            }catch(Exception e){  
+                JOptionPane.showMessageDialog(null,"Error al llenar tabla de Agencias\nClase: Principal -> 2721\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+            } 
+        }	
+	
+    }//GEN-LAST:event_BotonEliminarAgenciaActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+		fila = jTable1.getSelectedRow();
+		CajaNombreAgencia.setText(jTable1.getValueAt(fila, 1).toString());
+		CajaDireccionAgencia.setText(jTable1.getValueAt(fila, 2).toString());
+    
+    }//GEN-LAST:event_jTable1MouseClicked
+
+	
+	public void actualizarTablaAgencia(){
+        BaseDeDatos db = new BaseDeDatos();
+        String[] columnNames = {"ID","NOMBRE","DIRECCION"};
+        Object[][] dataVacia = {};
+        DefaultTableModel modelo = new DefaultTableModel(dataVacia, columnNames);
+        String consulta = "SELECT * FROM AGENCIA";
+        try{
+            Connection conn = db.conexion();
+            if (conn != null) {
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery(consulta);
+                    while(rs.next()){
+                        Object[] newRowData = {rs.getString("ID_AGENCIA"),rs.getString("NOMBRE_AGENCIA"),rs.getString("DIRECCION_AGENCIA")};
+                        modelo.addRow(newRowData);
+                    }
+            } else {
+                    System.out.println("NO HAY CONEXION");
+            }
+        }catch(Exception e){  
+            JOptionPane.showMessageDialog(null,"Error al llenar tabla de Agencia\nClase: Principal -> 2721\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        } 
+        jTable1.setModel(modelo);
+        
+    }
+	
+	
+	
 	/**
 	 * @param args the command line arguments
 	 */
@@ -227,6 +306,7 @@ public class ABC_Agencia extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonAtras;
     private javax.swing.JButton BotonBuscar;
+    private javax.swing.JButton BotonEliminarAgencia;
     private javax.swing.JTextField CajaBuscar;
     private javax.swing.JTextField CajaDireccionAgencia;
     private javax.swing.JTextField CajaNombreAgencia;
