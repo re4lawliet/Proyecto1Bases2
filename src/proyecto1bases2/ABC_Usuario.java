@@ -17,6 +17,8 @@ import java.sql.Statement;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sun.misc.BASE64Encoder;
@@ -32,7 +34,8 @@ public class ABC_Usuario extends javax.swing.JFrame {
 		initComponents();
                 actualizarTablaUsuarios();
 		LabelTipoCuenta.setVisible(false);
-		ComboBoxTipoCuenta.setVisible(false);
+		ComboBoxAgencia.setVisible(false);
+                combo_Agencia();
 	}
 
 	/**
@@ -60,7 +63,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         BotonSubirFoto = new javax.swing.JButton();
         BotonCrearUsuario = new javax.swing.JButton();
-        ComboBoxTipoCuenta = new javax.swing.JComboBox<>();
+        ComboBoxAgencia = new javax.swing.JComboBox<>();
         LabelTipoCuenta = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         ComboBoxRol = new javax.swing.JComboBox<>();
@@ -118,8 +121,6 @@ public class ABC_Usuario extends javax.swing.JFrame {
                 BotonCrearUsuarioActionPerformed(evt);
             }
         });
-
-        ComboBoxTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         LabelTipoCuenta.setText("Seleccione la agencia asociada");
 
@@ -185,7 +186,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(LabelTipoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ComboBoxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(ComboBoxAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel11)
                             .addComponent(ComboBoxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
@@ -253,7 +254,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LabelTipoCuenta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboBoxTipoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ComboBoxAgencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BotonCrearUsuario)
@@ -276,19 +277,19 @@ public class ABC_Usuario extends javax.swing.JFrame {
 			case 0: //sin tipo
 				JOptionPane.showMessageDialog(null, "Seleccione un rol");
 				LabelTipoCuenta.setVisible(false);
-				ComboBoxTipoCuenta.setVisible(false);
+				ComboBoxAgencia.setVisible(false);
 				break;
 			case 1://tipo cliente
 				LabelTipoCuenta.setVisible(false);
-				ComboBoxTipoCuenta.setVisible(false);
+				ComboBoxAgencia.setVisible(false);
 				break;
 			case 2://receptor pagador
 				LabelTipoCuenta.setVisible(true);
-				ComboBoxTipoCuenta.setVisible(true);
+				ComboBoxAgencia.setVisible(true);
 				break;
 			case 3://Gerente de agencia
 				LabelTipoCuenta.setVisible(true);
-				ComboBoxTipoCuenta.setVisible(true);
+				ComboBoxAgencia.setVisible(true);
 				break;
 			default:
 				break;
@@ -449,7 +450,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
 		 
     }//GEN-LAST:event_BotonSubirFotoActionPerformed
 	
-	public byte[] loadImage64(String url)throws Exception{
+    public byte[] loadImage64(String url)throws Exception{
 
 	File file= new File(url.toString());
 	if(file.exists()){
@@ -465,7 +466,8 @@ public class ABC_Usuario extends javax.swing.JFrame {
 	}
 	}
             
-        public void actualizarTablaUsuarios(){
+    
+    public void actualizarTablaUsuarios(){
         BaseDeDatos db = new BaseDeDatos();
         String[] columnNames = {"ID","USUARIO","NOMBRE","DPI","CORREO","ROL","AGENCIA"};
         Object[][] dataVacia = {};
@@ -490,7 +492,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
         
     }
 	
-	public Boolean ExisteUsuario(String User){
+    public Boolean ExisteUsuario(String User){
 		
 		BaseDeDatos db = new BaseDeDatos();
 		String[] columnNames = {"ID","USUARIO","NOMBRE","DPI","CORREO","ROL","AGENCIA"};
@@ -520,7 +522,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
 	}
 		
     
-	public static void main(String args[]) {
+    public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
 		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -553,6 +555,28 @@ public class ABC_Usuario extends javax.swing.JFrame {
 	}
 	
 	
+    public void combo_Agencia(){
+        //llenar combobox1 de DPI de clientes
+        BaseDeDatos db = new BaseDeDatos();
+        Vector model = new Vector();
+        String consulta = "SELECT id_agencia, nombre_agencia from agencia";
+
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            while(res.next()){
+                Agencia p = new Agencia();
+                p.id_agencia = res.getString("id_agencia");
+                p.nombre_agencia = res.getString("nombre_agencia");
+                model.addElement(p);
+                                
+            }
+            ComboBoxAgencia.setModel(new DefaultComboBoxModel(model));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar agencias\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonAtras;
@@ -565,8 +589,8 @@ public class ABC_Usuario extends javax.swing.JFrame {
     private javax.swing.JTextField CajaNombre;
     private javax.swing.JPasswordField CajaPass;
     private javax.swing.JTextField CajaUsuario;
+    private javax.swing.JComboBox<String> ComboBoxAgencia;
     private javax.swing.JComboBox<String> ComboBoxRol;
-    private javax.swing.JComboBox<String> ComboBoxTipoCuenta;
     private javax.swing.JLabel LabelTipoCuenta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

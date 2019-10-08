@@ -55,7 +55,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                               <Component id="LabelTipoCuenta" max="32767" attributes="0"/>
-                              <Component id="ComboBoxTipoCuenta" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Component id="ComboBoxAgencia" min="-2" pref="199" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="ComboBoxRol" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
@@ -135,7 +135,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="LabelTipoCuenta" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="ComboBoxTipoCuenta" min="-2" max="-2" attributes="0"/>
+                      <Component id="ComboBoxAgencia" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="BotonCrearUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -242,15 +242,10 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonCrearUsuarioActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="ComboBoxTipoCuenta">
+    <Component class="javax.swing.JComboBox" name="ComboBoxAgencia">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
       <AuxValues>
