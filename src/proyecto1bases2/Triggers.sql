@@ -72,3 +72,24 @@ BEGIN
 END; @@
 DELIMITER; 
 
+
+
+-- *****************************************************************************************
+-- ************************        Cuenta             *************************************
+-- *****************************************************************************************
+DROP SEQUENCE seq_cuenta_idcuenta;
+CREATE SEQUENCE seq_cuenta_idcuenta --nombre de la secuencia
+START WITH 1 --la secuencia empieza por 1
+INCREMENT BY 1 --se incrementa de uno en uno
+NOMAXVALUE; --no tiene valor maximo
+
+
+DELIMITER @@
+CREATE OR REPLACE TRIGGER SYSTEM.trig_cuenta_seq
+BEFORE INSERT ON cuenta FOR EACH ROW
+BEGIN
+	SELECT seq_cuenta_idcuenta.nextval 
+	INTO :new.id_cuenta
+	FROM dual;
+END; @@
+DELIMITER; 

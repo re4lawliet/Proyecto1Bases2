@@ -62,6 +62,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         BotonAbcMantenimientos.setText("Otros Mantenimientos");
 
         BotonAbcApertura.setText("Apertura de Cuenta");
+        BotonAbcApertura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonAbcAperturaActionPerformed(evt);
+            }
+        });
 
         BotonAbcManejoCuentas.setText("Manejo de Cuentas");
 
@@ -148,6 +153,13 @@ public class MenuAdmin extends javax.swing.JFrame {
 		u.setVisible(true);
 		this.dispose();
     }//GEN-LAST:event_BotonAbcAgenciasActionPerformed
+
+    private void BotonAbcAperturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAbcAperturaActionPerformed
+        Cuentas u=new Cuentas();
+        u.setLocationRelativeTo(null);
+        u.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BotonAbcAperturaActionPerformed
 
 	/**
 	 * @param args the command line arguments
