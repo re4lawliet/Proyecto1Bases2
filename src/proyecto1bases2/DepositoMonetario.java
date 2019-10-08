@@ -7,11 +7,13 @@ package proyecto1bases2;
 
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -150,6 +152,34 @@ public class DepositoMonetario extends javax.swing.JFrame {
 		if(v.esNumero(NumeroCuenta)){//----------------------------CUENTA
 			
 			//revisar que la cuenta Exista
+			BaseDeDatos db = new BaseDeDatos();
+			String consulta = "SELECT * FROM CUENTA WHERE ID_CUENTA="+NumeroCuenta;
+			Boolean banderaCuenta=false;
+			try{
+				Connection conn = db.conexion();
+				if (conn != null) {
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery(consulta);
+					while(rs.next()){
+						if(rs.getString("ID_CUENTA").equals(NumeroCuenta)){
+							banderaCuenta=true;
+							break;
+						}
+					}
+				} else {
+						System.out.println("NO HAY CONEXION");
+				}
+				
+				if(banderaCuenta){
+					//Esta Bien La Cuenta
+				}else{
+					JOptionPane.showMessageDialog(null, "El Numero de Cuenta No Existe en la BD","ERROR",JOptionPane.ERROR_MESSAGE);
+					esCorrecto=false;
+				}
+				
+			}catch(Exception e){  
+				JOptionPane.showMessageDialog(rootPane, "Numero de Cuenta Invalido No Existe Ese numero de Cuenta");
+			}	 
 			
 		}else{
 			JOptionPane.showMessageDialog(null, "El Numero de Cuenta Debe Ser Numerico","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -158,23 +188,59 @@ public class DepositoMonetario extends javax.swing.JFrame {
 		if(v.esAlfanumerico(NombreDe)){//----------------------------Nombre de Cuenta
 		
 			//nombre de la cuenta sea Correcto
-			
+			BaseDeDatos db = new BaseDeDatos();
+			String consulta = "SELECT u.NOMBRE_COMPLETO, u.ID_USUARIO FROM CUENTA c, USUARIO u WHERE c.ID_CUENTA="+NumeroCuenta+" AND u.ID_USUARIO=c.ID_USUARIO";
+			Boolean banderaNombre=false;
+			try{
+				Connection conn = db.conexion();
+				if (conn != null) {
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery(consulta);
+					while(rs.next()){
+						
+						String nom=rs.getString("NOMBRE_COMPLETO").toLowerCase();
+						if(nom.equals(NombreDe.toLowerCase())){
+							banderaNombre=true;
+							break;
+						}
+					}
+				} else {
+						System.out.println("NO HAY CONEXION");
+				}
+				
+				if(banderaNombre){
+					//Esta Bien el nombre
+				}else{
+					JOptionPane.showMessageDialog(null, "El Titular de La Cuenta es Invalido="+NombreDe+" ","ERROR",JOptionPane.ERROR_MESSAGE);
+					esCorrecto=false;
+				}
+				
+			}catch(Exception e){  
+				JOptionPane.showMessageDialog(null, "CathcEl Titular de La Cuenta es Invalido="+NombreDe+" ","ERROR",JOptionPane.ERROR_MESSAGE);
+			}	 
 		}else{
 			JOptionPane.showMessageDialog(null, "El Nombre de Cuenta Invalido ej: Juan Perez","ERROR",JOptionPane.ERROR_MESSAGE);
 			esCorrecto=false;
 		}
 		
 		if(esCorrecto){
-			try{
+			JOptionPane.showMessageDialog(rootPane, "CORRECTO TRANSACCION");
+			/*try{
+				
+				//-----------------------------------------Obteniendo Datos de La Cuenta
+				
+				
+				
+				//-----------------------------------------Insertando en Transaccion
 				BaseDeDatos bd = new BaseDeDatos();
 				Connection conn = bd.conexion();
 				if (conn != null) {
-					//String query = "INSERT INTO USUARIO (NOMBRE_USUARIO, CONTRASENIA, NOMBRE_COMPLETO, DPI, CORREO, FOTO, FIRMA, ROL, AGENCIA_ID_AGENCIA)"
-					//			+ "VALUES('"+Usuario+"','"+Pass+"','"+Nombre+"','"+DPI+"','"+Correo+"','"+foto+"','"+fotoFirma+"','"+ComboBoxRol.getSelectedItem().toString()+"',"+agencia+")";
-					//System.out.println(query);
+					String query = "INSERT INTO TRANSACCION (FECHA, TIPO_TRANSACCION, TERMINAL, SALDO_INICIAL, VALOR, SALDO_FINAL, ID_AGENCIA, ID_USUARIO, ID_CUENTA)"
+								+ "VALUES('"+FechaHora+"','"+TipoTransaccion+"','"+Terminal+"','"+saldo_inicial+"','"+Cantidad+"','"+foto+"','"+id_agencia+"','"+id_usuario+"',"+id_cuenta+")";
+					System.out.println(query);
 					Statement stmt = conn.createStatement();
-					//int count = stmt.executeUpdate(query);
-					//System.out.println(count + "filas fueron afectadas");
+					int count = stmt.executeUpdate(query);
+					System.out.println(count + "filas fueron afectadas");
 					JOptionPane.showMessageDialog(rootPane, "Usuario '"+Usuario+"' Creado Correctamente");
 					
 				}else{
@@ -182,7 +248,7 @@ public class DepositoMonetario extends javax.swing.JFrame {
 				}
 			} catch (SQLException e) {
 					System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
-			}
+			}*/
 		}
 		
     }//GEN-LAST:event_BotonDepositoActionPerformed

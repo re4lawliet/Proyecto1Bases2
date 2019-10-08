@@ -37,6 +37,11 @@ public class MenuReceptorPagador extends javax.swing.JFrame {
         jLabel1.setText("MENU DE RECEPTOR / PAGADOR  ");
 
         jButton1.setText("Deposito Monetario");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Pago de Cheques");
 
@@ -105,6 +110,15 @@ public class MenuReceptorPagador extends javax.swing.JFrame {
 		Proyecto1Bases2.i.PassCaja.setText("");
 		Proyecto1Bases2.i.Session="";
     }//GEN-LAST:event_BotonCerrarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // BOTON DEPOSITO MONETARIO
+		
+		DepositoMonetario u=new DepositoMonetario();
+		u.setLocationRelativeTo(null);
+		u.setVisible(true);
+		this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 	/**
 	 * @param args the command line arguments

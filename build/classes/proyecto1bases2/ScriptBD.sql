@@ -60,7 +60,6 @@ ALTER TABLE cuenta
     ADD CONSTRAINT cuenta_usuario_fk FOREIGN KEY ( id_usuario )
         REFERENCES usuario ( id_usuario );
 
-<<<<<<< HEAD
 
 CREATE TABLE chequera (
     id_chequera         INTEGER NOT NULL,
@@ -94,3 +93,32 @@ ALTER TABLE cheque
 ALTER TABLE cheque
     ADD CONSTRAINT cheque_chequera_fk FOREIGN KEY ( id_chequera )
         REFERENCES chequera ( id_chequera );
+
+CREATE TABLE transaccion (
+    id_transaccion           INTEGER NOT NULL,
+    fecha		            VARCHAR2(4000) NOT NULL,
+    tipo_transaccion         VARCHAR2(4000) NOT NULL,
+    terminal                    VARCHAR2(4000) NOT NULL,
+
+    saldo_inicial               VARCHAR2(4000) NOT NULL,
+    valor                         VARCHAR2(4000) NOT NULL,
+    saldo_final                VARCHAR2(4000),
+
+    id_agencia          INTEGER NOT NULL,
+    id_usuario          INTEGER NOT NULL,
+    id_cuenta           INTEGER NOT NULL
+);
+
+ALTER TABLE transaccion ADD CONSTRAINT transaccion_pk PRIMARY KEY ( id_transaccion );
+
+ALTER TABLE transaccion
+    ADD CONSTRAINT transaccion_agencia_fk FOREIGN KEY ( id_agencia )
+        REFERENCES agencia ( id_agencia );
+
+ALTER TABLE transaccion
+    ADD CONSTRAINT transaccion_usuario_fk FOREIGN KEY ( id_usuario )
+        REFERENCES usuario ( id_usuario );
+
+ALTER TABLE transaccion
+    ADD CONSTRAINT transaccion_cuenta_fk FOREIGN KEY ( id_cuenta )
+        REFERENCES cuenta ( id_cuenta );

@@ -113,4 +113,26 @@ BEGIN
 	INTO :new.id_chequera
 	FROM dual;
 END; @@
-DELIMITER; 
+DELIMITER;
+
+
+
+-- *****************************************************************************************
+-- ************************        Transaccion           *************************************
+-- *****************************************************************************************
+DROP SEQUENCE seq_transaccion_idtransaccion;
+CREATE SEQUENCE seq_transaccion_idtransaccion --nombre de la secuencia
+START WITH 1 --la secuencia empieza por 1
+INCREMENT BY 1 --se incrementa de uno en uno
+NOMAXVALUE; --no tiene valor maximo
+
+
+DELIMITER @@
+CREATE OR REPLACE TRIGGER SYSTEM.trig_transaccion_seq
+BEFORE INSERT ON transaccion FOR EACH ROW
+BEGIN
+	SELECT seq_transaccion_idtransaccion.nextval 
+	INTO :new.id_transaccion
+	FROM dual;
+END; @@
+DELIMITER;  
