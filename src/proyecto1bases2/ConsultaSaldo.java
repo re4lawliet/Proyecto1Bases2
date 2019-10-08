@@ -5,6 +5,10 @@
  */
 package proyecto1bases2;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +16,8 @@ import javax.swing.JOptionPane;
  * @author carlosmonterroso
  */
 public class ConsultaSaldo extends javax.swing.JFrame {
+	
+	ResultSet datosCuenta;
 
 	/**
 	 * Creates new form ConsultaSaldo
@@ -33,7 +39,7 @@ public class ConsultaSaldo extends javax.swing.JFrame {
         CajaCuenta = new javax.swing.JTextField();
         BotonConsultaSaldo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        MostrarSaldo = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
@@ -53,9 +59,9 @@ public class ConsultaSaldo extends javax.swing.JFrame {
 
         jLabel3.setText("Su saldo es:");
 
-        jLabel4.setText("0.0");
+        MostrarSaldo.setText("0.0");
 
-        jButton2.setText("Cancelar");
+        jButton2.setText("Atras");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -74,7 +80,7 @@ public class ConsultaSaldo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(MostrarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(BotonConsultaSaldo)
@@ -99,7 +105,7 @@ public class ConsultaSaldo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(MostrarSaldo))
                 .addContainerGap(138, Short.MAX_VALUE))
         );
 
@@ -120,10 +126,67 @@ public class ConsultaSaldo extends javax.swing.JFrame {
 	Boolean esCorrecto=true;
 	
 	if(v.esNumero(Cuenta)){//----------------------------CUENTA
+		//revisar que la cuenta Exista
+			BaseDeDatos db = new BaseDeDatos();
+			String consulta = "SELECT * FROM CUENTA WHERE ID_CUENTA="+Cuenta;
+			Boolean banderaCuenta=false;
+			try{
+				Connection conn = db.conexion();
+				if (conn != null) {
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery(consulta);
+					//datosCuenta=stmt.executeQuery(consulta);
+					while(rs.next()){
+						if(rs.getString("ID_CUENTA").equals(Cuenta)){
+							banderaCuenta=true;
+							break;
+						}
+					}
+				} else {
+						System.out.println("NO HAY CONEXION");
+				}
+				
+				if(banderaCuenta){
+					//Esta Bien La Cuenta
+				}else{
+					JOptionPane.showMessageDialog(null, "El Numero de Cuenta No Existe en la BD","ERROR",JOptionPane.ERROR_MESSAGE);
+					esCorrecto=false;
+				}
+				
+			}catch(Exception e){  
+				JOptionPane.showMessageDialog(rootPane, "Numero de Cuenta Invalido No Existe Ese numero de Cuenta");
+			}	 
 	}else{
 		JOptionPane.showMessageDialog(null, "La Cuenta debe ser Numerica","ERROR",JOptionPane.ERROR_MESSAGE);
 		esCorrecto=false;
 	}
+	
+	
+	if(esCorrecto){
+		JOptionPane.showMessageDialog(rootPane, "CORRECTO TRANSACCION");
+		try{
+			BaseDeDatos db1 = new BaseDeDatos();
+			String consulta1 = "SELECT * FROM CUENTA WHERE ID_CUENTA="+Cuenta;
+			Connection connn = db1.conexion();
+			if (connn != null) {
+				Statement stmt = connn.createStatement();
+				datosCuenta= stmt.executeQuery(consulta1);
+			}else{
+				System.out.println("NO HAY CONEXION");
+			}
+			String saldo="0";
+			while(datosCuenta.next()){
+				saldo=datosCuenta.getString("SALDO");
+			}
+			
+			this.MostrarSaldo.setText(saldo);
+			
+		}catch (SQLException e) {
+			System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+		}
+	}
+	
+	
     }//GEN-LAST:event_BotonConsultaSaldoActionPerformed
 
 	/**
@@ -164,11 +227,11 @@ public class ConsultaSaldo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonConsultaSaldo;
     private javax.swing.JTextField CajaCuenta;
+    private javax.swing.JLabel MostrarSaldo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

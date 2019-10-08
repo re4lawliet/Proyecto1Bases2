@@ -140,10 +140,12 @@ public class MenuAdmin extends javax.swing.JFrame {
     private void BotonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarSesionActionPerformed
         
 		this.setVisible(false);
+		Proyecto1Bases2.i = new Inicio();
+		Proyecto1Bases2.i.setLocationRelativeTo(null);
 		Proyecto1Bases2.i.setVisible(true);
-		Proyecto1Bases2.i.UserCaja.setText("");
-		Proyecto1Bases2.i.PassCaja.setText("");
-		Proyecto1Bases2.i.Session="";
+		Inicio.UserCaja.setText("");
+		Inicio.PassCaja.setText("");
+		Inicio.Session="";
 		
     }//GEN-LAST:event_BotonCerrarSesionActionPerformed
 

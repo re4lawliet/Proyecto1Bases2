@@ -105,16 +105,21 @@ public class MenuReceptorPagador extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // BOTON CONSULTA DE SALDOS:
-		
+		ConsultaSaldo u=new ConsultaSaldo();
+		u.setLocationRelativeTo(null);
+		u.setVisible(true);
+		this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void BotonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCerrarActionPerformed
 		
 		this.setVisible(false);
+		Proyecto1Bases2.i = new Inicio();
+		Proyecto1Bases2.i.setLocationRelativeTo(null);
 		Proyecto1Bases2.i.setVisible(true);
-		Proyecto1Bases2.i.UserCaja.setText("");
-		Proyecto1Bases2.i.PassCaja.setText("");
-		Proyecto1Bases2.i.Session="";
+		Inicio.UserCaja.setText("");
+		Inicio.PassCaja.setText("");
+		Inicio.Session="";
     }//GEN-LAST:event_BotonCerrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
