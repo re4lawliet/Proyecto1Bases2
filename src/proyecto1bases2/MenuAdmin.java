@@ -143,6 +143,7 @@ public class MenuAdmin extends javax.swing.JFrame {
 		Proyecto1Bases2.i.setVisible(true);
 		Proyecto1Bases2.i.UserCaja.setText("");
 		Proyecto1Bases2.i.PassCaja.setText("");
+		Proyecto1Bases2.i.Session="";
 		
     }//GEN-LAST:event_BotonCerrarSesionActionPerformed
 

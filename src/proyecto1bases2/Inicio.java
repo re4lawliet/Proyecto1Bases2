@@ -5,7 +5,14 @@
  */
 package proyecto1bases2;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,6 +21,9 @@ import javax.swing.JOptionPane;
 public class Inicio extends javax.swing.JFrame {
 	
 	public static MenuAdmin menu;
+	public static MenuReceptorPagador menu_rp;
+	public static String Session="";
+	public static String Terminal="TerminaNo:";
 
 	/**
 	 * Creates new form Inicio
@@ -22,6 +32,10 @@ public class Inicio extends javax.swing.JFrame {
 		initComponents();
 		this.UserCaja.setText("");
 		this.PassCaja.setText("");
+		
+		Random r = new Random();
+		int valorDado = r.nextInt(100);
+		Terminal+=valorDado;
 	}
 
 	/**
@@ -112,10 +126,50 @@ public class Inicio extends javax.swing.JFrame {
 	String pass=this.PassCaja.getText();
 	
 	if(user.equals("admin")  && pass.equals("admin")){
+		Session="admin";
 		menu = new MenuAdmin();
 		menu.setLocationRelativeTo(null);
 		menu.setVisible(true);
 		this.dispose();
+	}else if(!user.equals("admin")  && !pass.equals("admin")){
+		
+		BaseDeDatos db = new BaseDeDatos();
+		String[] columnNames = {"ID","USUARIO","NOMBRE","DPI","CORREO","ROL","AGENCIA"};
+		Object[][] dataVacia = {};
+		DefaultTableModel modelo = new DefaultTableModel(dataVacia, columnNames);
+		String consulta = "SELECT * FROM USUARIO";
+		Boolean banderaLog1=false;
+		try{
+			Connection conn = db.conexion();
+			if (conn != null) {
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery(consulta);
+					while(rs.next()){
+						if(rs.getString("NOMBRE_USUARIO").equals(user)&&rs.getString("CONTRASENIA").equals(pass)&&rs.getString("ROL").equals("Receptor/Pagador")){
+							banderaLog1=true;
+							break;
+						}
+					}
+			} else {
+					System.out.println("NO HAY CONEXION");
+			}
+			
+			if(banderaLog1){//Lanza Receptor Pagador
+				Session=user;
+				menu_rp = new MenuReceptorPagador();
+				menu_rp.setLocationRelativeTo(null);
+				menu_rp.setVisible(true);
+				this.dispose();
+				
+			}else{
+				JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña invalidos");
+			}
+			
+		}catch(Exception e){  
+			JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña invalidos");
+		} 
+        	
+		
 	}else{
 		JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña invalidos");
 	}
