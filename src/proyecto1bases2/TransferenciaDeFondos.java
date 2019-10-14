@@ -19,6 +19,9 @@ import javax.swing.table.DefaultTableModel;
  * @author carlosmonterroso
  */
 public class TransferenciaDeFondos extends javax.swing.JFrame {
+	
+	ResultSet datosCuentaOrigen;
+	ResultSet datosCuentaDestino;
 
 	/**
 	 * Creates new form TransferenciaDeFondos
@@ -149,22 +152,266 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
 	String Terminal=Inicio.Terminal;
 	Boolean esCorrecto=true;
 	
-	if(v.esNumero(NumeroCuentaOrigen)){//----------------------------CUENTA
+	if(v.esNumero(NumeroCuentaOrigen)){//----------------------------CUENTA ORIGEN
 		//revisar que la cuenta Exista
 		BaseDeDatos db = new BaseDeDatos();
 		String consulta = "SELECT * FROM CUENTA WHERE ID_CUENTA="+NumeroCuentaOrigen;
 		Boolean banderaCuenta=false;
+		try{
+			
+			Connection conn = db.conexion();
+			if (conn != null) {
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(consulta);
+				//datosCuenta=stmt.executeQuery(consulta);
+				while(rs.next()){
+					if(rs.getString("ID_CUENTA").equals(NumeroCuentaOrigen)){
+						banderaCuenta=true;
+						break;
+					}
+				}
+				
+			} else {
+					System.out.println("NO HAY CONEXION");
+			}
+			
+			if(banderaCuenta){
+				//Esta Bien La Cuenta revisar si esta activa
+				boolean banderaEstadoCuenta=false;
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(consulta);
+				//datosCuenta=stmt.executeQuery(consulta);
+				while(rs.next()){
+					if(rs.getString("ESTADO").equals("1")){
+						banderaEstadoCuenta=true;
+						break;
+					}
+				}
+
+				if(banderaEstadoCuenta){
+					//esta bien todo
+				}else{
+					JOptionPane.showMessageDialog(null, "El estado de la cuenta Origen es Cancelada o Bloqueada ","ERROR",JOptionPane.ERROR_MESSAGE);
+					esCorrecto=false;
+				}
+
+			}else{
+				JOptionPane.showMessageDialog(null, "El Numero de Cuenta Origen No Existe en la BD","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
+			
+		}catch(Exception e){  
+			JOptionPane.showMessageDialog(rootPane, "Numero de Cuenta Origen Invalido No Existe Ese numero de Cuenta");
+		}	
+		
 	}else{
 	
-		JOptionPane.showMessageDialog(null, "El Numero de Cuenta Debe Ser Numerico","ERROR",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "El Numero de Cuenta Origen Debe Ser Numerico","ERROR",JOptionPane.ERROR_MESSAGE);
 		esCorrecto=false;
-	}
+	} 
 	
 	if(v.esNumero(Cantidad)){//----------------------------CANTIDAD
 	}else{
 		JOptionPane.showMessageDialog(null, "La CAntidad es Invalida","ERROR",JOptionPane.ERROR_MESSAGE);
 		esCorrecto=false;
 	}
+	
+	if(v.esNumero(NumeroCuentaDestino)){//----------------------------CUENTA DESTINO
+		//revisar que la cuenta Exista
+		BaseDeDatos db = new BaseDeDatos();
+		String consulta = "SELECT * FROM CUENTA WHERE ID_CUENTA="+NumeroCuentaDestino;
+		Boolean banderaCuenta=false;
+		try{
+			
+			Connection conn = db.conexion();
+			if (conn != null) {
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(consulta);
+				//datosCuenta=stmt.executeQuery(consulta);
+				while(rs.next()){
+					if(rs.getString("ID_CUENTA").equals(NumeroCuentaDestino)){
+						banderaCuenta=true;
+						break;
+					}
+				}
+				
+			} else {
+					System.out.println("NO HAY CONEXION");
+			}
+			
+			if(banderaCuenta){
+				//Esta Bien La Cuenta revisar si esta activa
+				boolean banderaEstadoCuenta=false;
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(consulta);
+				//datosCuenta=stmt.executeQuery(consulta);
+				while(rs.next()){
+					if(rs.getString("ESTADO").equals("1")){
+						banderaEstadoCuenta=true;
+						break;
+					}
+				}
+
+				if(banderaEstadoCuenta){
+					//esta bien todo
+				}else{
+					JOptionPane.showMessageDialog(null, "El estado de la cuenta Destino es Cancelada o Bloqueada ","ERROR",JOptionPane.ERROR_MESSAGE);
+					esCorrecto=false;
+				}
+
+			}else{
+				JOptionPane.showMessageDialog(null, "El Numero de Cuenta Destino No Existe en la BD","ERROR",JOptionPane.ERROR_MESSAGE);
+				esCorrecto=false;
+			}
+			
+		}catch(Exception e){  
+			JOptionPane.showMessageDialog(rootPane, "Numero de Cuenta Destino Invalido No Existe Ese numero de Cuenta");
+		}	
+		
+	}else{
+	
+		JOptionPane.showMessageDialog(null, "El Numero de Cuenta Destino Debe Ser Numerico","ERROR",JOptionPane.ERROR_MESSAGE);
+		esCorrecto=false;
+	} 
+	
+	
+	if(esCorrecto){
+		JOptionPane.showMessageDialog(rootPane, "CORRECTO TRANSACCION");
+		try{
+			
+			//-----------------------------------------Obteniendo Datos de La Cuenta Origen
+			BaseDeDatos db1 = new BaseDeDatos();
+			String consulta1 = "SELECT * FROM CUENTA WHERE ID_CUENTA="+NumeroCuentaOrigen;
+			Connection connn = db1.conexion();
+			if (connn != null) {
+				Statement stmt = connn.createStatement();
+				datosCuentaOrigen= stmt.executeQuery(consulta1);
+			}else{
+				System.out.println("NO HAY CONEXION");
+			}
+			//-----------------------------------------Obteniendo Datos de La Cuenta Destino
+			BaseDeDatos db2 = new BaseDeDatos();
+			String consulta2 = "SELECT * FROM CUENTA WHERE ID_CUENTA="+NumeroCuentaOrigen;
+			Connection connn2 = db2.conexion();
+			if (connn != null) {
+				Statement stmt = connn2.createStatement();
+				datosCuentaDestino= stmt.executeQuery(consulta2);
+			}else{
+				System.out.println("NO HAY CONEXION");
+			}
+			
+			//-----------------------------------------------------Origen
+			String saldoOrigen="";
+			String idCuentaOrigen="";
+			String idAgenciaOrigen="";
+			String idUsuarioOrigen="";
+			while(datosCuentaOrigen.next()){
+				saldoOrigen=datosCuentaOrigen.getString("SALDO");
+				idCuentaOrigen=datosCuentaOrigen.getString("ID_CUENTA");
+				idAgenciaOrigen=datosCuentaOrigen.getString("ID_AGENCIA");
+				idUsuarioOrigen=datosCuentaOrigen.getString("ID_USUARIO");
+			}
+			//-----------------------------------------------------Destino
+			String saldoDestino="";
+			String idCuentaDestino="";
+			String idAgenciaDestino="";
+			String idUsuarioDestino="";
+			while(datosCuentaDestino.next()){
+				saldoDestino=datosCuentaDestino.getString("SALDO");
+				idCuentaDestino=datosCuentaDestino.getString("ID_CUENTA");
+				idAgenciaDestino=datosCuentaDestino.getString("ID_AGENCIA");
+				idUsuarioDestino=datosCuentaDestino.getString("ID_USUARIO");
+			}
+			
+			
+			
+			int s_Origen=Integer.parseInt(saldoOrigen);
+			int s_Destino=Integer.parseInt(saldoDestino);
+			int cant=Integer.parseInt(Cantidad);
+			
+			if(cant>s_Origen){
+				JOptionPane.showMessageDialog(null, "Fondos Insuficientes en Cuenta De Origen","ERROR",JOptionPane.ERROR_MESSAGE);
+			}else{
+				
+				int restaOrigen=s_Origen-cant;
+				
+				//-----------------------------------------Insertando en Transaccion
+				BaseDeDatos bd = new BaseDeDatos();
+				Connection conn = bd.conexion();
+				if (conn != null) {
+					String query = "INSERT INTO TRANSACCION (FECHA, TIPO_TRANSACCION, TERMINAL, SALDO_INICIAL, VALOR, SALDO_FINAL, ID_AGENCIA, ID_USUARIO, ID_CUENTA)"
+								+ "VALUES('"+FechaHora+"','"+TipoTransaccion+"','"+Terminal+"','"+saldoOrigen+"','"+Cantidad+"','"+restaOrigen+"','"+idAgenciaOrigen+"','"+idUsuarioOrigen+"',"+idCuentaOrigen+")";
+					System.out.println(query);
+					Statement stmt = conn.createStatement();
+					int count = stmt.executeUpdate(query);
+					System.out.println(count + "filas fueron afectadas en TRANSACCION");
+
+
+				}else{
+					System.out.println("NO HAY CONEXION");
+				}
+				
+				//Restando de LA Origen
+				BaseDeDatos db = new BaseDeDatos();
+				String consulta = "UPDATE cuenta SET SALDO = '"+restaOrigen+"' where id_cuenta = "+idCuentaOrigen;
+				
+				try{
+					Connection conn2 = db.conexion();
+					Statement stmt = conn2.createStatement();
+					System.out.println(consulta);
+					int count = stmt.executeUpdate(consulta);
+					System.out.println(count + "filas fueron afectadas Cuenta");
+					//JOptionPane.showMessageDialog(rootPane, "Se Genero Deposito a Cuenta Origen"+idCuentaOrigen);
+					Inicio.menu_rp.setVisible(true);
+					this.dispose();
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null,"Error En Transaccion de SALDO\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				int sumaDestino=s_Destino+cant;
+				
+				//-----------------------------------------Insertando en Transaccion
+				BaseDeDatos bd2 = new BaseDeDatos();
+				Connection conn2 = bd2.conexion();
+				if (conn != null) {
+					String query = "INSERT INTO TRANSACCION (FECHA, TIPO_TRANSACCION, TERMINAL, SALDO_INICIAL, VALOR, SALDO_FINAL, ID_AGENCIA, ID_USUARIO, ID_CUENTA)"
+								+ "VALUES('"+FechaHora+"','"+TipoTransaccion+"','"+Terminal+"','"+saldoDestino+"','"+Cantidad+"','"+sumaDestino+"','"+idAgenciaDestino+"','"+idUsuarioDestino+"',"+idCuentaDestino+")";
+					System.out.println(query);
+					Statement stmt = conn.createStatement();
+					int count = stmt.executeUpdate(query);
+					System.out.println(count + "filas fueron afectadas en TRANSACCION");
+
+
+				}else{
+					System.out.println("NO HAY CONEXION");
+				}
+				
+				//SUmar en Destino
+				BaseDeDatos db3 = new BaseDeDatos();
+				String consulta3 = "UPDATE cuenta SET SALDO = '"+sumaDestino+"' where id_cuenta = "+idCuentaDestino;
+				
+				try{
+					Connection conn3 = db3.conexion();
+					Statement stmt = conn3.createStatement();
+					System.out.println(consulta3);
+					int count = stmt.executeUpdate(consulta3);
+					System.out.println(count + "filas fueron afectadas Cuenta");
+					JOptionPane.showMessageDialog(rootPane, "Se Genero Deposito a Cuenta"+idCuentaDestino);
+					Inicio.menu_rp.setVisible(true);
+					this.dispose();
+				}catch(Exception e){
+					JOptionPane.showMessageDialog(null,"Error En Transaccion de SALDO\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+			
+			
+			
+		}catch(SQLException e) {
+				System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+		}
+	}
+	
 	
 	
     }//GEN-LAST:event_jButton2ActionPerformed
