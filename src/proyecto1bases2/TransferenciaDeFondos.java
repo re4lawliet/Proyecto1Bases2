@@ -5,12 +5,15 @@
  */
 package proyecto1bases2;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -28,6 +31,8 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
 	 */
 	public TransferenciaDeFondos() {
 		initComponents();
+                ComboOrigen.setModel(new DefaultComboBoxModel(combo_Cuentas()));
+                ComboDestino.setModel(new DefaultComboBoxModel(combo_Cuentas()));
 	}
 
 	/**
@@ -40,12 +45,12 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        CajaCuentaOrigen = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         CajaCantidad = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        CajaCuentaDestino = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        ComboOrigen = new javax.swing.JComboBox();
+        ComboDestino = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,12 +69,16 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
 
         jLabel5.setText("Numero de Cuenta Destino:");
 
-        jButton2.setText("Realizar Trnsferencia");
+        jButton2.setText("Realizar Transferencia");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        ComboOrigen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        ComboDestino.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,25 +88,26 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CajaCuentaOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CajaCantidad))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CajaCuentaDestino)))
-                        .addGap(0, 19, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5))
+                                .addGap(24, 24, 24)
+                                .addComponent(ComboDestino, 0, 458, Short.MAX_VALUE)
+                                .addGap(90, 90, 90)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(130, 130, 130)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ComboOrigen, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CajaCantidad))
+                        .addGap(102, 102, 102))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
@@ -110,10 +120,10 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jButton1))
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(CajaCuentaOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ComboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -121,10 +131,10 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(CajaCuentaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ComboDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -135,7 +145,33 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
 		Inicio.menu_rp.setVisible(true);
 		this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+      public  Vector combo_Cuentas(){
+        //llenar combobox1 de DPI de clientes
+        BaseDeDatos db = new BaseDeDatos();
+        Vector model = new Vector();
+        String consulta = "SELECT id_cuenta, codigo, nombre, estado from cuenta";
 
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            while(res.next()){
+                Cuenta p = new Cuenta();
+                p.id = res.getString("id_cuenta");
+                p.codigo = res.getString("codigo");
+                p.nombre = res.getString("nombre");
+                p.estado = res.getString("estado");
+                if(p.estado.equals("1"))
+                    model.addElement(p);
+            }
+         
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar cuentas\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+            
+        }
+          return model;
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Boton de Transferencia de Fondos
 		
@@ -143,8 +179,8 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
 	//Obteniendo Datos
 	String Usuario = Inicio.Session;
 	String Cantidad=CajaCantidad.getText();
-	String NumeroCuentaOrigen=CajaCuentaOrigen.getText();
-	String NumeroCuentaDestino=CajaCuentaDestino.getText();
+	String NumeroCuentaOrigen= ((Cuenta)ComboOrigen.getSelectedItem()).id;
+	String NumeroCuentaDestino=((Cuenta)ComboDestino.getSelectedItem()).id;
 	
 	Date objDate = new Date(); // Sistema actual La fecha y la hora se asignan a objDate 
 	String FechaHora=objDate.toString();
@@ -152,260 +188,39 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
 	String Terminal=Inicio.Terminal;
 	Boolean esCorrecto=true;
 	
-	if(v.esNumero(NumeroCuentaOrigen)){//----------------------------CUENTA ORIGEN
-		//revisar que la cuenta Exista
-		BaseDeDatos db = new BaseDeDatos();
-		String consulta = "SELECT * FROM CUENTA WHERE ID_CUENTA="+NumeroCuentaOrigen;
-		Boolean banderaCuenta=false;
-		try{
-			
-			Connection conn = db.conexion();
-			if (conn != null) {
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(consulta);
-				//datosCuenta=stmt.executeQuery(consulta);
-				while(rs.next()){
-					if(rs.getString("ID_CUENTA").equals(NumeroCuentaOrigen)){
-						banderaCuenta=true;
-						break;
-					}
-				}
-				
-			} else {
-					System.out.println("NO HAY CONEXION");
-			}
-			
-			if(banderaCuenta){
-				//Esta Bien La Cuenta revisar si esta activa
-				boolean banderaEstadoCuenta=false;
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(consulta);
-				//datosCuenta=stmt.executeQuery(consulta);
-				while(rs.next()){
-					if(rs.getString("ESTADO").equals("1")){
-						banderaEstadoCuenta=true;
-						break;
-					}
-				}
-
-				if(banderaEstadoCuenta){
-					//esta bien todo
-				}else{
-					JOptionPane.showMessageDialog(null, "El estado de la cuenta Origen es Cancelada o Bloqueada ","ERROR",JOptionPane.ERROR_MESSAGE);
-					esCorrecto=false;
-				}
-
-			}else{
-				JOptionPane.showMessageDialog(null, "El Numero de Cuenta Origen No Existe en la BD","ERROR",JOptionPane.ERROR_MESSAGE);
-				esCorrecto=false;
-			}
-			
-		}catch(Exception e){  
-			JOptionPane.showMessageDialog(rootPane, "Numero de Cuenta Origen Invalido No Existe Ese numero de Cuenta");
-		}	
-		
-	}else{
-	
-		JOptionPane.showMessageDialog(null, "El Numero de Cuenta Origen Debe Ser Numerico","ERROR",JOptionPane.ERROR_MESSAGE);
-		esCorrecto=false;
-	} 
-	
 	if(v.esNumero(Cantidad)){//----------------------------CANTIDAD
 	}else{
 		JOptionPane.showMessageDialog(null, "La CAntidad es Invalida","ERROR",JOptionPane.ERROR_MESSAGE);
 		esCorrecto=false;
 	}
-	
-	if(v.esNumero(NumeroCuentaDestino)){//----------------------------CUENTA DESTINO
-		//revisar que la cuenta Exista
-		BaseDeDatos db = new BaseDeDatos();
-		String consulta = "SELECT * FROM CUENTA WHERE ID_CUENTA="+NumeroCuentaDestino;
-		Boolean banderaCuenta=false;
-		try{
-			
-			Connection conn = db.conexion();
-			if (conn != null) {
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(consulta);
-				//datosCuenta=stmt.executeQuery(consulta);
-				while(rs.next()){
-					if(rs.getString("ID_CUENTA").equals(NumeroCuentaDestino)){
-						banderaCuenta=true;
-						break;
-					}
-				}
-				
-			} else {
-					System.out.println("NO HAY CONEXION");
-			}
-			
-			if(banderaCuenta){
-				//Esta Bien La Cuenta revisar si esta activa
-				boolean banderaEstadoCuenta=false;
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(consulta);
-				//datosCuenta=stmt.executeQuery(consulta);
-				while(rs.next()){
-					if(rs.getString("ESTADO").equals("1")){
-						banderaEstadoCuenta=true;
-						break;
-					}
-				}
-
-				if(banderaEstadoCuenta){
-					//esta bien todo
-				}else{
-					JOptionPane.showMessageDialog(null, "El estado de la cuenta Destino es Cancelada o Bloqueada ","ERROR",JOptionPane.ERROR_MESSAGE);
-					esCorrecto=false;
-				}
-
-			}else{
-				JOptionPane.showMessageDialog(null, "El Numero de Cuenta Destino No Existe en la BD","ERROR",JOptionPane.ERROR_MESSAGE);
-				esCorrecto=false;
-			}
-			
-		}catch(Exception e){  
-			JOptionPane.showMessageDialog(rootPane, "Numero de Cuenta Destino Invalido No Existe Ese numero de Cuenta");
-		}	
-		
-	}else{
-	
-		JOptionPane.showMessageDialog(null, "El Numero de Cuenta Destino Debe Ser Numerico","ERROR",JOptionPane.ERROR_MESSAGE);
-		esCorrecto=false;
-	} 
-	
-	
+        
+        
 	if(esCorrecto){
 		JOptionPane.showMessageDialog(rootPane, "CORRECTO TRANSACCION");
 		try{
 			
 			//-----------------------------------------Obteniendo Datos de La Cuenta Origen
 			BaseDeDatos db1 = new BaseDeDatos();
-			String consulta1 = "SELECT * FROM CUENTA WHERE ID_CUENTA="+NumeroCuentaOrigen;
+			
 			Connection connn = db1.conexion();
 			if (connn != null) {
-				Statement stmt = connn.createStatement();
-				datosCuentaOrigen= stmt.executeQuery(consulta1);
+				CallableStatement cst = connn.prepareCall("{call  p_transferencia_fondos(?,?,?,?)}");
+                                //create or replace PROCEDURE  p_transferencia_fondos(cantidad number, id_origen number,id_destino number,mensaje OUT VARCHAR2)
+                                cst.setDouble(1,Double.valueOf(Cantidad));
+                                System.out.println(NumeroCuentaOrigen);
+                                cst.setInt(2,Integer.valueOf(NumeroCuentaOrigen));
+                                cst.setInt(3,Integer.valueOf(NumeroCuentaDestino));
+                                cst.registerOutParameter(4, java.sql.Types.VARCHAR);
+                                
+                                cst.execute();
+                                
+                                String mensaje = cst.getString(4);
+                                System.out.println(mensaje);
+                                
 			}else{
 				System.out.println("NO HAY CONEXION");
 			}
-			//-----------------------------------------Obteniendo Datos de La Cuenta Destino
-			BaseDeDatos db2 = new BaseDeDatos();
-			String consulta2 = "SELECT * FROM CUENTA WHERE ID_CUENTA="+NumeroCuentaOrigen;
-			Connection connn2 = db2.conexion();
-			if (connn != null) {
-				Statement stmt = connn2.createStatement();
-				datosCuentaDestino= stmt.executeQuery(consulta2);
-			}else{
-				System.out.println("NO HAY CONEXION");
-			}
-			
-			//-----------------------------------------------------Origen
-			String saldoOrigen="";
-			String idCuentaOrigen="";
-			String idAgenciaOrigen="";
-			String idUsuarioOrigen="";
-			while(datosCuentaOrigen.next()){
-				saldoOrigen=datosCuentaOrigen.getString("SALDO");
-				idCuentaOrigen=datosCuentaOrigen.getString("ID_CUENTA");
-				idAgenciaOrigen=datosCuentaOrigen.getString("ID_AGENCIA");
-				idUsuarioOrigen=datosCuentaOrigen.getString("ID_USUARIO");
-			}
-			//-----------------------------------------------------Destino
-			String saldoDestino="";
-			String idCuentaDestino="";
-			String idAgenciaDestino="";
-			String idUsuarioDestino="";
-			while(datosCuentaDestino.next()){
-				saldoDestino=datosCuentaDestino.getString("SALDO");
-				idCuentaDestino=datosCuentaDestino.getString("ID_CUENTA");
-				idAgenciaDestino=datosCuentaDestino.getString("ID_AGENCIA");
-				idUsuarioDestino=datosCuentaDestino.getString("ID_USUARIO");
-			}
-			
-			
-			
-			int s_Origen=Integer.parseInt(saldoOrigen);
-			int s_Destino=Integer.parseInt(saldoDestino);
-			int cant=Integer.parseInt(Cantidad);
-			
-			if(cant>s_Origen){
-				JOptionPane.showMessageDialog(null, "Fondos Insuficientes en Cuenta De Origen","ERROR",JOptionPane.ERROR_MESSAGE);
-			}else{
 				
-				int restaOrigen=s_Origen-cant;
-				
-				//-----------------------------------------Insertando en Transaccion
-				BaseDeDatos bd = new BaseDeDatos();
-				Connection conn = bd.conexion();
-				if (conn != null) {
-					String query = "INSERT INTO TRANSACCION (FECHA, TIPO_TRANSACCION, TERMINAL, SALDO_INICIAL, VALOR, SALDO_FINAL, ID_AGENCIA, ID_USUARIO, ID_CUENTA)"
-								+ "VALUES('"+FechaHora+"','"+TipoTransaccion+"','"+Terminal+"','"+saldoOrigen+"','"+Cantidad+"','"+restaOrigen+"','"+idAgenciaOrigen+"','"+idUsuarioOrigen+"',"+idCuentaOrigen+")";
-					System.out.println(query);
-					Statement stmt = conn.createStatement();
-					int count = stmt.executeUpdate(query);
-					System.out.println(count + "filas fueron afectadas en TRANSACCION");
-
-
-				}else{
-					System.out.println("NO HAY CONEXION");
-				}
-				
-				//Restando de LA Origen
-				BaseDeDatos db = new BaseDeDatos();
-				String consulta = "UPDATE cuenta SET SALDO = '"+restaOrigen+"' where id_cuenta = "+idCuentaOrigen;
-				
-				try{
-					Connection conn2 = db.conexion();
-					Statement stmt = conn2.createStatement();
-					System.out.println(consulta);
-					int count = stmt.executeUpdate(consulta);
-					System.out.println(count + "filas fueron afectadas Cuenta");
-					//JOptionPane.showMessageDialog(rootPane, "Se Genero Deposito a Cuenta Origen"+idCuentaOrigen);
-					Inicio.menu_rp.setVisible(true);
-					this.dispose();
-				}catch(Exception e){
-					JOptionPane.showMessageDialog(null,"Error En Transaccion de SALDO\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
-				}
-				
-				int sumaDestino=s_Destino+cant;
-				
-				//-----------------------------------------Insertando en Transaccion
-				BaseDeDatos bd2 = new BaseDeDatos();
-				Connection conn2 = bd2.conexion();
-				if (conn != null) {
-					String query = "INSERT INTO TRANSACCION (FECHA, TIPO_TRANSACCION, TERMINAL, SALDO_INICIAL, VALOR, SALDO_FINAL, ID_AGENCIA, ID_USUARIO, ID_CUENTA)"
-								+ "VALUES('"+FechaHora+"','"+TipoTransaccion+"','"+Terminal+"','"+saldoDestino+"','"+Cantidad+"','"+sumaDestino+"','"+idAgenciaDestino+"','"+idUsuarioDestino+"',"+idCuentaDestino+")";
-					System.out.println(query);
-					Statement stmt = conn.createStatement();
-					int count = stmt.executeUpdate(query);
-					System.out.println(count + "filas fueron afectadas en TRANSACCION");
-
-
-				}else{
-					System.out.println("NO HAY CONEXION");
-				}
-				
-				//SUmar en Destino
-				BaseDeDatos db3 = new BaseDeDatos();
-				String consulta3 = "UPDATE cuenta SET SALDO = '"+sumaDestino+"' where id_cuenta = "+idCuentaDestino;
-				
-				try{
-					Connection conn3 = db3.conexion();
-					Statement stmt = conn3.createStatement();
-					System.out.println(consulta3);
-					int count = stmt.executeUpdate(consulta3);
-					System.out.println(count + "filas fueron afectadas Cuenta");
-					JOptionPane.showMessageDialog(rootPane, "Se Genero Deposito a Cuenta"+idCuentaDestino);
-					Inicio.menu_rp.setVisible(true);
-					this.dispose();
-				}catch(Exception e){
-					JOptionPane.showMessageDialog(null,"Error En Transaccion de SALDO\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
-				}
-				
-			}
-			
-			
 			
 		}catch(SQLException e) {
 				System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
@@ -453,8 +268,8 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CajaCantidad;
-    private javax.swing.JTextField CajaCuentaDestino;
-    private javax.swing.JTextField CajaCuentaOrigen;
+    private javax.swing.JComboBox ComboDestino;
+    private javax.swing.JComboBox ComboOrigen;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
