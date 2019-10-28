@@ -30,6 +30,13 @@ public class Validaciones {
 		Matcher m = r.matcher(cadena);
 		return m.matches();
 	}
+        
+        public boolean esDecimal(String cadena){
+		String patron = "[0-9]+\\.[0-9]+";
+		Pattern r = Pattern.compile(patron);
+		Matcher m = r.matcher(cadena);
+		return m.matches();
+	}
 	
 	public boolean entraEnLimite(String cadena, int limite){
 		
@@ -53,6 +60,13 @@ public class Validaciones {
 		return m.matches();
 	}
 	
+        public boolean esFecha(String cadena){
+		
+		String patron = "[0-9][0-9]/[0-9][0-9]/[0-9][0-9]";
+		Pattern r = Pattern.compile(patron);
+		Matcher m = r.matcher(cadena);
+		return m.matches();
+	}
 }
 
 

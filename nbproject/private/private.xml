@@ -3,21 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< Updated upstream
             <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/ABC_Usuario.java</file>
-            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/Cuentas.java</file>
-            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/Inicio.java</file>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/Cuenta.java</file>
-            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/ScriptBD.sql</file>
-=======
-=======
-            <file>file:/home/nowell/Documentos/ProyectosUsac/Proyecto1Bases2/src/proyecto1bases2/Agencia.java</file>
-            <file>file:/home/nowell/Documentos/ProyectosUsac/Proyecto1Bases2/src/proyecto1bases2/ABC_Bancos.java</file>
-            <file>file:/home/nowell/Documentos/ProyectosUsac/Proyecto1Bases2/src/proyecto1bases2/Cuentas.java</file>
-            <file>file:/home/nowell/Documentos/ProyectosUsac/Proyecto1Bases2/src/proyecto1bases2/ABC_Agencia.java</file>
->>>>>>> Stashed changes
->>>>>>> 558d79524dba95c7baec9fc82ca3d560ee05ac50
+            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/Validaciones.java</file>
+            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/PagoDeCheques.java</file>
+            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/MenuReceptorPagador.java</file>
         </group>
     </open-files>
 </project-private>
