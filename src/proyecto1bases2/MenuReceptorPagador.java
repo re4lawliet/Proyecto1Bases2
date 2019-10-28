@@ -58,6 +58,11 @@ public class MenuReceptorPagador extends javax.swing.JFrame {
         });
 
         jButton4.setText("Transferencia de Fondos");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         BotonCerrar.setText("Cerrar Sesion");
         BotonCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +143,13 @@ public class MenuReceptorPagador extends javax.swing.JFrame {
         u.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        TransferenciaDeFondos u=new TransferenciaDeFondos();
+		u.setLocationRelativeTo(null);
+		u.setVisible(true);
+		this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 	/**
 	 * @param args the command line arguments
