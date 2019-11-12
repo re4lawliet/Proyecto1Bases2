@@ -5,8 +5,10 @@
  */
 package proyecto1bases2;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
@@ -64,6 +66,16 @@ public class PagoDeCheques extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Cheque"));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Pagar en Efectivo", "Pagar con Deposito" }));
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseClicked(evt);
+            }
+        });
 
         try {
             jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/##")));
@@ -239,39 +251,82 @@ public class PagoDeCheques extends javax.swing.JFrame {
         //VALIDACION DE CAMPOS
         Validaciones v = new Validaciones();
         boolean todoCorrecto = true;
-        if(!v.esNumero(jTextField2.getText())){
+        if(!v.esNumero(jTextField2.getText())){//numero de cuenta numerico
             todoCorrecto = false;
         }
-        if(!v.esNumero(jTextField1.getText())){
+        if(!v.esNumero(jTextField1.getText())){//numero cheque numerico
             todoCorrecto = false;
         }
-        if(!v.esFecha(jFormattedTextField1.getText())){
+        if(!v.esFecha(jFormattedTextField1.getText())){//fecha correcta
             todoCorrecto = false;
         }
-        if(!v.esDecimal(jTextField4.getText())||!v.esNumero(jTextField4.getText())){
+        if(v.esDecimal(jTextField4.getText()) || v.esNumero(jTextField4.getText())){//cantidad entera o decimal
+            todoCorrecto = true;
+        }else{
             todoCorrecto = false;
         }
         
-        if(jComboBox1.getSelectedIndex()==1){
-            //PAGAR EN EFECTIVO
-            jTextField5.setEnabled(true);
-            jTextField6.setEnabled(false);
-            jTextField7.setEnabled(false);
-        }else if(jComboBox1.getSelectedIndex()==2){
-            //PAGAR CON DEPOSITO
-            jTextField5.setEnabled(false);
-        }else{
+        if(jComboBox1.getSelectedIndex()==0){
             todoCorrecto=false;
         }
         
-        if(!v.esNumero(jTextField5.getText())){
-            todoCorrecto = false;
+        if(!jTextField5.getText().equals("")){
+            if(!v.esNumero(jTextField5.getText())){//cuenta de receptor numerica
+                todoCorrecto = false;
+            }
         }
-        if(!v.esNumero(jTextField6.getText())){
-            todoCorrecto = false;
+        
+        if(!jTextField6.getText().equals("")){
+            if(!v.esNumero(jTextField6.getText())){//dpi receptor numerico
+                todoCorrecto = false;
+            }
         }
-        if(!v.esAlfanumerico(jTextField7.getText())){
-            todoCorrecto = false;
+        
+        if(!jTextField7.getText().equals("")){
+            if(!v.esAlfanumerico(jTextField7.getText())){//nombre receptor alfanumerico
+                todoCorrecto = false;
+            }
+        }
+        
+        
+        
+        if(todoCorrecto){
+            String cuenta = jTextField2.getText();
+            String cheque = jTextField1.getText();
+            String fecha = jFormattedTextField1.getText();
+            String cantidad = jTextField4.getText();
+            String dpiR = jTextField6.getText();
+            String nombreR = jTextField7.getText();
+            
+            try{
+                BaseDeDatos db = new BaseDeDatos();
+                Connection con = db.conexion();
+                
+                if (con != null) {
+                    //preparando llamada
+                    CallableStatement cst = con.prepareCall("{call  pago_cheque_efectivo(?,?,?,?,?,?,?)}");
+                    //agregando parametros(indice_parametro,valor)
+                    cst.setInt(1,Integer.valueOf(cuenta));
+                    cst.setInt(2,Integer.valueOf(cheque));
+                    cst.setString(3,String.valueOf(fecha));
+                    cst.setString(4,String.valueOf(cantidad));
+                    cst.setString(5,String.valueOf(dpiR));
+                    cst.setString(6,String.valueOf(nombreR));
+                    cst.registerOutParameter(7, java.sql.Types.VARCHAR);
+
+                    cst.execute();
+
+                    String mensaje = cst.getString(7);
+                    System.out.println(mensaje);
+
+                }else{
+                        System.out.println("NO HAY CONEXION");
+                }
+                
+            }catch(SQLException e) {
+                System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+            }
+            
         }
         
         
@@ -281,6 +336,24 @@ public class PagoDeCheques extends javax.swing.JFrame {
         Inicio.menu_rp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1MouseClicked
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        if(jComboBox1.getSelectedIndex()==1){
+            //PAGAR EN EFECTIVO
+            jTextField5.setEnabled(false);
+            jTextField6.setEnabled(true);
+            jTextField7.setEnabled(true);
+        }else if(jComboBox1.getSelectedIndex()==2){
+            //PAGAR CON DEPOSITO
+            jTextField5.setEnabled(true);
+            jTextField6.setEnabled(false);
+            jTextField7.setEnabled(false);
+        }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     
     public void combo_Banco(){
