@@ -461,30 +461,32 @@ public class Cuentas extends javax.swing.JFrame {
         int tamanio = Integer.parseInt(jComboBox7.getSelectedItem().toString());
         //crear chequera
         BaseDeDatos db = new BaseDeDatos();
-        String consulta = "INSERT INTO chequera (id_cuenta, inicia, termina, tamanio) values ("+id_cuenta+",1,"+tamanio+","+tamanio+")";
-        try{
-            Connection conn = db.conexion();
-            Statement stmt = conn.createStatement();
-            System.out.println(consulta);
-            int count = stmt.executeUpdate(consulta);
-            System.out.println(count + "filas fueron afectadas");
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Error al llenar usuarios\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
-        }
+        
+        String consulta;
+        //String consulta = "INSERT INTO chequera (id_cuenta, inicia, termina, tamanio) values ("+id_cuenta+",1,"+tamanio+","+tamanio+")";
+//        try{
+//            Connection conn = db.conexion();
+//            Statement stmt = conn.createStatement();
+//            System.out.println(consulta);
+//            int count = stmt.executeUpdate(consulta);
+//            System.out.println(count + "filas fueron afectadas");
+//        }catch(Exception e){
+//            JOptionPane.showMessageDialog(null,"Error al llenar usuarios\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+//        }
         
         //obtener id chequera
-        consulta = "select max(id_chequera) as id from chequera where id_cuenta = "+id_cuenta;
-        String id ="";
-        try{
-            Connection conn = db.conexion();
-            Statement stmt = conn.createStatement();
-            ResultSet res = stmt.executeQuery(consulta);
-            while(res.next()){
-                id = res.getString("id");
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Error al llenar usuarios\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
-        }
+//        consulta = "select max(id_chequera) as id from chequera where id_cuenta = "+id_cuenta;
+//        String id ="";
+//        try{
+//            Connection conn = db.conexion();
+//            Statement stmt = conn.createStatement();
+//            ResultSet res = stmt.executeQuery(consulta);
+//            while(res.next()){
+//                id = res.getString("id");
+//            }
+//        }catch(Exception e){
+//            JOptionPane.showMessageDialog(null,"Error al llenar usuarios\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+//        }
         //crear todos los cheques
         consulta = "";
         
@@ -492,7 +494,7 @@ public class Cuentas extends javax.swing.JFrame {
             Connection conn = db.conexion();
             Statement stmt = conn.createStatement();
             for (int i = 1; i <=tamanio; i++) {
-                consulta = "INSERT INTO cheque (id_cuenta, id_chequera, num_cheque, fecha, pagado_a, monto, estado) values ("+id_cuenta+","+id+",'"+i+"','nada','nada','nada',0)";
+                consulta = "INSERT INTO cheque (id_cuenta, num_cheque, fecha, dpi_receptor, nombre_receptor, monto, estado) values ("+id_cuenta+",'"+i+"','nada','nada','nada','nada',0)";
                 System.out.println(consulta);
                 int count = stmt.executeUpdate(consulta);
                 System.out.println(count + "filas fueron afectadas");
