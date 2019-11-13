@@ -103,6 +103,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Clientes Con Mayores Depositos en Agencia"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Reporte3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Reporte4">
       <Properties>
