@@ -97,17 +97,17 @@ ALTER TABLE cheque
 
 CREATE TABLE transaccion (
     id_transaccion           INTEGER NOT NULL,
-    fecha		            VARCHAR2(4000) NOT NULL,
-    tipo_transaccion         VARCHAR2(4000) NOT NULL,
-    terminal                    VARCHAR2(4000) NOT NULL,
+    fecha		     VARCHAR2(4000) NOT NULL,
+    tipo_transaccion         VARCHAR2(4000) NOT NULL, --transferencia=1 , deposito=2
+    terminal                 VARCHAR2(4000) NOT NULL,
 
-    saldo_inicial               VARCHAR2(4000) NOT NULL,
-    valor                         VARCHAR2(4000) NOT NULL,
-    saldo_final                VARCHAR2(4000),
+    saldo_inicial            VARCHAR2(4000) NOT NULL,
+    valor                    VARCHAR2(4000) NOT NULL,
+    saldo_final              VARCHAR2(4000),
 
-    id_agencia          INTEGER NOT NULL,
-    id_usuario          INTEGER NOT NULL,
-    id_cuenta           INTEGER NOT NULL
+    id_agencia              INTEGER NOT NULL,
+    id_usuario              INTEGER NOT NULL,
+    id_cuenta               INTEGER NOT NULL
 );
 
 ALTER TABLE transaccion ADD CONSTRAINT transaccion_pk PRIMARY KEY ( id_transaccion );

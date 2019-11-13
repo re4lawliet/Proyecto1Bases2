@@ -10,6 +10,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -18,8 +22,12 @@ import javax.swing.JOptionPane;
  *
  * @author Haldamir
  */
+
 public class PagoDeCheques extends javax.swing.JFrame {
 
+    public DateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+    public Date date = new Date();
+    Session sesion = new Session();
     /**
      * Creates new form PagoDeCheques
      */
@@ -297,14 +305,15 @@ public class PagoDeCheques extends javax.swing.JFrame {
             String cantidad = jTextField4.getText();
             String dpiR = jTextField6.getText();
             String nombreR = jTextField7.getText();
-            
+            String idAgencia = sesion.idAgencia;
+            String idUsuario = sesion.idUsuario;
             try{
                 BaseDeDatos db = new BaseDeDatos();
                 Connection con = db.conexion();
-                
+                String fechaTrans = sdf.format(date);
                 if (con != null) {
                     //preparando llamada
-                    CallableStatement cst = con.prepareCall("{call  pago_cheque_efectivo(?,?,?,?,?,?,?)}");
+                    CallableStatement cst = con.prepareCall("{call  pago_cheque_efectivo(?,?,?,?,?,?,?,?,?,?)}");
                     //agregando parametros(indice_parametro,valor)
                     cst.setInt(1,Integer.valueOf(cuenta));
                     cst.setInt(2,Integer.valueOf(cheque));
@@ -312,13 +321,15 @@ public class PagoDeCheques extends javax.swing.JFrame {
                     cst.setString(4,String.valueOf(cantidad));
                     cst.setString(5,String.valueOf(dpiR));
                     cst.setString(6,String.valueOf(nombreR));
-                    cst.registerOutParameter(7, java.sql.Types.VARCHAR);
-
+                    cst.setString(7,String.valueOf(fechaTrans));
+                    cst.setString(8,String.valueOf(idAgencia));
+                    cst.setString(9,String.valueOf(idUsuario));
+                    cst.registerOutParameter(10, java.sql.Types.VARCHAR);
                     cst.execute();
-
-                    String mensaje = cst.getString(7);
+                    String mensaje = cst.getString(10);
                     System.out.println(mensaje);
-
+                    
+                    limpiarCampos();
                 }else{
                         System.out.println("NO HAY CONEXION");
                 }
@@ -328,10 +339,9 @@ public class PagoDeCheques extends javax.swing.JFrame {
             }
             
         }
-        
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Inicio.menu_rp.setVisible(true);
         this.dispose();
@@ -378,7 +388,15 @@ public class PagoDeCheques extends javax.swing.JFrame {
     
     
     
-    
+    public void limpiarCampos(){
+        jTextField2.setText("");
+        jTextField1.setText("");
+        jFormattedTextField1.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField7.setText("");
+    }
     
     
     

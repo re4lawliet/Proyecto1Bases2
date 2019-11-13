@@ -136,55 +136,60 @@ public class Inicio extends javax.swing.JFrame {
 	}else if(!user.equals("admin")  && !pass.equals("admin")){
 		
 		BaseDeDatos db = new BaseDeDatos();
-		String[] columnNames = {"ID","USUARIO","NOMBRE","DPI","CORREO","ROL","AGENCIA"};
-		Object[][] dataVacia = {};
-		DefaultTableModel modelo = new DefaultTableModel(dataVacia, columnNames);
 		String consulta = "SELECT * FROM USUARIO";
 		Boolean banderaLog1=false;
                 Boolean Auditor = false;
 		Boolean Gerencia = false;
+                Session sesion = new Session();
 		try{
-			Connection conn = db.conexion();
-			if (conn != null) {
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery(consulta);
-					while(rs.next()){
-						if(rs.getString("NOMBRE_USUARIO").equals(user)&&rs.getString("CONTRASENIA").equals(pass)&&rs.getString("ROL").equals("Receptor/Pagador")){
-							banderaLog1=true;
-							break;
-						}else if(rs.getString("NOMBRE_USUARIO").equals(user)&&rs.getString("CONTRASENIA").equals(pass)&&rs.getString("ROL").equals("Auditor")){
-							Auditor=true;
-							break;
-                                                }else if(rs.getString("NOMBRE_USUARIO").equals(user)&&rs.getString("CONTRASENIA").equals(pass)&&rs.getString("ROL").equals("Gerente de Agencia")){
-							Gerencia=true;
-							break;					}
-						}
-			} else {
-					System.out.println("NO HAY CONEXION");
-			}
-			
-			if(banderaLog1){//Lanza Receptor Pagador
-				Session=user;
-				menu_rp = new MenuReceptorPagador();
-				menu_rp.setLocationRelativeTo(null);
-				menu_rp.setVisible(true);
-				this.dispose();
-				
-			}else if(Auditor){
-                            Session=user;
-				menu_au = new MenuAuditor();
-				menu_au.setLocationRelativeTo(null);
-				menu_au.setVisible(true);
-				this.dispose();
-			}else if(Gerencia){
-				Session=user;
-				menu_ge = new MenuGerente();
-				menu_ge.setLocationRelativeTo(null);
-				menu_ge.setVisible(true);
-				this.dispose();
-                        }else{
-				JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña invalidos");
-			}
+                    Connection conn = db.conexion();
+                    if (conn != null) {
+                        Statement stmt = conn.createStatement();
+                        ResultSet rs = stmt.executeQuery(consulta);
+                        while(rs.next()){
+                            if(rs.getString("NOMBRE_USUARIO").equals(user)&&rs.getString("CONTRASENIA").equals(pass)&&rs.getString("ROL").equals("Receptor/Pagador")){
+                                sesion.idUsuario = rs.getString("ID_USUARIO");
+                                sesion.idAgencia = rs.getString("AGENCIA_ID_AGENCIA");
+                                banderaLog1=true;
+                                break;
+                            }else if(rs.getString("NOMBRE_USUARIO").equals(user)&&rs.getString("CONTRASENIA").equals(pass)&&rs.getString("ROL").equals("Auditor")){
+                                sesion.idUsuario = rs.getString("ID_USUARIO");
+                                sesion.idAgencia = rs.getString("AGENCIA_ID_AGENCIA");
+                                Auditor=true;
+                                break;
+                            }else if(rs.getString("NOMBRE_USUARIO").equals(user)&&rs.getString("CONTRASENIA").equals(pass)&&rs.getString("ROL").equals("Gerente de Agencia")){
+                                sesion.idUsuario = rs.getString("ID_USUARIO");
+                                sesion.idAgencia = rs.getString("AGENCIA_ID_AGENCIA");
+                                Gerencia=true;
+                                break;					
+                            }
+                        }
+                    }else{
+                        System.out.println("NO HAY CONEXION");
+                    }
+
+                    if(banderaLog1){//Lanza Receptor Pagador
+                        Session=user;
+                        menu_rp = new MenuReceptorPagador();
+                        menu_rp.setLocationRelativeTo(null);
+                        menu_rp.setVisible(true);
+                        this.dispose();
+
+                    }else if(Auditor){
+                        Session=user;
+                        menu_au = new MenuAuditor();
+                        menu_au.setLocationRelativeTo(null);
+                        menu_au.setVisible(true);
+                        this.dispose();
+                    }else if(Gerencia){
+                        Session=user;
+                        menu_ge = new MenuGerente();
+                        menu_ge.setLocationRelativeTo(null);
+                        menu_ge.setVisible(true);
+                        this.dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña invalidos");
+                    }
 			
 		}catch(Exception e){  
 			JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña invalidos");
