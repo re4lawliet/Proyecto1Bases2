@@ -85,6 +85,11 @@ public class MenuGerente extends javax.swing.JFrame {
         Reporte4.setText("Clientes Con Mayor pago de Cheques");
 
         Reporte5.setText("Clientes que nunca an Depositado en Agencia");
+        Reporte5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Reporte5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -343,6 +348,14 @@ public class MenuGerente extends javax.swing.JFrame {
 		frame.setVisible(true);
 		
     }//GEN-LAST:event_Reporte3ActionPerformed
+
+    private void Reporte5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reporte5ActionPerformed
+        // TODO add your handling code here:
+		
+		Reporte5 r= new Reporte5();
+		r.setVisible(true);
+		
+    }//GEN-LAST:event_Reporte5ActionPerformed
 
 	/**
 	 * @param args the command line arguments

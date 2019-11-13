@@ -116,6 +116,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Clientes que nunca an Depositado en Agencia"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Reporte5ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
