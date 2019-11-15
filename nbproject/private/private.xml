@@ -3,25 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-            <file>file:/Users/carlosmonterroso/NetBeansProjects/Proyecto1Bases2/src/proyecto1bases2/procedimientoTrasnferencia.sql</file>
-            <file>file:/Users/carlosmonterroso/NetBeansProjects/Proyecto1Bases2/src/proyecto1bases2/BaseDeDatos.java</file>
-            <file>file:/Users/carlosmonterroso/NetBeansProjects/Proyecto1Bases2/src/proyecto1bases2/DepositoMonetario.java</file>
-            <file>file:/Users/carlosmonterroso/NetBeansProjects/Proyecto1Bases2/src/proyecto1bases2/TransferenciaDeFondos.java</file>
-=======
-            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/ABC_Usuario.java</file>
->>>>>>> 93a617dcab447cd86d1ac29ce1fe749f7d6168dc
             <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/Inicio.java</file>
-            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/Banco.java</file>
-            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/Validaciones.java</file>
+            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/procedimientoTrasnferencia.sql</file>
             <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/PagoDeCheques.java</file>
-<<<<<<< HEAD
-=======
-            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/MenuReceptorPagador.java</file>
->>>>>>> c1e8c34d46b7b28447e76176910ec319c415af99
->>>>>>> 93a617dcab447cd86d1ac29ce1fe749f7d6168dc
+            <file>file:/C:/Users/Haldamir/Documents/NetBeansProjects/1GIT/Proyecto1Bases2/src/proyecto1bases2/ScriptBD.sql</file>
         </group>
     </open-files>
 </project-private>
