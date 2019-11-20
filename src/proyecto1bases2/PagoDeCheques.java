@@ -66,6 +66,7 @@ public class PagoDeCheques extends javax.swing.JFrame {
         jTextField6 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -131,7 +132,7 @@ public class PagoDeCheques extends javax.swing.JFrame {
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jLabel9))
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,6 +172,13 @@ public class PagoDeCheques extends javax.swing.JFrame {
 
         jLabel8.setText("Nombre");
 
+        jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -187,7 +195,9 @@ public class PagoDeCheques extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField5)
                             .addComponent(jTextField6)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))))
+                            .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -196,7 +206,8 @@ public class PagoDeCheques extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -229,14 +240,14 @@ public class PagoDeCheques extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(53, 53, 53)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 205, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,44 +310,88 @@ public class PagoDeCheques extends javax.swing.JFrame {
         
         
         if(todoCorrecto){
-            String cuenta = jTextField2.getText();
-            String cheque = jTextField1.getText();
-            String fecha = jFormattedTextField1.getText();
-            String cantidad = jTextField4.getText();
-            String dpiR = jTextField6.getText();
-            String nombreR = jTextField7.getText();
-            String idAgencia = sesion.idAgencia;
-            String idUsuario = sesion.idUsuario;
-            try{
-                BaseDeDatos db = new BaseDeDatos();
-                Connection con = db.conexion();
-                String fechaTrans = sdf.format(date);
-                if (con != null) {
-                    //preparando llamada
-                    CallableStatement cst = con.prepareCall("{call  pago_cheque_efectivo(?,?,?,?,?,?,?,?,?,?)}");
-                    //agregando parametros(indice_parametro,valor)
-                    cst.setInt(1,Integer.valueOf(cuenta));
-                    cst.setInt(2,Integer.valueOf(cheque));
-                    cst.setString(3,String.valueOf(fecha));
-                    cst.setString(4,String.valueOf(cantidad));
-                    cst.setString(5,String.valueOf(dpiR));
-                    cst.setString(6,String.valueOf(nombreR));
-                    cst.setString(7,String.valueOf(fechaTrans));
-                    cst.setString(8,String.valueOf(idAgencia));
-                    cst.setString(9,String.valueOf(idUsuario));
-                    cst.registerOutParameter(10, java.sql.Types.VARCHAR);
-                    cst.execute();
-                    String mensaje = cst.getString(10);
-                    System.out.println(mensaje);
-                    
-                    limpiarCampos();
-                }else{
-                        System.out.println("NO HAY CONEXION");
+            if(jComboBox1.getSelectedIndex()==1){//PAGAR EN EFECTIVO
+                String cuenta = jTextField2.getText();
+                String cheque = jTextField1.getText();
+                String fecha = jFormattedTextField1.getText();
+                String cantidad = jTextField4.getText();
+                String dpiR = jTextField6.getText();
+                String nombreR = jTextField7.getText();
+                String idAgencia = sesion.idAgencia;
+                String idUsuario = sesion.idUsuario;
+                try{
+                    BaseDeDatos db = new BaseDeDatos();
+                    Connection con = db.conexion();
+                    String fechaTrans = sdf.format(date);
+                    if (con != null) {
+                        //preparando llamada
+                        CallableStatement cst = con.prepareCall("{call  pago_cheque_efectivo(?,?,?,?,?,?,?,?,?,?)}");
+                        //agregando parametros(indice_parametro,valor)
+                        cst.setInt(1,Integer.valueOf(cuenta));
+                        cst.setInt(2,Integer.valueOf(cheque));
+                        cst.setString(3,String.valueOf(fecha));
+                        cst.setString(4,String.valueOf(cantidad));
+                        cst.setString(5,String.valueOf(dpiR));
+                        cst.setString(6,String.valueOf(nombreR));
+                        cst.setString(7,String.valueOf(fechaTrans));
+                        cst.setString(8,String.valueOf(idAgencia));
+                        cst.setString(9,String.valueOf(idUsuario));
+                        cst.registerOutParameter(10, java.sql.Types.VARCHAR);
+                        cst.execute();
+                        String mensaje = cst.getString(10);
+                        System.out.println(mensaje);
+
+                        limpiarCampos();
+                    }else{
+                            System.out.println("NO HAY CONEXION");
+                    }
+
+                }catch(SQLException e) {
+                    System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
                 }
-                
-            }catch(SQLException e) {
-                System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+            }else if(jComboBox1.getSelectedIndex()==2){//COBRAR CHEQUE Y HACER DEPOSITO
+                String cuenta = jTextField2.getText();
+                String cheque = jTextField1.getText();
+                String fecha = jFormattedTextField1.getText();
+                String cantidad = jTextField4.getText();
+                String dpiR = jTextField6.getText();
+                String nombreR = jTextField7.getText();
+                String idAgencia = sesion.idAgencia;
+                String idUsuario = sesion.idUsuario;
+                String idCuentaR = jTextField5.getText();
+                try{
+                    BaseDeDatos db = new BaseDeDatos();
+                    Connection con = db.conexion();
+                    String fechaTrans = sdf.format(date);
+                    if (con != null) {
+                        //preparando llamada
+                        CallableStatement cst = con.prepareCall("{call  pago_cheque_deposito(?,?,?,?,?,?,?,?,?,?,?)}");
+                        //agregando parametros(indice_parametro,valor)
+                        cst.setInt(1,Integer.valueOf(cuenta));
+                        cst.setInt(2,Integer.valueOf(cheque));
+                        cst.setString(3,String.valueOf(fecha));
+                        cst.setString(4,String.valueOf(cantidad));
+                        cst.setString(5,String.valueOf(dpiR));
+                        cst.setString(6,String.valueOf(nombreR));
+                        cst.setString(7,String.valueOf(fechaTrans));
+                        cst.setString(8,String.valueOf(idAgencia));
+                        cst.setString(9,String.valueOf(idUsuario));
+                        cst.setInt(10,Integer.valueOf(idCuentaR));
+                        cst.registerOutParameter(11, java.sql.Types.VARCHAR);
+                        cst.execute();
+                        String mensaje = cst.getString(11);
+                        System.out.println(mensaje);
+
+                        limpiarCampos();
+                    }else{
+                            System.out.println("NO HAY CONEXION");
+                    }
+
+                }catch(SQLException e) {
+                    System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+                }
             }
+            
             
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -364,6 +419,25 @@ public class PagoDeCheques extends javax.swing.JFrame {
             jTextField7.setEnabled(false);
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        String cuenta = jTextField5.getText();
+        BaseDeDatos db = new BaseDeDatos();
+        String consulta = "SELECT c.id_cuenta, u.dpi, u.nombre_usuario FROM cuenta c, usuario u WHERE u.id_usuario = c.ID_USUARIO AND c.id_cuenta = " + cuenta;
+        try{
+            Connection con = db.conexion();
+            if (con != null){
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(consulta);
+                while(rs.next()){
+                    jTextField6.setText(rs.getString("dpi"));
+                    jTextField7.setText(rs.getString("nombre_usuario"));
+                }
+            }
+        }catch(Exception e){  
+            JOptionPane.showMessageDialog(rootPane, "Numero de cuenta no registrada");
+        } 
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     
     public void combo_Banco(){
@@ -438,6 +512,7 @@ public class PagoDeCheques extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
