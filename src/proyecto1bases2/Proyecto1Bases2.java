@@ -14,18 +14,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-
+import com.Cheques.*;
 
 public class Proyecto1Bases2 {
 	
 	public static Inicio i;
-
 	/**
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
 		//Test Conexion
-            
+ 
             int banderaConexion=0;
             BaseDeDatos bd = new BaseDeDatos();
 
