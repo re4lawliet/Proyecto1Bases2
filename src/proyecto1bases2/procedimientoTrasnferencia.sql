@@ -43,7 +43,7 @@ END;
 
 --PROCEDIMIENTO PARA HACER UN COBRO DE CHEQUE SI EL COBRADOR QUIERE EL DINERO EN EFECTIVO
 
-CREATE OR REPLACE PROCEDURE pago_cheque_efectivo(noCuenta IN INTEGER, noCheque IN INTEGER, fechaCheque IN VARCHAR2, montoCheque IN VARCHAR2, dpiReceptor IN VARCHAR2, nombreReceptor IN VARCHAR2, fechaTransaccion IN VARCHAR2, agencia IN INTEGER, usuario IN INTEGER, mensaje OUT varchar2)
+CREATE OR REPLACE PROCEDURE pago_cheque_efectivo(noCuenta IN INTEGER, noCheque IN INTEGER, fechaCheque IN VARCHAR2, montoCheque IN NUMBER, dpiReceptor IN VARCHAR2, nombreReceptor IN VARCHAR2, fechaTransaccion IN VARCHAR2, agencia IN INTEGER, usuario IN INTEGER, mensaje OUT varchar2)
 IS
     o_cuenta CUENTA%rowtype;
     o_cheque CHEQUE%rowtype;
