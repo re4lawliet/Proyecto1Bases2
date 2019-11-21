@@ -67,8 +67,6 @@ public class Cuentas extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jComboBox8 = new javax.swing.JComboBox<>();
-        jLabel12 = new javax.swing.JLabel();
-        jComboBox9 = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -287,8 +285,6 @@ public class Cuentas extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setText("Seleccione Chequera");
-
         jLabel13.setText("Ingrese el numero de Cheque");
 
         jLabel14.setText("Seleccione una accion");
@@ -309,23 +305,24 @@ public class Cuentas extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel14))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jComboBox10, javax.swing.GroupLayout.Alignment.LEADING, 0, 213, Short.MAX_VALUE)
-                            .addComponent(jComboBox9, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(44, 44, 44)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel14))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(123, 123, 123))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -337,8 +334,6 @@ public class Cuentas extends javax.swing.JFrame {
                     .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jComboBox9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -526,23 +521,7 @@ public class Cuentas extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox8ItemStateChanged
 
     private void jComboBox8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox8MouseClicked
-        String cuenta = ((Cuenta)jComboBox8.getSelectedItem()).getId();
         
-        BaseDeDatos db = new BaseDeDatos();
-        Vector model = new Vector();
-        String consulta = "SELECT id_chequera from chequera where id_cuenta = "+cuenta;
-
-        try{
-            Connection conn = db.conexion();
-            Statement stmt = conn.createStatement();
-            ResultSet res = stmt.executeQuery(consulta);
-            while(res.next()){
-                model.addElement(res.getString("id_chequera")); 
-            }
-            jComboBox9.setModel(new DefaultComboBoxModel(model));
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Error al llenar lista de chequeras\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
-        } 
     }//GEN-LAST:event_jComboBox8MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -552,12 +531,25 @@ public class Cuentas extends javax.swing.JFrame {
         }else if(jComboBox10.getSelectedIndex()==1){
             estado = 3;
         }
-        
+        boolean existe = true;
         String cuenta = ((Cuenta)jComboBox8.getSelectedItem()).getId();
-        String chequera = jComboBox9.getSelectedItem().toString();
+        //String chequera = jComboBox9.getSelectedItem().toString();
         String cheque = jTextField4.getText();
         BaseDeDatos db = new BaseDeDatos();
-        String consulta = "update cheque set estado = "+estado+" where id_cuenta = "+cuenta+" and id_chequera = "+chequera+ "and num_cheque = "+cheque;
+        String consulta = "select * from cheque where id_cuenta = "+cuenta+" and num_cheque = "+cheque;
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            if(res.next() == false){
+                JOptionPane.showMessageDialog(null, "Este cheque no existe en esta cuenta");
+                existe = false;
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar usuarios\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        if(existe){
+            consulta = "update cheque set estado = "+estado+" where id_cuenta = "+cuenta+" and num_cheque = "+cheque;
         try{
             Connection conn = db.conexion();
             Statement stmt = conn.createStatement();
@@ -567,6 +559,7 @@ public class Cuentas extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,"Error al llenar lista de chequeras\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
         } 
+        }
                 
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -731,11 +724,9 @@ public class Cuentas extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox6;
     private javax.swing.JComboBox<String> jComboBox7;
     private javax.swing.JComboBox<String> jComboBox8;
-    private javax.swing.JComboBox<String> jComboBox9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
