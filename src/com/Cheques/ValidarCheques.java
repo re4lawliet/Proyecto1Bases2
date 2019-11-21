@@ -46,6 +46,7 @@ public class ValidarCheques {
              BufferedReader br = new BufferedReader(fr);
              br.readLine();
              String linea = "";
+             escribir.println("BANCO|REFERENCIA|CUENTA|NO_CHEQUE|MONTO|RESPUESTA");
              while((linea = br.readLine()) != null)
              {                 
                  String[] arr = linea.replace('|',',').split(",");
