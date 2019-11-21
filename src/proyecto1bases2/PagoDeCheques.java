@@ -361,7 +361,7 @@ public class PagoDeCheques extends javax.swing.JFrame {
                             }
                         System.out.println(mensaje);
                         con.close();
-                       // limpiarCampos();
+                        limpiarCampos();
                     }else{
                             System.out.println("NO HAY CONEXION");
                     }
