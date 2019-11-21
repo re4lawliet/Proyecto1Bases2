@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.ArrayList;
 import proyecto1bases2.BaseDeDatos;
 
@@ -39,7 +40,7 @@ public class Compensacion implements Runnable {
         PrintWriter escribir = null;
         Archivo = new FileWriter("GENERADOS/OUT_"+String.valueOf(this.IdBanco)+"_"+String.valueOf(lote)+".txt");
         escribir = new PrintWriter(Archivo);
-        String sql = "SELECT * FROM CHEQUEC WHERE ESTADO = 0  BANCO ="+this.IdBanco;
+        String sql = "SELECT * FROM CHEQUEC WHERE ESTADO = 0 AND BANCO ="+this.IdBanco;
                 BaseDeDatos db = new BaseDeDatos();
                 Connection con = db.conexion();
             if (con != null) {
@@ -52,9 +53,11 @@ public class Compensacion implements Runnable {
                     System.out.println("NO HAY CONEXION");
             }
              Archivo.close();
+             System.out.println("Termino sin errores");
         }catch(IOException | SQLException e){  
-           
+            System.out.println("SQL ERROR " + e.getMessage());
         } 
+    
     }
    /**
     * Metodo que escribe la compensacion de cada banco
@@ -82,7 +85,7 @@ public class Compensacion implements Runnable {
                 cadenaEscribir += datarow[0].toString() +"|";
                 cadenaEscribir += datarow[2].toString() +"|";
                 cadenaEscribir += datarow[3].toString() +"|";
-                cadenaEscribir += datarow[4].toString() +"|";
+                cadenaEscribir += datarow[4].toString() ;
                 escribir.println(cadenaEscribir);
             }
            }catch(SQLException e)
