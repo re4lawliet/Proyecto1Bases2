@@ -219,11 +219,13 @@ public class TransferenciaDeFondos extends javax.swing.JFrame {
                                 
 			}else{
 				System.out.println("NO HAY CONEXION");
+				JOptionPane.showMessageDialog(null, "No hay Conexion","ERROR",JOptionPane.ERROR_MESSAGE);
 			}
 				
 			
 		}catch(SQLException e) {
 				System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+				JOptionPane.showMessageDialog(null, "Sql Error","ERROR",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	

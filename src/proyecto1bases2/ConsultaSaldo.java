@@ -183,6 +183,7 @@ public class ConsultaSaldo extends javax.swing.JFrame {
 			
 		}catch (SQLException e) {
 			System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+			JOptionPane.showMessageDialog(null, "SQl Error","ERROR",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
