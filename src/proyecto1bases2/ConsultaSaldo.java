@@ -42,7 +42,11 @@ public class ConsultaSaldo extends javax.swing.JFrame {
         MostrarSaldo = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+<<<<<<< HEAD
         jLabel5 = new javax.swing.JLabel();
+=======
+        SaldoReserva = new javax.swing.JLabel();
+>>>>>>> 39c907744bed39a32656a491f634cd2da4070dd7
 
         jButton1.setText("jButton1");
 
@@ -72,7 +76,11 @@ public class ConsultaSaldo extends javax.swing.JFrame {
 
         jLabel4.setText("Saldo en Reserva: ");
 
+<<<<<<< HEAD
         jLabel5.setText("0.0");
+=======
+        SaldoReserva.setText("0.0");
+>>>>>>> 39c907744bed39a32656a491f634cd2da4070dd7
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,8 +103,13 @@ public class ConsultaSaldo extends javax.swing.JFrame {
                         .addComponent(CajaCuenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
+<<<<<<< HEAD
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)))
+=======
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SaldoReserva)))
+>>>>>>> 39c907744bed39a32656a491f634cd2da4070dd7
                 .addContainerGap(104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -119,8 +132,13 @@ public class ConsultaSaldo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
+<<<<<<< HEAD
                     .addComponent(jLabel5))
                 .addContainerGap(104, Short.MAX_VALUE))
+=======
+                    .addComponent(SaldoReserva))
+                .addContainerGap(106, Short.MAX_VALUE))
+>>>>>>> 39c907744bed39a32656a491f634cd2da4070dd7
         );
 
         pack();
@@ -189,6 +207,7 @@ public class ConsultaSaldo extends javax.swing.JFrame {
 				System.out.println("NO HAY CONEXION");
 			}
 			String saldo="0";
+<<<<<<< HEAD
                         String saldoc = "0.0";
 			while(datosCuenta.next()){
 				saldo=datosCuenta.getString("SALDO");
@@ -197,6 +216,16 @@ public class ConsultaSaldo extends javax.swing.JFrame {
 			
 			this.MostrarSaldo.setText(saldo);
                         this.jLabel1.setText(saldoc);
+=======
+			String SaldoR="0";
+			while(datosCuenta.next()){
+				saldo=datosCuenta.getString("SALDO");
+				SaldoR=datosCuenta.getString("SALDOC");
+			}
+			
+			this.MostrarSaldo.setText(saldo);
+			this.SaldoReserva.setText(SaldoR);
+>>>>>>> 39c907744bed39a32656a491f634cd2da4070dd7
 			
 		}catch (SQLException e) {
 			System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
@@ -246,12 +275,16 @@ public class ConsultaSaldo extends javax.swing.JFrame {
     private javax.swing.JButton BotonConsultaSaldo;
     private javax.swing.JTextField CajaCuenta;
     private javax.swing.JLabel MostrarSaldo;
+    private javax.swing.JLabel SaldoReserva;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+<<<<<<< HEAD
     private javax.swing.JLabel jLabel5;
+=======
+>>>>>>> 39c907744bed39a32656a491f634cd2da4070dd7
     // End of variables declaration//GEN-END:variables
 }
