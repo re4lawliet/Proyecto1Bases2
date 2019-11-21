@@ -219,7 +219,7 @@ public class MenuGerente extends javax.swing.JFrame {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		BaseDeDatos db = new BaseDeDatos();
 		Vector model = new Vector();
-		String consulta = "SELECT SUM(c.SALDO), a.NOMBRE_AGENCIA "
+		String consulta = "SELECT SUM(c.SALDO), SUM(c.SALDOC), a.NOMBRE_AGENCIA "
 				+ "from CUENTA c, AGENCIA a "
 				+ "WHERE c.ID_AGENCIA=a.ID_AGENCIA "
 				+ "GROUP BY c.ID_AGENCIA, a.NOMBRE_AGENCIA";
@@ -246,6 +246,10 @@ public class MenuGerente extends javax.swing.JFrame {
 				
 				String s=res2.getString("SUM(C.SALDO)");
 				double s1=Double.parseDouble(s);
+				
+				String sr=res2.getString("SUM(C.SALDOC)");
+				double sres=Double.parseDouble(sr);
+				
 				String a=res2.getString("NOMBRE_AGENCIA");
 				
 				double porcentaje=(s1*100)/(total);
@@ -253,8 +257,8 @@ public class MenuGerente extends javax.swing.JFrame {
 				String Cadena=a+": "+s1+" Q, "+porcentaje+ " %";
 				
 				dataset.setValue(s1, "Disponible", a);
-				dataset.setValue(0, "Reserva", a);
-				dataset.setValue(s1, "Real", a);
+				dataset.setValue(sres, "Reserva", a);
+				dataset.setValue(s1+sres, "Real", a);
 			}
 			
 		

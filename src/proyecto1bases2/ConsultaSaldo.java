@@ -41,6 +41,8 @@ public class ConsultaSaldo extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         MostrarSaldo = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        SaldoReserva = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -68,6 +70,10 @@ public class ConsultaSaldo extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Saldo en Reserva: ");
+
+        SaldoReserva.setText("0.0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,7 +92,11 @@ public class ConsultaSaldo extends javax.swing.JFrame {
                             .addComponent(BotonConsultaSaldo)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2))
-                        .addComponent(CajaCuenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(CajaCuenta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SaldoReserva)))
                 .addContainerGap(104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -106,7 +116,11 @@ public class ConsultaSaldo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(MostrarSaldo))
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(SaldoReserva))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,11 +189,14 @@ public class ConsultaSaldo extends javax.swing.JFrame {
 				System.out.println("NO HAY CONEXION");
 			}
 			String saldo="0";
+			String SaldoR="0";
 			while(datosCuenta.next()){
 				saldo=datosCuenta.getString("SALDO");
+				SaldoR=datosCuenta.getString("SALDOC");
 			}
 			
 			this.MostrarSaldo.setText(saldo);
+			this.SaldoReserva.setText(SaldoR);
 			
 		}catch (SQLException e) {
 			System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
@@ -229,10 +246,12 @@ public class ConsultaSaldo extends javax.swing.JFrame {
     private javax.swing.JButton BotonConsultaSaldo;
     private javax.swing.JTextField CajaCuenta;
     private javax.swing.JLabel MostrarSaldo;
+    private javax.swing.JLabel SaldoReserva;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

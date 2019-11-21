@@ -124,3 +124,9 @@ ALTER TABLE transaccion
     ADD CONSTRAINT transaccion_cuenta_fk FOREIGN KEY ( id_cuenta )
         REFERENCES cuenta ( id_cuenta );
 
+
+expdp system/oracle schemas=SYSTEM dumpfile=test.dmp
+cd /u01/app/oracle/admin/XE/dpdump
+
+sqlplus sys as sysdba
+
