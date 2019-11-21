@@ -105,6 +105,11 @@ public class PagoDeCheques extends javax.swing.JFrame {
         jLabel9.setText("Banco");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox2ItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -319,7 +324,57 @@ public class PagoDeCheques extends javax.swing.JFrame {
         
         
         if(todoCorrecto){
-            if(jComboBox1.getSelectedIndex()==1){//PAGAR EN EFECTIVO
+            if( ((Banco)jComboBox2.getSelectedItem()).getId() != 21 )
+            {
+                
+                String cuenta = jTextField2.getText();
+                String cheque = jTextField1.getText();
+                String fecha = jFormattedTextField1.getText();
+                String cantidad = jTextField4.getText();
+                String dpiR = jTextField6.getText();
+                String nombreR = jTextField7.getText();
+                String idAgencia = sesion.idAgencia;
+                String idUsuario = sesion.idUsuario;
+                String idCuentaR = jTextField5.getText();
+                 try{
+                    BaseDeDatos db = new BaseDeDatos();
+                    Connection con = db.conexion();
+                    String fechaTrans = sdf.format(date);
+                    if (con != null) {
+                        //preparando llamada
+                        CallableStatement cst = con.prepareCall("{call  insertarChequeOtroBanco(?,?,?,?,?,?,?,?,?)}");          
+                        cst.setInt(1,((Banco)jComboBox2.getSelectedItem()).getId());
+                        cst.setInt(2,Integer.valueOf(cuenta));
+                        cst.setString(3,String.valueOf(cheque));
+                        cst.setString(4,String.valueOf(cantidad));
+                        cst.registerOutParameter(5, java.sql.Types.VARCHAR);
+                        cst.setInt(6,Integer.valueOf(idCuentaR));
+                        cst.setInt(7,Integer.valueOf(idAgencia));
+                        cst.setInt(8,Integer.valueOf(idUsuario));
+                        cst.setString(9,fecha);
+                        cst.execute();
+                        String mensaje = cst.getString(5);
+                        if(mensaje != null)
+                            if(!mensaje.equals("OK"))
+                            {
+                                JOptionPane.showMessageDialog(rootPane, "Error: " + mensaje);
+                            }
+                        System.out.println(mensaje);
+                        con.close();
+                       // limpiarCampos();
+                    }else{
+                            System.out.println("NO HAY CONEXION");
+                    }
+
+                }catch(SQLException e) {
+                    System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+                }
+                
+                
+            }
+            else
+            {
+                if(jComboBox1.getSelectedIndex()==1){//PAGAR EN EFECTIVO
                 String cuenta = jTextField2.getText();
                 String cheque = jTextField1.getText();
                 String fecha = jFormattedTextField1.getText();
@@ -348,8 +403,9 @@ public class PagoDeCheques extends javax.swing.JFrame {
                         cst.registerOutParameter(10, java.sql.Types.VARCHAR);
                         cst.execute();
                         String mensaje = cst.getString(10);
+                         
                         System.out.println(mensaje);
-
+                        con.close();
                         limpiarCampos();
                     }else{
                             System.out.println("NO HAY CONEXION");
@@ -390,7 +446,7 @@ public class PagoDeCheques extends javax.swing.JFrame {
                         cst.execute();
                         String mensaje = cst.getString(11);
                         System.out.println(mensaje);
-
+                        con.close();
                         limpiarCampos();
                     }else{
                             System.out.println("NO HAY CONEXION");
@@ -402,6 +458,7 @@ public class PagoDeCheques extends javax.swing.JFrame {
             }
             
             
+           }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -447,6 +504,18 @@ public class PagoDeCheques extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Numero de cuenta no registrada");
         } 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+        // TODO add your handling code here:
+          if(((Banco)jComboBox2.getSelectedItem()).getId() != 21 )
+            {
+                jComboBox1.setSelectedIndex(2);
+                jComboBox1.setEnabled(false);
+            }else
+          {
+                jComboBox1.setEnabled(true);
+          }
+    }//GEN-LAST:event_jComboBox2ItemStateChanged
 
     
     public void combo_Banco(){
