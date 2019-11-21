@@ -40,7 +40,7 @@ public class ValidarCheques {
         try {
             FileWriter ArchivoE = null;
               PrintWriter escribir = null;
-             ArchivoE = new FileWriter("GENERADOS/"+this.archivo.getName().replace("OUT", "IN"));
+             ArchivoE = new FileWriter(this.archivo.getName().replace("OUT", "IN"));
             escribir = new PrintWriter(ArchivoE);
              FileReader fr = new FileReader(this.archivo);
              BufferedReader br = new BufferedReader(fr);
@@ -110,7 +110,7 @@ public class ValidarCheques {
                         System.out.println(mensaje);
                         con.close();
                         if(mensaje != null)
-                             return mensaje.equals("OK") ; 
+                             return mensaje.equals("Ok") ; 
                        
                     }else{
                             System.out.println("NO HAY CONEXION");
