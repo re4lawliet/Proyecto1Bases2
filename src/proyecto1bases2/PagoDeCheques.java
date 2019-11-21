@@ -405,6 +405,11 @@ public class PagoDeCheques extends javax.swing.JFrame {
                         String mensaje = cst.getString(10);
                          
                         System.out.println(mensaje);
+                        if(mensaje != null)
+                            if(!mensaje.equals("OK"))
+                            {
+                                JOptionPane.showMessageDialog(rootPane, "Error: " + mensaje);
+                            }
                         con.close();
                         limpiarCampos();
                     }else{
@@ -446,6 +451,11 @@ public class PagoDeCheques extends javax.swing.JFrame {
                         cst.execute();
                         String mensaje = cst.getString(11);
                         System.out.println(mensaje);
+                        if(mensaje != null)
+                            if(!mensaje.equals("OK"))
+                            {
+                                JOptionPane.showMessageDialog(rootPane, "Error: " + mensaje);
+                            }
                         con.close();
                         limpiarCampos();
                     }else{
