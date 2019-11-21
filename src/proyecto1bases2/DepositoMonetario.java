@@ -173,6 +173,7 @@ public class DepositoMonetario extends javax.swing.JFrame {
 					}
 				} else {
 						System.out.println("NO HAY CONEXION");
+						JOptionPane.showMessageDialog(null, "No hay Conexion","ERROR",JOptionPane.ERROR_MESSAGE);
 				}
 				
 				if(banderaCuenta){
@@ -230,6 +231,7 @@ public class DepositoMonetario extends javax.swing.JFrame {
 					}
 				} else {
 						System.out.println("NO HAY CONEXION");
+						JOptionPane.showMessageDialog(null, "No hay Conexion","ERROR",JOptionPane.ERROR_MESSAGE);
 				}
 				
 				if(banderaNombre){
@@ -260,6 +262,7 @@ public class DepositoMonetario extends javax.swing.JFrame {
 					datosCuenta= stmt.executeQuery(consulta1);
 				}else{
 					System.out.println("NO HAY CONEXION");
+					JOptionPane.showMessageDialog(null, "No Hay Conexion","ERROR",JOptionPane.ERROR_MESSAGE);
 				}
 				
 				
@@ -291,6 +294,7 @@ public class DepositoMonetario extends javax.swing.JFrame {
 					
 				}else{
 					System.out.println("NO HAY CONEXION");
+					JOptionPane.showMessageDialog(null, "No Hay Conexion","ERROR",JOptionPane.ERROR_MESSAGE);
 				}
 				
 				//llenar combobox1 de DPI de clientes
@@ -311,6 +315,7 @@ public class DepositoMonetario extends javax.swing.JFrame {
 				}
 			} catch (SQLException e) {
 					System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+					JOptionPane.showMessageDialog(null, "SQL ERROR","ERROR",JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		

@@ -437,9 +437,11 @@ public class Cuentas extends javax.swing.JFrame {
 					JOptionPane.showMessageDialog(rootPane, "Cuenta creada con exito");
                                 } else {
                                         System.out.println("NO HAY CONEXION");
+					JOptionPane.showMessageDialog(null, "No Hay Conexion","ERROR",JOptionPane.ERROR_MESSAGE);
                                 }
                             } catch (SQLException e) {
                                     System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+				JOptionPane.showMessageDialog(null, "SQL ERROR","ERROR",JOptionPane.ERROR_MESSAGE);
                             }
 			}
 			

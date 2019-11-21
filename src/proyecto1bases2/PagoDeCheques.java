@@ -277,17 +277,23 @@ public class PagoDeCheques extends javax.swing.JFrame {
         boolean todoCorrecto = true;
         if(!v.esNumero(jTextField2.getText())){//numero de cuenta numerico
             todoCorrecto = false;
+            JOptionPane.showMessageDialog(null, "Error, el numero de cuenta debe ser numerico");
         }
+        
+        
         if(!v.esNumero(jTextField1.getText())){//numero cheque numerico
             todoCorrecto = false;
+            JOptionPane.showMessageDialog(null, "Error, el numero de cheque debe ser numerico");
         }
         if(!v.esFecha(jFormattedTextField1.getText())){//fecha correcta
             todoCorrecto = false;
+            JOptionPane.showMessageDialog(null, "Error, formato de fecha incorrecto");
         }
         if(v.esDecimal(jTextField4.getText()) || v.esNumero(jTextField4.getText())){//cantidad entera o decimal
             todoCorrecto = true;
         }else{
             todoCorrecto = false;
+            JOptionPane.showMessageDialog(null, "Error, el monto debe ser entero o decimal");
         }
         
         if(jComboBox1.getSelectedIndex()==0){
@@ -297,18 +303,21 @@ public class PagoDeCheques extends javax.swing.JFrame {
         if(!jTextField5.getText().equals("")){
             if(!v.esNumero(jTextField5.getText())){//cuenta de receptor numerica
                 todoCorrecto = false;
+                JOptionPane.showMessageDialog(null, "Error, el numero de cuenta debe ser numerico");
             }
         }
         
         if(!jTextField6.getText().equals("")){
             if(!v.esNumero(jTextField6.getText())){//dpi receptor numerico
                 todoCorrecto = false;
+                JOptionPane.showMessageDialog(null, "Error, el DPI debe ser numerico");
             }
         }
         
         if(!jTextField7.getText().equals("")){
             if(!v.esAlfanumerico(jTextField7.getText())){//nombre receptor alfanumerico
                 todoCorrecto = false;
+                JOptionPane.showMessageDialog(null, "Error, el nombre del receptor debe ser numerico");
             }
         }
         
