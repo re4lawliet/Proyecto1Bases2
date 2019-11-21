@@ -24,6 +24,8 @@ public class Inicio extends javax.swing.JFrame {
 	public static MenuReceptorPagador menu_rp;
         public static MenuAuditor menu_au;
 	public static MenuGerente menu_ge;
+        public static MenuGrabador menu_gr;
+        public static MenuVisa menu_vi;
 	public static String Session="";
 	public static String Terminal="TerminaNo:";
 
@@ -140,6 +142,8 @@ public class Inicio extends javax.swing.JFrame {
 		Boolean banderaLog1=false;
                 Boolean Auditor = false;
 		Boolean Gerencia = false;
+                Boolean Grabador = false;
+                Boolean Visa = false;
                 Session sesion = new Session();
 		try{
                     Connection conn = db.conexion();
@@ -161,6 +165,16 @@ public class Inicio extends javax.swing.JFrame {
                                 sesion.idUsuario = rs.getString("ID_USUARIO");
                                 sesion.idAgencia = rs.getString("AGENCIA_ID_AGENCIA");
                                 Gerencia=true;
+                                break;					
+                            }else if(rs.getString("NOMBRE_USUARIO").equals(user)&&rs.getString("CONTRASENIA").equals(pass)&&rs.getString("ROL").equals("Grabador")){
+                                sesion.idUsuario = rs.getString("ID_USUARIO");
+                                sesion.idAgencia = rs.getString("AGENCIA_ID_AGENCIA");
+                                Grabador=true;
+                                break;					
+                            }else if(rs.getString("NOMBRE_USUARIO").equals(user)&&rs.getString("CONTRASENIA").equals(pass)&&rs.getString("ROL").equals("Visa")){
+                                sesion.idUsuario = rs.getString("ID_USUARIO");
+                                sesion.idAgencia = rs.getString("AGENCIA_ID_AGENCIA");
+                                Visa=true;
                                 break;					
                             }
                         }
@@ -186,6 +200,18 @@ public class Inicio extends javax.swing.JFrame {
                         menu_ge = new MenuGerente();
                         menu_ge.setLocationRelativeTo(null);
                         menu_ge.setVisible(true);
+                        this.dispose();
+                    }else if(Grabador){
+                        Session=user;
+                        menu_gr = new MenuGrabador();
+                        menu_gr.setLocationRelativeTo(null);
+                        menu_gr.setVisible(true);
+                        this.dispose();
+                    }else if(Visa){
+                        Session=user;
+                        menu_vi = new MenuVisa();
+                        menu_vi.setLocationRelativeTo(null);
+                        menu_vi.setVisible(true);
                         this.dispose();
                     }else{
                         JOptionPane.showMessageDialog(rootPane, "Usuario o Contraseña invalidos");

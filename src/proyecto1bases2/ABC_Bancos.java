@@ -68,6 +68,11 @@ public class ABC_Bancos extends javax.swing.JFrame {
         jLabel1.setText("ABC de BANCOS: ");
 
         BotonBuscar.setText("Buscar");
+        BotonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Ingrese el Nombre del Banco");
 
@@ -225,6 +230,40 @@ public class ABC_Bancos extends javax.swing.JFrame {
 		CajaNombre.setText(jTable1.getValueAt(fila, 1).toString());
         
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void BotonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBuscarActionPerformed
+            String id = CajaBuscar.getText();
+            Validaciones v = new Validaciones();
+            if(v.esAlfanumerico(id)){
+                String[] columnNames = {"ID","NOMBRE"};
+            Object[][] dataVacia = {};
+            DefaultTableModel modelo = new DefaultTableModel(dataVacia, columnNames);
+            try{
+                
+                
+                String consulta = "SELECT * FROM BANCO WHERE NOMBRE_BANCO = '" + id + "'";
+                BaseDeDatos db = new BaseDeDatos();
+                Connection conn = db.conexion();
+                if (conn != null) {
+                        Statement stmt = conn.createStatement();
+                        ResultSet rs = stmt.executeQuery(consulta);
+                        while(rs.next()){
+                            Object[] newRowData = {rs.getString("ID_BANCO"),rs.getString("NOMBRE_BANCO")};
+                            modelo.addRow(newRowData);
+                        }
+                } else {
+                        System.out.println("NO HAY CONEXION");
+                }
+            }catch(Exception e){  
+                JOptionPane.showMessageDialog(null,"Error al buscar banco \n"+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+            } 
+            jTable1.setModel(modelo);
+            }else{
+                JOptionPane.showMessageDialog(null, "ERROR, el Nombre debe ser Alfanumerico");
+            }
+                    
+            
+    }//GEN-LAST:event_BotonBuscarActionPerformed
 
 	
 	public void actualizarTablaBancos(){
