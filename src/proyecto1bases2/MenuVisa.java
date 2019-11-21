@@ -5,17 +5,32 @@
  */
 package proyecto1bases2;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Haldamir
  */
 public class MenuVisa extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuVisa
-     */
+    public DateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+    public Date date = new Date();
+    Session sesion = new Session();
     public MenuVisa() {
+        
         initComponents();
+        
+        combo_CuentasChequera();
     }
 
     /**
@@ -27,25 +42,576 @@ public class MenuVisa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jComboBox8 = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jComboBox10 = new javax.swing.JComboBox<>();
+        jButton5 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nota de Credito"));
+
+        jLabel1.setText("No. Cuenta");
+
+        jLabel2.setText("Monto de Credito");
+
+        jButton2.setText("Acreditar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(30, 30, 30)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(61, 61, 61)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+
+        jButton1.setText("Regresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nota de Debito"));
+
+        jLabel3.setText("Monto de Debito");
+
+        jLabel4.setText("No. Cuenta");
+
+        jButton3.setText("Debitar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(30, 30, 30)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(61, 61, 61)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(564, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta de Saldos"));
+
+        jLabel5.setText("No. Cuenta");
+
+        jButton4.setText("Consultar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Saldo real: ");
+
+        jLabel7.setText("0.0");
+
+        jLabel8.setText("Saldo en Reserva");
+
+        jLabel9.setText("0.0");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9))
+                .addGap(563, 563, 563))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Declarar Cheque Robado/Extraviado"));
+
+        jLabel11.setText("Seleccione una Cuenta");
+
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox8.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox8ItemStateChanged(evt);
+            }
+        });
+        jComboBox8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox8MouseClicked(evt);
+            }
+        });
+
+        jLabel13.setText("Ingrese el numero de Cheque");
+
+        jLabel14.setText("Seleccione una accion");
+
+        jComboBox10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desbloquear", "Bloquear" }));
+
+        jButton5.setText("Reportar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel14))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBox8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(123, 123, 123))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jComboBox10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Inicio i = new Inicio();
+        i.setLocationRelativeTo(null);
+        i.setVisible(true);
+	this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String cuenta = jTextField1.getText();
+        String monto = jTextField2.getText();
+        String fechaTrans = sdf.format(date);
+        String idAgencia = sesion.idAgencia;
+        String idUsuario = sesion.idUsuario;
+        Boolean existe = true;
+        //validar existencia
+        BaseDeDatos db = new BaseDeDatos();
+        String consulta = "select * from cuenta where id_cuenta = "+cuenta;
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            if(res.next() == false){
+                JOptionPane.showMessageDialog(null, "Esta cuenta no existe");
+                existe = false;
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al consultar\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if(existe){
+            //VALIDACION DE CAMPOS
+        Validaciones v = new Validaciones();
+        boolean todoCorrecto = true;
+        if(!v.esNumero(cuenta)){//numero de cuenta numerico
+            todoCorrecto = false;
+            JOptionPane.showMessageDialog(null, "Error, el numero de cuenta debe ser numerico");
+        }
+        if(v.esDecimal(monto) || v.esNumero(monto)){//cantidad entera o decimal
+            todoCorrecto = true;
+        }else{
+            todoCorrecto = false;
+            JOptionPane.showMessageDialog(null, "Error, el monto debe ser entero o decimal");
+        }
+        
+        if(todoCorrecto){
+            try{
+                    db = new BaseDeDatos();
+                    Connection con = db.conexion();
+                    if (con != null) {
+                        //preparando llamada
+                        CallableStatement cst = con.prepareCall("{call  notaCredito(?,?,?,?,?,?)}");
+                        //agregando parametros(indice_parametro,valor)
+                        cst.setInt(1,Integer.valueOf(cuenta));
+                        cst.setInt(2,Integer.valueOf(monto));
+                        cst.setString(3,String.valueOf(fechaTrans));
+                        cst.setString(4,String.valueOf(idAgencia));
+                        cst.setString(5,String.valueOf(idUsuario));
+                        cst.registerOutParameter(6, java.sql.Types.VARCHAR);
+                        cst.execute();
+                        String mensaje = cst.getString(6);
+                        System.out.println(mensaje);
+                        con.close();
+                        limpiarCampos();
+                    }else{
+                            System.out.println("NO HAY CONEXION");
+                    }
+
+                }catch(SQLException e) {
+                    System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+                }
+        }
+        }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Validaciones v = new Validaciones();
+        String cuenta = jTextField4.getText();
+        String monto = jTextField3.getText();
+        String fechaTrans = sdf.format(date);
+        String idAgencia = sesion.idAgencia;
+        String idUsuario = sesion.idUsuario;
+        
+        //VALIDACION DE CAMPOS
+        boolean todoCorrecto = true;
+        if(!v.esNumero(cuenta)){//numero de cuenta numerico
+            todoCorrecto = false;
+            JOptionPane.showMessageDialog(null, "Error, el numero de cuenta debe ser numerico");
+        }
+        if(v.esDecimal(monto) || v.esNumero(monto)){//cantidad entera o decimal
+            todoCorrecto = true;
+        }else{
+            todoCorrecto = false;
+            JOptionPane.showMessageDialog(null, "Error, el monto debe ser entero o decimal");
+        }
+        
+        
+        Boolean existe = true;
+        //validar existencia
+        BaseDeDatos db = new BaseDeDatos();
+        String consulta = "select * from cuenta where id_cuenta = "+cuenta;
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            if(res.next() == false){
+                JOptionPane.showMessageDialog(null, "Esta cuenta no existe");
+                existe = false;
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al consultar\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if(existe){
+        if(todoCorrecto){
+            try{
+                    db = new BaseDeDatos();
+                    Connection con = db.conexion();
+                    if (con != null) {
+                        //preparando llamada
+                        CallableStatement cst = con.prepareCall("{call  notaDebito(?,?,?,?,?,?)}");
+                        //agregando parametros(indice_parametro,valor)
+                        cst.setInt(1,Integer.valueOf(cuenta));
+                        cst.setInt(2,Integer.valueOf(monto));
+                        cst.setString(3,String.valueOf(fechaTrans));
+                        cst.setString(4,String.valueOf(idAgencia));
+                        cst.setString(5,String.valueOf(idUsuario));
+                        cst.registerOutParameter(6, java.sql.Types.VARCHAR);
+                        cst.execute();
+                        String mensaje = cst.getString(6);
+                        System.out.println(mensaje);
+                        con.close();
+                        limpiarCampos();
+                    }else{
+                            System.out.println("NO HAY CONEXION");
+                    }
+
+                }catch(SQLException e) {
+                    System.err.format("SQL Error : %s\n%s", e.getSQLState(), e.getMessage());
+                }
+        }
+        }
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Validaciones v = new Validaciones();
+        String cuenta = jTextField5.getText();
+        
+        //VALIDACION DE CAMPOS
+        boolean todoCorrecto = true;
+        if(!v.esNumero(cuenta)){//numero de cuenta numerico
+            todoCorrecto = false;
+            JOptionPane.showMessageDialog(null, "Error, el numero de cuenta debe ser numerico");
+        }
+        
+        if(todoCorrecto){
+            Boolean existe = true;
+            //validar existencia
+            BaseDeDatos db = new BaseDeDatos();
+            String consulta = "select * from cuenta where id_cuenta = "+cuenta;
+            try{
+                Connection conn = db.conexion();
+                Statement stmt = conn.createStatement();
+                ResultSet res = stmt.executeQuery(consulta);
+                if(res.next() == false){
+                    JOptionPane.showMessageDialog(null, "Esta cuenta no existe");
+                    existe = false;
+                }
+                
+                if(existe){
+                    res = stmt.executeQuery(consulta);
+                    while(res.next()){
+                        jLabel7.setText(res.getString("SALDO"));
+                        jLabel9.setText(res.getString("SALDOC"));
+                    }
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error al consultar\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jComboBox8ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox8ItemStateChanged
+
+    }//GEN-LAST:event_jComboBox8ItemStateChanged
+
+    private void jComboBox8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox8MouseClicked
+
+    }//GEN-LAST:event_jComboBox8MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        int estado = 0;
+        if(jComboBox10.getSelectedIndex()==0){
+            estado = 0;
+        }else if(jComboBox10.getSelectedIndex()==1){
+            estado = 1;
+        }
+        boolean existe = true;
+        String cuenta = ((Cuenta)jComboBox8.getSelectedItem()).getId();
+        //String chequera = jComboBox9.getSelectedItem().toString();
+        String cheque = jTextField6.getText();
+        BaseDeDatos db = new BaseDeDatos();
+        String consulta = "select * from cheque where id_cuenta = "+cuenta+" and num_cheque = "+cheque;
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            if(res.next() == false){
+                JOptionPane.showMessageDialog(null, "Este cheque no existe en esta cuenta");
+                existe = false;
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar usuarios\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        if(existe){
+            consulta = "update cheque set estado = "+estado+" where id_cuenta = "+cuenta+" and num_cheque = "+cheque;
+            try{
+                Connection conn = db.conexion();
+                Statement stmt = conn.createStatement();
+                System.out.println(consulta);
+                int count = stmt.executeUpdate(consulta);
+                System.out.println(count + "filas fueron afectadas");
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error al llenar lista de chequeras\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    
+    public void limpiarCampos(){
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        
+    }
+    
+    public void combo_CuentasChequera(){
+        //llenar combobox1 de DPI de clientes
+        BaseDeDatos db = new BaseDeDatos();
+        Vector model = new Vector();
+        String consulta = "SELECT id_cuenta, codigo, nombre, estado from cuenta where estado = 1";
+
+        try{
+            Connection conn = db.conexion();
+            Statement stmt = conn.createStatement();
+            ResultSet res = stmt.executeQuery(consulta);
+            while(res.next()){
+                Cuenta p = new Cuenta();
+                p.id = res.getString("id_cuenta");
+                p.codigo = res.getString("codigo");
+                p.nombre = res.getString("nombre");
+                p.estado = res.getString("estado");
+                model.addElement(p);
+            }
+            jComboBox8.setModel(new DefaultComboBoxModel(model));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al llenar cuentas\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -79,5 +645,34 @@ public class MenuVisa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JComboBox<String> jComboBox10;
+    private javax.swing.JComboBox<String> jComboBox8;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }
