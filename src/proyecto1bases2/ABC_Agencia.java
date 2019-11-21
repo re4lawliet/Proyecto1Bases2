@@ -58,6 +58,7 @@ public class ABC_Agencia extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         BotonEliminarAgencia = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,6 +116,8 @@ public class ABC_Agencia extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel4.setText("Nombre Agencia");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,13 +136,15 @@ public class ABC_Agencia extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(CajaDireccionAgencia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(CajaBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BotonBuscar)
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CajaBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BotonBuscar)
+                        .addGap(27, 27, 27)
                         .addComponent(BotonAtras)))
                 .addContainerGap())
         );
@@ -153,7 +158,8 @@ public class ABC_Agencia extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(BotonBuscar)
                     .addComponent(CajaBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotonAtras))
+                    .addComponent(BotonAtras)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -183,7 +189,35 @@ public class ABC_Agencia extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonAtrasActionPerformed
 
     private void BotonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBuscarActionPerformed
-	//BOTON BUSQUEDA
+	Validaciones v = new Validaciones();
+        String id = CajaBuscar.getText();
+        if(v.esAlfanumerico(id)){
+            String[] columnNames = {"ID","NOMBRE","DIRECCION","BANCO"};
+        Object[][] dataVacia = {};
+        DefaultTableModel modelo = new DefaultTableModel(dataVacia, columnNames);
+            try{
+                
+                
+                 String consulta = "SELECT * FROM AGENCIA,BANCO WHERE BANCO.ID_BANCO = AGENCIA.ID_BANCO AND AGENCIA.NOMBRE_AGENCIA = '"+ id + "'";
+                BaseDeDatos db = new BaseDeDatos();
+                Connection conn = db.conexion();
+                if (conn != null) {
+                        Statement stmt = conn.createStatement();
+                        ResultSet rs = stmt.executeQuery(consulta);
+                        while(rs.next()){
+                            Object[] newRowData = {rs.getString("ID_AGENCIA"),rs.getString("NOMBRE_AGENCIA"),rs.getString("DIRECCION_AGENCIA"),rs.getString("NOMBRE_BANCO")};
+                        modelo.addRow(newRowData);
+                        }
+                } else {
+                        System.out.println("NO HAY CONEXION");
+                }
+            }catch(Exception e){  
+                JOptionPane.showMessageDialog(null,"Error al buscar banco \n"+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+            } 
+            jTable1.setModel(modelo);
+        }else{
+            JOptionPane.showMessageDialog(null, "Error, el nombre debe ser alfanumerico");
+        } 
     }//GEN-LAST:event_BotonBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -332,6 +366,7 @@ public class ABC_Agencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
