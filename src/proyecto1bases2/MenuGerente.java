@@ -83,6 +83,11 @@ public class MenuGerente extends javax.swing.JFrame {
         });
 
         Reporte4.setText("Clientes Con Mayor pago de Cheques");
+        Reporte4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Reporte4ActionPerformed(evt);
+            }
+        });
 
         Reporte5.setText("Clientes que nunca an Depositado en Agencia");
         Reporte5.addActionListener(new java.awt.event.ActionListener() {
@@ -300,12 +305,12 @@ public class MenuGerente extends javax.swing.JFrame {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		BaseDeDatos db = new BaseDeDatos();
 		Vector model = new Vector();
-		String consulta = "select u.NOMBRE_USUARIO, count(*), t.TIPO_TRANSACCION, a.NOMBRE_AGENCIA \n" +
-"		from TRANSACCION t, USUARIO u, AGENCIA a \n" +
-"		where t.ID_USUARIO=u.ID_USUARIO \n" +
+		String consulta = "select c.NOMBRE, count(*), t.TIPO_TRANSACCION, a.NOMBRE_AGENCIA \n" +
+"		from TRANSACCION t, USUARIO u, AGENCIA a, CUENTA c \n" +
+"		where t.ID_CUENTA=c.ID_CUENTA \n" +
 "		and a.ID_AGENCIA=t.ID_AGENCIA \n" +
 "		and t.TIPO_TRANSACCION='Deposito Monetario' \n" +
-"		group by u.NOMBRE_USUARIO, t.TIPO_TRANSACCION, a.NOMBRE_AGENCIA";
+"		group by c.NOMBRE, t.TIPO_TRANSACCION, a.NOMBRE_AGENCIA";
 		
 		try{
 			
@@ -323,7 +328,7 @@ public class MenuGerente extends javax.swing.JFrame {
 				String s=res2.getString("COUNT(*)");
 				double s1=Double.parseDouble(s);
 				String a=res2.getString("NOMBRE_AGENCIA");
-				String u=res2.getString("NOMBRE_USUARIO");
+				String u=res2.getString("NOMBRE");
 				
 				dataset.setValue(s1, u, a);
 			}
@@ -360,6 +365,64 @@ public class MenuGerente extends javax.swing.JFrame {
 		r.setVisible(true);
 		
     }//GEN-LAST:event_Reporte5ActionPerformed
+
+    private void Reporte4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Reporte4ActionPerformed
+        // TODO add your handling code here:
+		
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		BaseDeDatos db = new BaseDeDatos();
+		Vector model = new Vector();
+		String consulta = "select c.NOMBRE, count(*), t.TIPO_TRANSACCION, a.NOMBRE_AGENCIA \n" +
+"		from TRANSACCION t, USUARIO u, AGENCIA a, CUENTA c \n" +
+"		where t.ID_CUENTA=c.ID_CUENTA \n" +
+"		and a.ID_AGENCIA=t.ID_AGENCIA \n" +
+"		and t.TIPO_TRANSACCION='Compensa' \n" +
+"		group by c.NOMBRE, t.TIPO_TRANSACCION, a.NOMBRE_AGENCIA";
+		
+		try{
+			
+			Connection conn = db.conexion();
+			Statement stmt = conn.createStatement();
+			ResultSet res = stmt.executeQuery(consulta);
+			double total=0;
+			
+			//HACIENDO EL PORCENTAJE
+			Connection conn2 = db.conexion();
+			Statement stmt2 = conn2.createStatement();
+			ResultSet res2 = stmt2.executeQuery(consulta);
+			while(res2.next()){
+				
+				String s=res2.getString("COUNT(*)");
+				double s1=Double.parseDouble(s);
+				String a=res2.getString("NOMBRE_AGENCIA");
+				String u=res2.getString("NOMBRE");
+				
+				dataset.setValue(s1, u, a);
+			}
+			
+		
+		}catch(Exception e){
+				JOptionPane.showMessageDialog(null,"Error EN Grafica de Depositos\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
+            
+		}
+		
+		JFreeChart chart = ChartFactory.createBarChart(
+		"Grafica de los clientes de cada agencia que tienen la\n" +
+"mayor cantidad de depósitos hechos", // El titulo de la gráfica
+		"Mes", // Etiqueta de categoria
+		"Valor", // Etiqueta de valores
+		dataset, // Datos
+		PlotOrientation.VERTICAL, // orientacion
+		true, // Incluye Leyenda
+		true, // Incluye tooltips
+		false // URLs?
+		);
+		
+		
+		ChartFrame frame = new ChartFrame("Grafica de clientes Depositos", chart);
+		frame.pack();
+		frame.setVisible(true);
+    }//GEN-LAST:event_Reporte4ActionPerformed
 
 	/**
 	 * @param args the command line arguments
