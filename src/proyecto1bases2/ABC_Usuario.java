@@ -131,7 +131,7 @@ public class ABC_Usuario extends javax.swing.JFrame {
 
         jLabel11.setText("Seleccione el Rol de Este Usuario:");
 
-        ComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Cliente", "Receptor/Pagador", "Gerente de Agencia", "Auditor" }));
+        ComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cliente", "Receptor/Pagador", "Gerente de Agencia", "Auditor", " " }));
         ComboBoxRol.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ComboBoxRolItemStateChanged(evt);

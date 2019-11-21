@@ -5,11 +5,14 @@
  */
 package proyecto1bases2;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,7 +21,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Haldamir
  */
 public class MenuAuditor extends javax.swing.JFrame {
-
+    public JFileChooser seleccionar = new JFileChooser();
+    public File archivo;
+    public FileOutputStream salida;
+    public String escritorio = System.getProperty("user.home") + "\\Desktop\\";
     /**
      * Creates new form MenuAuditor
      */
@@ -162,6 +168,32 @@ public class MenuAuditor extends javax.swing.JFrame {
     
     
     public void verSendaUsuario(){
+		
+	String reporte="<!DOCTYPE HTML5>\n" +
+"<html>\n" +
+"	<head>\n" +
+"		<title>Reporte</title>\n" +
+"		<meta charset=\"utf-8\">\n" +
+"		<meta name=\"author\" content=\"\">\n" +
+"		<meta name=\"description\" content=\"Ejercicios prácticos HTML5\">\n" +
+"		<meta name=\"keywords\" content=\"Ejercicios, Soluciones, Prácticas, HTML5\">\n" +
+"	</head>\n" +
+"	<body>\n" +
+"		\n" +
+"		<h1><center>Reporte Senda de Auditoria</center></h1>\n" +
+"		<center>\n" +
+"			<table border=\"1\">\n" +
+"			<tr>\n" +
+"				<th bgcolor=\"yellow\">Fehca</th>\n" +
+"				<th bgcolor=\"yellow\">Tipo de Transaccion</th>\n" +
+"				<th bgcolor=\"yellow\">Saldo Inicial</th>\n" +
+"				<th bgcolor=\"yellow\">Valor</th>\n" +
+"				<th bgcolor=\"yellow\">Saldo Final</th>\n" +
+"				<th bgcolor=\"yellow\">Id de La Agencia</th>\n" +
+"				<th bgcolor=\"yellow\">Id del Usuario</th>\n" +
+"			</tr>";	
+		
+		
         String cuenta = ((Cuenta)jComboBox1.getSelectedItem()).getId();
         BaseDeDatos db = new BaseDeDatos();
         String[] columnNames = {"FECHA","TIPO_TRANSACCION","SALDO_INICIAL","VALOR","SALDO_FINAL","ID_AGENCIA","ID_USUARIO"};
@@ -176,14 +208,31 @@ public class MenuAuditor extends javax.swing.JFrame {
                     while(rs.next()){
                         Object[] newRowData = {rs.getString("FECHA"),rs.getString("TIPO_TRANSACCION"),rs.getString("SALDO_INICIAL"),rs.getString("VALOR"),rs.getString("SALDO_FINAL"),rs.getString("ID_AGENCIA"),rs.getString("ID_USUARIO")};
                         modelo.addRow(newRowData);
+			reporte+="<tr>\n" +
+"				<td>"+rs.getString("FECHA")+"</td>\n" +
+"				<td>"+rs.getString("TIPO_TRANSACCION")+"</td>\n" +
+"				<td>"+rs.getString("SALDO_INICIAL")+"</td>\n" +
+"				<td>"+rs.getString("VALOR")+"</td>\n" +
+"				<td>"+rs.getString("SALDO_FINAL")+"</td>\n" +
+"				<td>"+rs.getString("ID_AGENCIA")+"</td>\n" +
+"				<td>"+rs.getString("ID_USUARIO")+"</td>\n" +
+"			</tr>\n";
                     }
+		reporte+="</table>\n" +
+"		</center>\n" +
+"	</body>\n" +
+"</html>";
+		
+		GuardarComo(reporte);
+		
             } else {
                     System.out.println("NO HAY CONEXION");
             }
         }catch(Exception e){  
             JOptionPane.showMessageDialog(null,"Error al llenar tabla de clientes\nClase: Principal -> 2721\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
         } 
-        jTable1.setModel(modelo);
+        jTable1.setModel(modelo);	
+		
     }
     
     
@@ -210,6 +259,42 @@ public class MenuAuditor extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,"Error al llenar cuentas\nExcepcion: "+e,"ERROR", JOptionPane.ERROR_MESSAGE);
         }
+    }
+	
+	
+public void GuardarComo(String documento){
+        String txt=documento;
+		
+
+        seleccionar.setCurrentDirectory(new File(escritorio));
+        if(seleccionar.showDialog(null, "Guardar")==JFileChooser.APPROVE_OPTION){
+            archivo=seleccionar.getSelectedFile();
+            if(archivo.getName().endsWith(".html")){
+                String Documento=txt;
+                String mensaje=GuardarArchivo(archivo, Documento);
+                if(mensaje!=null){
+                    //JOptionPane.showMessageDialog(null, "::GUARDO::\n"+mensaje);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Archivo no Compatible");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Error Extension");
+            }
+        }
+    }
+    
+
+public String GuardarArchivo(File Archivo, String documento){
+        String mensaje=null;
+        try{
+            salida=new FileOutputStream(Archivo);
+            byte[] bytxt=documento.getBytes();
+            salida.write(bytxt);
+            mensaje="Archivo Guardado";
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "No se pudo Guardar");
+        }
+        return documento;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
