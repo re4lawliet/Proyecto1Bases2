@@ -97,7 +97,7 @@ END;
 
 --PROCEDIMIENTO PARA HACER UN COBRO DE CHEQUE SI EL COBRADOR QUIERE EL DINERO DEPOSITADO EN SU CUENTA
 
-CREATE OR REPLACE PROCEDURE pago_cheque_deposito(noCuenta IN INTEGER, noCheque IN INTEGER, fechaCheque IN VARCHAR2, montoCheque IN VARCHAR2, dpiReceptor IN VARCHAR2, nombreReceptor IN VARCHAR2, fechaTransaccion IN VARCHAR2, agencia IN INTEGER, usuario IN INTEGER, noCuentaReceptor IN INTEGER, mensaje OUT varchar2)
+CREATE OR REPLACE PROCEDURE pago_cheque_deposito(noCuenta IN INTEGER, noCheque IN INTEGER, fechaCheque IN VARCHAR2, montoCheque IN NUMBER, dpiReceptor IN VARCHAR2, nombreReceptor IN VARCHAR2, fechaTransaccion IN VARCHAR2, agencia IN INTEGER, usuario IN INTEGER, noCuentaReceptor IN INTEGER, mensaje OUT varchar2)
 IS
     o_cuenta CUENTA%rowtype;
     o_cuentaR CUENTA%rowtype;

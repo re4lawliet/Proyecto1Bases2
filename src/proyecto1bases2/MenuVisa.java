@@ -396,7 +396,7 @@ public class MenuVisa extends javax.swing.JFrame {
                         CallableStatement cst = con.prepareCall("{call  notaCredito(?,?,?,?,?,?)}");
                         //agregando parametros(indice_parametro,valor)
                         cst.setInt(1,Integer.valueOf(cuenta));
-                        cst.setInt(2,Integer.valueOf(monto));
+                        cst.setDouble(2,Double.valueOf(monto));
                         cst.setString(3,String.valueOf(fechaTrans));
                         cst.setString(4,String.valueOf(idAgencia));
                         cst.setString(5,String.valueOf(idUsuario));
@@ -470,7 +470,7 @@ public class MenuVisa extends javax.swing.JFrame {
                         CallableStatement cst = con.prepareCall("{call  notaDebito(?,?,?,?,?,?)}");
                         //agregando parametros(indice_parametro,valor)
                         cst.setInt(1,Integer.valueOf(cuenta));
-                        cst.setInt(2,Integer.valueOf(monto));
+                        cst.setDouble(2,Double.valueOf(monto));
                         cst.setString(3,String.valueOf(fechaTrans));
                         cst.setString(4,String.valueOf(idAgencia));
                         cst.setString(5,String.valueOf(idUsuario));

@@ -440,7 +440,7 @@ public class PagoDeCheques extends javax.swing.JFrame {
                         cst.setInt(1,Integer.valueOf(cuenta));
                         cst.setInt(2,Integer.valueOf(cheque));
                         cst.setString(3,String.valueOf(fecha));
-                        cst.setString(4,String.valueOf(cantidad));
+                        cst.setDouble(4,Double.valueOf(cantidad));
                         cst.setString(5,String.valueOf(dpiR));
                         cst.setString(6,String.valueOf(nombreR));
                         cst.setString(7,String.valueOf(fechaTrans));
